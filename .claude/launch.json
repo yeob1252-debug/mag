@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "mag",
+      "autoPort": false,
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "5177", "--directory", "C:/Users/USER/Pictures/Desktop/mag"],
+      "port": 5177
+    }
+  ]
+}
