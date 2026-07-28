@@ -251,6 +251,8 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--ink-soft); font-weight: 500;
   line-height: 1.7; margin-bottom: 34px;
 }
+/* 검색엔진용 보조 문장 — 시각적으로 튀지 않게 작게 */
+.hero-seo { font-size: 13px; font-weight: 600; color: var(--ink-faint); letter-spacing: -.01em; margin: -14px 0 26px; }
 .hero-cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
 
 .hero-visual {
