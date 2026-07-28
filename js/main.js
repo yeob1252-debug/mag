@@ -618,6 +618,55 @@
   }
 
   /* =======================================================
+     신규 크리에이터 프로그램 (이벤트 카드와 동일 컴포넌트, 카드=문의 버튼)
+     ======================================================= */
+  async function initNewcreators() {
+    const grid = document.getElementById('newcreatorGrid');
+    if (!grid) return;
+    let list = [];
+    try { list = await D.loadNewcreators(); } catch (e) { console.warn('[mag] 신규 크리에이터 로드 실패', e); }
+    grid.innerHTML = '';
+    if (!list.length) {
+      grid.innerHTML = `
+        <div class="event-empty">
+          <img class="event-empty-char" src="assets/images/hero-tiger-cutout.png" alt="맛집감별사 인플루언서 매칭 캐릭터">
+          <p class="event-empty-title">곧 새로운 크리에이터를 소개해 드릴게요</p>
+        </div>`;
+      return;
+    }
+    grid.innerHTML = list.map((c) => {
+      const pct = c.capacity ? Math.min(100, Math.round((c.applied / c.capacity) * 100)) : 0;
+      const plats = (c.platforms || []).filter((p) => ICONS[p]).map((p) => `<span class="event-plat">${ICONS[p]}</span>`).join('');
+      const badges = (c.badges || []).map((b, i) => `<span class="event-badge ${i === 0 ? 'badge-new' : 'badge-course'}">${b}</span>`).join('');
+      const region = D.REGION_LABEL[c.region] || c.region || '';
+      return `
+        <div class="event-card reveal-card" role="button" tabindex="0" data-inquiry="채널 매칭 문의" data-channel="${c.name}">
+          <div class="event-card-top">
+            <img class="event-card-avatar" src="${c.photo}" alt="${c.name} 프로필" onerror="this.onerror=null;this.src=window.MAG_DATA.avatar(this.alt)">
+            <div class="event-card-id">
+              <div class="event-card-name">${c.name}</div>
+              <div class="event-card-handle">${c.handle || ''}${c.handle && region ? ' · ' : ''}${region ? `<span class="event-card-region">${region}</span>` : ''}</div>
+            </div>
+          </div>
+          ${plats ? `<div class="event-card-platforms">${plats}</div>` : ''}
+          <div class="event-card-price"><span class="event-price-new">${c.priceLabel}</span></div>
+          <div class="event-card-badges">${badges}</div>
+          <div class="event-card-foot">
+            <div class="event-counter"><b class="count-num" data-count-to="${c.applied}">0</b> / ${c.capacity}팀 진행</div>
+            <div class="event-progress"><span style="width:${pct}%"></span></div>
+            <div class="event-period">${c.note}</div>
+          </div>
+          <span class="event-cta">문의하기 <span aria-hidden="true">→</span></span>
+        </div>`;
+    }).join('');
+    revealCards(grid);
+    observeCardCountUp(grid);
+    grid.querySelectorAll('.event-card').forEach((card) => {
+      card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openInquiry(card.getAttribute('data-channel'), '채널 매칭 문의'); } });
+    });
+  }
+
+  /* =======================================================
      GROWING — 신규 성장 계정 (클릭 시 상세 리포트 → 광고 문의)
      ======================================================= */
   // 신규 성장 계정 카드 — 이달의 이벤트 카드와 동일한 셸(.event-card) 재사용
@@ -739,5 +788,6 @@
     }
     initMetrics();
     initEvents();
+    initNewcreators();
   })();
 })();

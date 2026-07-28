@@ -831,6 +831,9 @@ button { font-family: inherit; cursor: pointer; }
 .eyebrow-on-dark { background: rgba(255,255,255,.14); color: #fff; }
 .join-card { position: relative; display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; }
 .join-title { font-size: clamp(1.6rem, 3.6vw, 2.3rem); font-weight: 800; line-height: 1.32; letter-spacing: -.02em; margin-bottom: 14px; }
+/* 최상단 대형 타이틀(32~40px) + 축소된 서브 헤드라인 */
+.join-headline { font-size: clamp(2rem, 4.2vw, 2.5rem); font-weight: 900; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 10px; }
+.join-subhead { font-size: clamp(1.05rem, 2vw, 1.3rem); font-weight: 700; color: rgba(255,255,255,.92); line-height: 1.4; margin-bottom: 14px; }
 .join-desc { font-size: clamp(1rem, 1.6vw, 1.15rem); color: rgba(255,255,255,.8); font-weight: 500; margin-bottom: 28px; }
 .btn-join { background: var(--ig-grad); color: #fff; box-shadow: var(--shadow-pink); }
 .btn-join:hover { transform: translateY(-2px); filter: brightness(1.05) saturate(1.08); }
@@ -893,7 +896,8 @@ button { font-family: inherit; cursor: pointer; }
 .freead-card .growing-adcost b { background: #2ecc71; }
 
 /* 나도 크리에이터 배너 */
-.section-creator-cta { background: var(--bg); padding-top: 20px; }
+/* 나도 크리에이터 섹션 — 상하 padding 을 다른 섹션과 동일하게(.section 기본값 96px) */
+.section-creator-cta { background: var(--bg); }
 .creator-cta-card {
   position: relative; overflow: hidden;
   display: grid; grid-template-columns: 1fr; gap: 18px; align-items: center;

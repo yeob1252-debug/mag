@@ -13,7 +13,7 @@
 <link rel="icon" type="image/png" href="assets/images/logo.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="css/styles.css?v=15">
+<link rel="stylesheet" href="css/styles.css?v=17">
 </head>
 <body>
 
@@ -268,18 +268,8 @@
       <p class="eyebrow reveal">NEW CREATORS</p>
       <h2 class="section-title reveal">이제 막 시작해도 <span class="hl">괜찮아요</span></h2>
       <p class="section-lead reveal">신규 계정도 매장과 함께 성장할 수 있어요.</p>
-      <div class="newcreator-grid">
-        <div class="newcreator-card nc-free reveal">
-          <span class="nc-badge">이달의 탄생 크리에이터</span>
-          <p class="nc-price">0원</p>
-          <p class="nc-desc">"맛간다 챌린지" 수료생 · 대구 한정 · 9월 오픈 예정</p>
-        </div>
-        <div class="newcreator-card nc-grow reveal">
-          <span class="nc-badge">신규 성장 계정</span>
-          <p class="nc-price">3만원</p>
-          <p class="nc-desc">업로드 10개 미만 · 우리 지역 매칭 시</p>
-        </div>
-      </div>
+      <!-- 이벤트 카드와 동일한 컴포넌트로 js가 렌더. 데이터 없으면 빈 상태 -->
+      <div class="event-grid" id="newcreatorGrid"></div>
     </div>
   </section>
 
@@ -453,7 +443,8 @@
       <div class="join-card reveal">
         <div class="join-text">
           <p class="eyebrow eyebrow-on-dark">FOR CREATORS</p>
-          <h2 class="join-title">영업도, 홍보도 필요 없어요 —<br>등록만 하면 자동으로 광고가 연결됩니다</h2>
+          <h2 class="join-headline">크리에이터 등록하기</h2>
+          <p class="join-subhead">영업도, 홍보도 필요 없어요 — 등록만 하면 자동으로 광고가 연결됩니다</p>
           <p class="join-desc">인플루언서 등록만 하면, 별도 영업 없이 협찬·광고가 자동으로 연결돼요. 오래 활동할수록 더 좋은 조건으로 챙겨드려요.<br><b class="join-desc-sub">이미 채널을 운영 중이신 분들을 위한 정식 등록이에요.</b></p>
           <ul class="join-benefits">
             <li>
@@ -533,8 +524,8 @@
 <!-- 구글폼 히든 제출용 iframe -->
 <iframe name="hiddenFormTarget" id="hiddenFormTarget" style="display:none" title="form target"></iframe>
 
-<script src="js/config.js?v=15"></script>
-<script src="js/data.js?v=15"></script>
-<script src="js/main.js?v=15"></script>
+<script src="js/config.js?v=17"></script>
+<script src="js/data.js?v=17"></script>
+<script src="js/main.js?v=17"></script>
 </body>
 </html>

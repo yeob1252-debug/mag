@@ -163,6 +163,18 @@
       instagram: 'https://instagram.com/', youtube: 'https://youtube.com/', tiktok: '' },
   ];
 
+  // 신규 크리에이터 프로그램 카드 (이벤트 카드와 동일 컴포넌트로 렌더) — 더미
+  const MOCK_NEWCREATORS = [
+    { name: '이달의 탄생 크리에이터', handle: '@맛간다_수료생', region: '대구',
+      platforms: ['instagram', 'tiktok'], priceLabel: '0원',
+      badges: ['신입', '교육 수료'], note: '“맛간다 챌린지” 수료생 · 대구 한정 · 9월 오픈 예정',
+      capacity: 5, applied: 1, photo: '' },
+    { name: '신규 성장 계정', handle: '@신규_성장계정', region: '전국',
+      platforms: ['instagram', 'youtube', 'tiktok'], priceLabel: '3만원',
+      badges: ['신입'], note: '업로드 10개 미만 · 우리 지역 매칭 시',
+      capacity: 10, applied: 4, photo: '' },
+  ];
+
   // TODO: 실제 구글시트 연동 후 이 더미 데이터 삭제
   const MOCK_GROWING = [
     { name: '부산먹부림일기', handle: '@busan_meokburim', region: 'gyeongnam', gender: 'male', age: '20', price: 'p5', style: 'mukbang', face: 'shown',
@@ -347,6 +359,10 @@
     }));
   }
 
+  async function loadNewcreators() {
+    return MOCK_NEWCREATORS.map((r, i) => ({ ...r, photo: resolveImage(r.photo, r.name, i + 9) }));
+  }
+
   window.MAG_DATA = {
     FILTERS,
     REGION_LABEL,
@@ -357,6 +373,7 @@
     loadEvents,
     loadGrowing,
     loadFreead,
+    loadNewcreators,
     // 이미지 로드 실패 시 대체 아바타 생성 (예: 비공개 드라이브 이미지)
     avatar: (name) => initialAvatar(name || '?', 0),
   };
