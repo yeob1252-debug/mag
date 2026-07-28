@@ -152,6 +152,17 @@
     },
   ];
 
+  // 이달의 무료광고 크리에이터 (교육 수료·촬영 준비 완료 신규 크리에이터) — 더미
+  // TODO: 실제 데이터 소스 연동 시 교체
+  const MOCK_FREEAD = [
+    { name: '대구감성밥상', handle: '@daegu_gamsung', region: '대구', course: true,
+      followers: 320, avgViews: 600, lastUpload: '2026-07-27',
+      instagram: 'https://instagram.com/', youtube: '', tiktok: 'https://tiktok.com/' },
+    { name: '수성구먹킷', handle: '@suseong_meokkit', region: '대구', course: true,
+      followers: 540, avgViews: 900, lastUpload: '2026-07-28',
+      instagram: 'https://instagram.com/', youtube: 'https://youtube.com/', tiktok: '' },
+  ];
+
   // TODO: 실제 구글시트 연동 후 이 더미 데이터 삭제
   const MOCK_GROWING = [
     { name: '부산먹부림일기', handle: '@busan_meokburim', region: 'gyeongnam', gender: 'male', age: '20', price: 'p5', style: 'mukbang', face: 'shown',
@@ -327,6 +338,15 @@
     }));
   }
 
+  async function loadFreead() {
+    return MOCK_FREEAD.map((r, i) => ({
+      ...r,
+      photo: resolveImage(r.photo, r.name, i + 7),
+      hasYoutube: !!(r.youtube && r.youtube !== '없음'),
+      hasTiktok: !!(r.tiktok && r.tiktok !== '없음'),
+    }));
+  }
+
   window.MAG_DATA = {
     FILTERS,
     REGION_LABEL,
@@ -336,6 +356,7 @@
     loadInfluencers,
     loadEvents,
     loadGrowing,
+    loadFreead,
     // 이미지 로드 실패 시 대체 아바타 생성 (예: 비공개 드라이브 이미지)
     avatar: (name) => initialAvatar(name || '?', 0),
   };

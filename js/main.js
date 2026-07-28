@@ -566,6 +566,58 @@
   }
 
   /* =======================================================
+     이달의 무료광고 크리에이터 (이벤트 카드 셸 재사용, 카드=문의 버튼)
+     ======================================================= */
+  async function initFreead() {
+    const grid = document.getElementById('freeadGrid');
+    if (!grid) return;
+    let list = [];
+    try { list = await D.loadFreead(); } catch (e) { console.warn('[mag] 무료광고 크리에이터 로드 실패', e); }
+    grid.innerHTML = '';
+    if (!list.length) {
+      grid.innerHTML = `
+        <div class="event-empty">
+          <img class="event-empty-char" src="assets/images/hero-tiger-cutout.png" alt="맛집감별사 인플루언서 매칭 캐릭터">
+          <p class="event-empty-title">이번 달 무료광고 크리에이터를 준비 중이에요</p>
+        </div>`;
+      return;
+    }
+    grid.innerHTML = list.map((c) => {
+      const platList = [];
+      if (c.instagram) platList.push('instagram');
+      if (c.hasYoutube) platList.push('youtube');
+      if (c.hasTiktok) platList.push('tiktok');
+      const plats = platList.map((p) => `<span class="event-plat">${ICONS[p]}</span>`).join('');
+      const region = D.REGION_LABEL[c.region] || c.region || '';
+      return `
+        <div class="event-card freead-card reveal-card" role="button" tabindex="0" data-inquiry="이달의 이벤트 문의" data-channel="${c.name}">
+          <div class="event-card-top">
+            <img class="event-card-avatar" src="${c.photo}" alt="${c.name} 프로필" onerror="this.onerror=null;this.src=window.MAG_DATA.avatar(this.alt)">
+            <div class="event-card-id">
+              <div class="event-card-name">${c.name}</div>
+              <div class="event-card-handle">${c.handle || ''}${c.handle && region ? ' · ' : ''}${region ? `<span class="event-card-region">${region}</span>` : ''}</div>
+            </div>
+          </div>
+          ${plats ? `<div class="event-card-platforms">${plats}</div>` : ''}
+          <div class="event-card-badges">
+            <span class="event-badge badge-new">신입</span>
+            <span class="event-badge badge-course">교육 수료</span>
+          </div>
+          <div class="growing-adcost">광고비 <b>0원</b> <span>(매장 식사 제공만)</span></div>
+          <div class="event-card-foot">
+            <div class="event-counter">팔로워 <b class="count-num" data-count-to="${c.followers}" data-format="comma">0</b> · 최근 ${daysAgo(c.lastUpload)}</div>
+          </div>
+          <span class="event-cta">이벤트 문의하기 <span aria-hidden="true">→</span></span>
+        </div>`;
+    }).join('');
+    revealCards(grid);
+    observeCardCountUp(grid);
+    grid.querySelectorAll('.event-card').forEach((card) => {
+      card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openInquiry(card.getAttribute('data-channel'), '이달의 이벤트 문의'); } });
+    });
+  }
+
+  /* =======================================================
      GROWING — 신규 성장 계정 (클릭 시 상세 리포트 → 광고 문의)
      ======================================================= */
   // 신규 성장 계정 카드 — 이달의 이벤트 카드와 동일한 셸(.event-card) 재사용
@@ -686,6 +738,7 @@
       INFLUENCERS = [];
     }
     initMetrics();
+    initFreead();
     initGrowing();
     initEvents();
   })();

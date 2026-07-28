@@ -13,7 +13,7 @@
 <link rel="icon" type="image/png" href="assets/images/logo.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="css/styles.css?v=13">
+<link rel="stylesheet" href="css/styles.css?v=14">
 </head>
 <body>
 
@@ -32,9 +32,10 @@
 <!-- 우측 섹션 내비게이션 -->
 <nav class="side-nav" id="sideNav" aria-label="섹션 이동">
   <button class="side-nav-dot" data-target="hero" aria-label="처음으로"><span>HOME</span></button>
+  <button class="side-nav-dot" data-target="event" aria-label="이달의 이벤트"><span>EVENT</span></button>
+  <button class="side-nav-dot" data-target="filter" aria-label="채널 찾기"><span>FIND</span></button>
   <button class="side-nav-dot" data-target="metrics" aria-label="지표"><span>DATA</span></button>
   <button class="side-nav-dot" data-target="process" aria-label="진행 방법"><span>HOW</span></button>
-  <button class="side-nav-dot" data-target="filter" aria-label="채널 찾기"><span>FIND</span></button>
   <button class="side-nav-dot" data-target="founder" aria-label="대표자 소개"><span>WHO</span></button>
   <button class="side-nav-dot" data-target="contact" aria-label="문의"><span>TALK</span></button>
 </nav>
@@ -73,66 +74,56 @@
     </div>
   </section>
 
-  <!-- ============ 4. 지표 섹션 ============ -->
-  <section id="metrics" class="section section-metrics">
+  <!-- ============ 1.4 이달의 무료광고 크리에이터 (신규) ============ -->
+  <section id="freead" class="section section-freead">
     <div class="section-inner container">
-      <p class="eyebrow reveal light">PROOF</p>
-      <h2 class="section-title reveal light">숫자로 <span class="hl-y">증명</span>합니다</h2>
-      <p class="section-lead reveal light">모두 구글시트 승인 데이터 기준으로 자동 집계됩니다.</p>
-      <div class="metric-grid" id="metricGrid">
-        <div class="metric-card reveal">
-          <span class="metric-num"><span class="count-up" data-count-to="0" id="mMatches">0</span><em>건</em></span>
-          <span class="metric-label">누적 매칭 건수</span>
-        </div>
-        <div class="metric-card reveal">
-          <span class="metric-num"><span class="count-up" data-count-to="0" id="mInfluencers">0</span><em>명</em></span>
-          <span class="metric-label">참여 인플루언서 수</span>
-        </div>
-        <div class="metric-card reveal">
-          <span class="metric-num"><span class="count-up" data-count-to="0" id="mStores">0</span><em>곳</em></span>
-          <span class="metric-label">진행중인 업체 수</span>
-        </div>
-      </div>
+      <p class="eyebrow reveal">이달의 무료광고 크리에이터</p>
+      <h2 class="section-title reveal">맛집감별사 크리에이터 교육을 수료한, <span class="hl">촬영 준비 끝난 신규 크리에이터</span>입니다</h2>
+      <p class="section-lead reveal">이번 달은 <b class="freead-hl">대구</b>! 광고비 <b class="freead-hl">0원</b>, 매장 식사 제공만으로 진행 가능해요.</p>
+      <div class="event-grid" id="freeadGrid"></div>
     </div>
   </section>
 
-  <!-- ============ 5. 광고주 미니 프로세스 ============ -->
-  <section id="process" class="section section-process">
+  <!-- ============ 6. SNS 광고 확장(인플루언서 영입) ============ -->
+  <section id="recruit" class="section section-recruit">
     <div class="section-inner container">
-      <p class="eyebrow reveal">HOW IT WORKS</p>
-      <h2 class="section-title reveal">이렇게 진행돼요, <span class="hl">어렵지 않아요</span></h2>
-      <p class="section-lead reveal">맛집 인플루언서 섭외, 네 단계면 충분해요. 복잡한 절차 없이 매칭이 끝납니다.</p>
+      <div class="recruit-head reveal">
+        <p class="eyebrow">GROWING</p>
+        <h2 class="recruit-title">이제 막 시작한 <span class="recruit-hl">신규 성장 계정</span></h2>
+        <p class="recruit-desc">업로드 10개 미만의 갓 시작한 계정들이에요. 광고비 단 <b class="kw">1만원</b>(<b class="kw">우리 지역 매칭 시</b>)으로, 계정이 커가는 과정을 우리 매장 이야기로 함께 채워보세요.</p>
+      </div>
 
-      <ol class="timeline">
-        <li class="timeline-step reveal">
-          <span class="timeline-num">1</span>
-          <div class="timeline-body">
-            <h3>지역·예산 확인</h3>
-            <p>우리 매장 위치와 이번 달 예산을 정합니다. 가격은 “~” 협상 가능이에요.</p>
-          </div>
-        </li>
-        <li class="timeline-step reveal">
-          <span class="timeline-num">2</span>
-          <div class="timeline-body">
-            <h3>채널 둘러보고 클릭</h3>
-            <p>조건에 맞는 채널 목록을 둘러보고, 마음에 드는 채널을 클릭해 상세를 봅니다.</p>
-          </div>
-        </li>
-        <li class="timeline-step reveal">
-          <span class="timeline-num">3</span>
-          <div class="timeline-body">
-            <h3>채널 상세에서 바로 문의</h3>
-            <p>채널 상세에서 “이 채널로 광고 문의하기”를 누르면 채널명이 자동으로 담겨요.</p>
-          </div>
-        </li>
-        <li class="timeline-step reveal">
-          <span class="timeline-num">4</span>
-          <div class="timeline-body">
-            <h3>매칭 및 진행</h3>
-            <p>연락은 전부 맛집감별사가 대신합니다. 일정·콘셉트 조율 후 촬영·업로드까지 진행해요.</p>
-          </div>
-        </li>
-      </ol>
+      <div class="growing-dual reveal">
+        <div class="growing-col growing-col-adv">
+          <h3 class="growing-col-title">광고주에게 좋은 이유</h3>
+          <ul>
+            <li><span class="gb-ico" aria-hidden="true">✔</span> 구독자가 적은 계정은 원래 유료 광고 자체가 잘 안 붙어요. 저희가 대신 연결해드리는 구조라, 낮은 비용으로 여러 계정에 동시에 노출할 수 있어요</li>
+            <li><span class="gb-ico" aria-hidden="true">✔</span> 한 계정의 조회수뿐 아니라, 여러 신규 계정에 우리 매장 키워드를 동시에 심는 효과가 있어요</li>
+            <li><span class="gb-ico" aria-hidden="true">✔</span> 맛집감별사가 광고주의 요청사항을 정리해서 신규 운영자에게 가이드로 전달하기 때문에, 촬영·편집 결과물의 완성도도 함께 관리돼요</li>
+          </ul>
+        </div>
+        <div class="growing-col growing-col-creator">
+          <h3 class="growing-col-title">신규 계정 운영자에게도 좋은 이유</h3>
+          <ul>
+            <li><span class="gb-ico" aria-hidden="true">✔</span> 처음 유료 광고를 경험하며 콘텐츠에 책임감이 생기고, 꾸준히 업로드할 원동력이 돼요</li>
+            <li><span class="gb-ico" aria-hidden="true">✔</span> 매장 협찬(식사 제공) + 소정의 광고비로 시작하며 초기 포트폴리오를 자연스럽게 쌓아갈 수 있어요</li>
+            <li><span class="gb-ico" aria-hidden="true">✔</span> 정확한 가이드라인을 제공받아 촬영·편집 경험치가 빠르게 쌓여요</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="growing-grid" id="growingGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ 1.5 이달의 이벤트 (대형 독립 섹션) ============ -->
+  <section id="event" class="section section-event">
+    <div class="section-inner container">
+      <p class="eyebrow reveal">THIS MONTH ONLY</p>
+      <h2 class="section-title reveal">이달의 <span class="hl">이벤트</span> 인플루언서</h2>
+      <p class="section-lead reveal">맛집감별사가 직접 검증한 핫한 계정들을, 이번 달만 더 할인된 가격으로 만나보세요</p>
+      <!-- js가 구글시트(노출 ON) 데이터로 카드 렌더. 없으면 섹션 자체를 숨김 -->
+      <div class="event-grid" id="eventGrid"></div>
     </div>
   </section>
 
@@ -250,46 +241,66 @@
   </aside>
   <div class="report-overlay" id="reportOverlay" hidden></div>
 
-  <!-- ============ 1.5 이달의 이벤트 (대형 독립 섹션) ============ -->
-  <section id="event" class="section section-event">
+  <!-- ============ 4. 지표 섹션 ============ -->
+  <section id="metrics" class="section section-metrics">
     <div class="section-inner container">
-      <p class="eyebrow reveal">THIS MONTH ONLY</p>
-      <h2 class="section-title reveal">이달의 <span class="hl">이벤트</span> 인플루언서</h2>
-      <p class="section-lead reveal">맛집감별사가 직접 검증한 핫한 계정들을, 이번 달만 더 할인된 가격으로 만나보세요</p>
-      <!-- js가 구글시트(노출 ON) 데이터로 카드 렌더. 없으면 섹션 자체를 숨김 -->
-      <div class="event-grid" id="eventGrid"></div>
+      <p class="eyebrow reveal light">PROOF</p>
+      <h2 class="section-title reveal light">숫자로 <span class="hl-y">증명</span>합니다</h2>
+      <p class="section-lead reveal light">모두 구글시트 승인 데이터 기준으로 자동 집계됩니다.</p>
+      <div class="metric-grid" id="metricGrid">
+        <div class="metric-card reveal">
+          <span class="metric-num"><span class="count-up" data-count-to="0" id="mMatches">0</span><em>건</em></span>
+          <span class="metric-label">누적 매칭 건수</span>
+        </div>
+        <div class="metric-card reveal">
+          <span class="metric-num"><span class="count-up" data-count-to="0" id="mInfluencers">0</span><em>명</em></span>
+          <span class="metric-label">참여 인플루언서 수</span>
+        </div>
+        <div class="metric-card reveal">
+          <span class="metric-num"><span class="count-up" data-count-to="0" id="mStores">0</span><em>곳</em></span>
+          <span class="metric-label">진행중인 업체 수</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ============ 6. SNS 광고 확장(인플루언서 영입) ============ -->
-  <section id="recruit" class="section section-recruit">
+  <!-- ============ 5. 광고주 미니 프로세스 ============ -->
+  <section id="process" class="section section-process">
     <div class="section-inner container">
-      <div class="recruit-head reveal">
-        <p class="eyebrow">GROWING</p>
-        <h2 class="recruit-title">이제 막 시작한 <span class="recruit-hl">신규 성장 계정</span></h2>
-        <p class="recruit-desc">업로드 10개 미만의 갓 시작한 계정들이에요. 광고비 단 <b class="kw">1만원</b>(<b class="kw">우리 지역 매칭 시</b>)으로, 계정이 커가는 과정을 우리 매장 이야기로 함께 채워보세요.</p>
-      </div>
+      <p class="eyebrow reveal">HOW IT WORKS</p>
+      <h2 class="section-title reveal">이렇게 진행돼요, <span class="hl">어렵지 않아요</span></h2>
+      <p class="section-lead reveal">맛집 인플루언서 섭외, 네 단계면 충분해요. 복잡한 절차 없이 매칭이 끝납니다.</p>
 
-      <div class="growing-dual reveal">
-        <div class="growing-col growing-col-adv">
-          <h3 class="growing-col-title">광고주에게 좋은 이유</h3>
-          <ul>
-            <li><span class="gb-ico" aria-hidden="true">✔</span> 구독자가 적은 계정은 원래 유료 광고 자체가 잘 안 붙어요. 저희가 대신 연결해드리는 구조라, 낮은 비용으로 여러 계정에 동시에 노출할 수 있어요</li>
-            <li><span class="gb-ico" aria-hidden="true">✔</span> 한 계정의 조회수뿐 아니라, 여러 신규 계정에 우리 매장 키워드를 동시에 심는 효과가 있어요</li>
-            <li><span class="gb-ico" aria-hidden="true">✔</span> 맛집감별사가 광고주의 요청사항을 정리해서 신규 운영자에게 가이드로 전달하기 때문에, 촬영·편집 결과물의 완성도도 함께 관리돼요</li>
-          </ul>
-        </div>
-        <div class="growing-col growing-col-creator">
-          <h3 class="growing-col-title">신규 계정 운영자에게도 좋은 이유</h3>
-          <ul>
-            <li><span class="gb-ico" aria-hidden="true">✔</span> 처음 유료 광고를 경험하며 콘텐츠에 책임감이 생기고, 꾸준히 업로드할 원동력이 돼요</li>
-            <li><span class="gb-ico" aria-hidden="true">✔</span> 매장 협찬(식사 제공) + 소정의 광고비로 시작하며 초기 포트폴리오를 자연스럽게 쌓아갈 수 있어요</li>
-            <li><span class="gb-ico" aria-hidden="true">✔</span> 정확한 가이드라인을 제공받아 촬영·편집 경험치가 빠르게 쌓여요</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="growing-grid" id="growingGrid"></div>
+      <ol class="timeline">
+        <li class="timeline-step reveal">
+          <span class="timeline-num">1</span>
+          <div class="timeline-body">
+            <h3>지역·예산 확인</h3>
+            <p>우리 매장 위치와 이번 달 예산을 정합니다. 가격은 “~” 협상 가능이에요.</p>
+          </div>
+        </li>
+        <li class="timeline-step reveal">
+          <span class="timeline-num">2</span>
+          <div class="timeline-body">
+            <h3>채널 둘러보고 클릭</h3>
+            <p>조건에 맞는 채널 목록을 둘러보고, 마음에 드는 채널을 클릭해 상세를 봅니다.</p>
+          </div>
+        </li>
+        <li class="timeline-step reveal">
+          <span class="timeline-num">3</span>
+          <div class="timeline-body">
+            <h3>채널 상세에서 바로 문의</h3>
+            <p>채널 상세에서 “이 채널로 광고 문의하기”를 누르면 채널명이 자동으로 담겨요.</p>
+          </div>
+        </li>
+        <li class="timeline-step reveal">
+          <span class="timeline-num">4</span>
+          <div class="timeline-body">
+            <h3>매칭 및 진행</h3>
+            <p>연락은 전부 맛집감별사가 대신합니다. 일정·콘셉트 조율 후 촬영·업로드까지 진행해요.</p>
+          </div>
+        </li>
+      </ol>
     </div>
   </section>
 
@@ -488,6 +499,23 @@
     </div>
   </section>
 
+  <!-- ============ 9.7 나도 크리에이터 배너 (신규 → creator-course 페이지) ============ -->
+  <section id="creator-cta" class="section section-creator-cta">
+    <div class="section-inner container">
+      <a class="creator-cta-card reveal" href="creator-course.html">
+        <div class="creator-cta-text">
+          <p class="creator-cta-eyebrow">맛간다 챌린지 · 맛집 크리에이터 입문</p>
+          <h2 class="creator-cta-title">나도 크리에이터 <span aria-hidden="true">🎬</span></h2>
+          <p class="creator-cta-desc">맛집 영상 하나로 용돈도 벌고, 밥값도 안 냅니다. 외식업 12년·40호점을 만든 사람이 직접 가르쳐요.</p>
+          <span class="creator-cta-btn">과정 자세히 보기 <span aria-hidden="true">→</span></span>
+        </div>
+        <div class="creator-cta-visual" aria-hidden="true">
+          <img src="assets/images/hero-tiger-cutout.png" alt="맛집감별사 인플루언서 매칭 캐릭터">
+        </div>
+      </a>
+    </div>
+  </section>
+
   <!-- ============ 10. FOOTER ============ -->
   <footer class="site-footer">
     <div class="footer-inner container">
@@ -526,8 +554,8 @@
 <!-- 구글폼 히든 제출용 iframe -->
 <iframe name="hiddenFormTarget" id="hiddenFormTarget" style="display:none" title="form target"></iframe>
 
-<script src="js/config.js?v=13"></script>
-<script src="js/data.js?v=13"></script>
-<script src="js/main.js?v=13"></script>
+<script src="js/config.js?v=14"></script>
+<script src="js/data.js?v=14"></script>
+<script src="js/main.js?v=14"></script>
 </body>
 </html>
