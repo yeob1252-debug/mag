@@ -8,7 +8,7 @@
      ======================================================= */
   const ENV = window.MAG_ENV || {}; // .env → js/config.js
   const LINKS = {
-    hub: '',                              // 와이비 허브 URL (신뢰섹션·푸터 '맛집감별사 더 알아보기')
+    hub: 'https://www.whybe.co.kr/',      // 와이비 허브 URL (신뢰섹션·푸터 '맛집감별사 더 알아보기')
     tcl: 'https://www.tigercommercelab.com/', // 타이거커머스랩 URL
     kakao: '',                            // 카카오톡 오픈채팅 URL
     influencerForm: ENV.influencerForm || '', // 인플루언서 등록(입점 신청) 폼 — .env
@@ -738,8 +738,6 @@
       INFLUENCERS = [];
     }
     initMetrics();
-    initFreead();
-    initGrowing();
     initEvents();
   })();
 })();
