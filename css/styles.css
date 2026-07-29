@@ -1051,21 +1051,26 @@ button { font-family: inherit; cursor: pointer; }
 .form-submit.is-ready { animation: submitPulse 1.7s ease-in-out infinite; }
 @keyframes submitPulse { 0%,100% { box-shadow: var(--shadow-pink); } 50% { box-shadow: 0 0 0 9px rgba(221,42,123,.16), var(--shadow-pink); } }
 
-/* [19] TCL 콘텐츠 강화 — 헤드라인 + 소셜 반응 애니메이션 + 화살표 */
-.tcl-headline-lg { margin-bottom: 14px; line-height: 1.15; letter-spacing: -.02em; word-break: keep-all; }
-.tcl-headline-lg .tcl-big { display: block; font-size: clamp(1.9rem, 5vw, 2.9rem); font-weight: 900; color: #fff; }
-.tcl-headline-lg .tcl-mid { display: block; font-size: clamp(1.5rem, 3.6vw, 2.1rem); font-weight: 800; color: #fff; margin: 2px 0; }
-.tcl-headline-lg .tcl-lastline { display: block; }
-.tcl-headline-lg .tcl-lastline .tcl-big { display: inline; }
-.tcl-headline-lg .tcl-small { font-size: clamp(.95rem, 1.8vw, 1.15rem); font-weight: 700; color: rgba(255,255,255,.9); }
+/* [19] TCL 콘텐츠 강화 — SNS 배지 행 / 3줄 헤드라인 / 소셜 반응 애니메이션 */
+/* SNS 채널 배지 행 (문장과 분리된 별도 pill row) */
+.tcl-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.tcl-badge { display: inline-flex; align-items: center; gap: 6px; background: #fff; color: #1E2A44; font-size: 12.5px; font-weight: 800; padding: 7px 13px; border-radius: 999px; box-shadow: 0 4px 10px rgba(0,0,0,.14); line-height: 1; }
+.tcl-badge svg { width: 15px; height: 15px; display: block; }
+.tcl-badge-tt svg { color: #111; }
+.tcl-badge-yt svg { color: var(--yt-red); }
+.tcl-badge-ss svg { color: #03C75A; }
+/* 3줄 헤드라인 — 1·3줄 흰색 대형, 2줄 동일 크기 포인트 컬러(네이비) */
+.tcl-headline-lg { margin-bottom: 16px; line-height: 1.14; letter-spacing: -.02em; word-break: keep-all; }
+.tcl-headline-lg .tcl-line { display: block; font-size: clamp(1.85rem, 4.8vw, 2.9rem); font-weight: 900; }
+.tcl-headline-lg .tcl-line-1, .tcl-headline-lg .tcl-line-3 { color: #fff; }
+.tcl-headline-lg .tcl-line-2 { color: #14264a; margin: 3px 0; }
+/* 서브카피 — 헤드라인보다 한 단계 작게, 의미 단위 줄바꿈 고정 */
+.tcl-sub { font-size: clamp(1rem, 2vw, 1.22rem); font-weight: 700; color: rgba(255,255,255,.96); line-height: 1.55; word-break: keep-all; margin-bottom: 24px; }
+/* 캐릭터 위 떠다니는 장식 반응 아이콘 (텍스트 흐름과 완전 분리) */
 .tcl-visual { position: relative; }
 .tcl-social { position: absolute; z-index: 2; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 999px; font-size: 13px; font-weight: 800; box-shadow: var(--shadow-md); background: var(--white); padding: 8px 13px; }
-.tcl-social svg { width: 18px; height: 18px; display: block; }
-.tcl-plat-tt { top: 6%; left: 4%; color: #111; animation: tclFloat 4.6s ease-in-out infinite; }
-.tcl-plat-yt { top: 4%; right: 6%; color: var(--yt-red); animation: tclFloat 5.2s ease-in-out infinite .4s; }
-.tcl-like { bottom: 24%; left: -2%; color: var(--tk-pink); animation: tclRise 3.2s ease-in-out infinite; }
-.tcl-subscribe { bottom: 10%; right: -2%; color: var(--yt-red); animation: tclRise 3.8s ease-in-out infinite .6s; }
-@keyframes tclFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.tcl-like { bottom: 30%; left: -4%; color: var(--tk-pink); animation: tclRise 3.2s ease-in-out infinite; }
+.tcl-subscribe { top: 10%; right: -4%; color: var(--yt-red); animation: tclRise 3.8s ease-in-out infinite .6s; }
 @keyframes tclRise { 0% { transform: translateY(10px) scale(.9); opacity: .5; } 50% { transform: translateY(-8px) scale(1.05); opacity: 1; } 100% { transform: translateY(10px) scale(.9); opacity: .5; } }
 .tcl-cta-arrow { display: inline-block; animation: tclArrow 1.3s ease-in-out infinite; }
 @keyframes tclArrow { 0%,100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
