@@ -330,6 +330,17 @@
   let INFLUENCERS = [];
   const priceMaxById = Object.fromEntries(D.FILTERS.prices.map((p) => [p.id, p.max]));
 
+  // 인기 조합(대구·감성리뷰형·~5만원) 클릭 시 보이는 예시 프로필 1건.
+  // 실제 API 데이터가 비어 있어도 조합 결과가 항상 보이도록 부트스트랩에서 목록에 합류시킨다.
+  const DEMO_INFLUENCER = {
+    name: '대구 감성맛집', handle: '@daegu_matjip_demo', demo: true,
+    region: 'gyeongbuk', gender: 'female', age: '20', price: 'p5', style: 'emotional', face: 'hidden',
+    followers: 18000, avgViews: 7200, lastUpload: '2026-07-24',
+    photo: 'assets/images/hero-tiger-cutout.png',
+    instagram: 'https://instagram.com/', hasInstagram: true, youtube: '', tiktok: '',
+    hasYoutube: false, hasTiktok: false,
+  };
+
   function matches(inf) {
     if (state.region.size && !state.region.has(inf.region)) return false;
     if (state.gender.size && !state.gender.has(inf.gender)) return false;
@@ -382,7 +393,9 @@
     card.className = 'result-card' + (opts.growing ? ' growing-card' : '');
     const badge = opts.growing
       ? '<span class="rc-new">NEW · 신입 · 성장중</span>'
-      : '<span class="rc-verified">✔ 실제 활동 확인된 채널</span>';
+      : inf.demo
+        ? '<span class="rc-demo">예시</span>'
+        : '<span class="rc-verified">✔ 실제 활동 확인된 채널</span>';
     card.innerHTML = `
       <div class="rc-top">
         <img class="rc-avatar" src="${inf.photo}" alt="${inf.name} 프로필" loading="lazy" onerror="this.onerror=null;this.src=window.MAG_DATA.avatar(this.alt)">
@@ -418,7 +431,7 @@
     list.forEach((inf, i) => {
       const card = makeProfileCard(inf);
       gridEl.appendChild(card);
-      // 구름 위로 떠오르듯 순차 페이드인
+      // 아래에서 위로 순차 페이드인 + 슬라이드업
       window.setTimeout(() => card.classList.add('is-floated'), 80 + i * 90);
     });
 
@@ -918,6 +931,10 @@
     } catch (e) {
       console.warn('[mag] 인플루언서 로드 실패', e);
       INFLUENCERS = [];
+    }
+    // 인기 조합 데모 카드 합류(중복 방지)
+    if (!INFLUENCERS.some((f) => f.handle === DEMO_INFLUENCER.handle)) {
+      INFLUENCERS.push(DEMO_INFLUENCER);
     }
     initMetrics();
     initEvents();
