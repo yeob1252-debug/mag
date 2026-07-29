@@ -16,6 +16,7 @@ KEY_MAP = {
     "MAG_INFLUENCERS_API": "influencersApi",
     "MAG_EVENTS_API": "eventsApi",
     "MAG_CHALLENGE_API": "challengeApi",
+    "MAG_REVIEWS_API": "reviewsApi",
     "MAG_CONTACT_FORM": "contactForm",
     "MAG_CONTACT_ENTRY_TYPE": "contactEntryType",
     "MAG_CONTACT_ENTRY_CHANNEL": "contactEntryChannel",

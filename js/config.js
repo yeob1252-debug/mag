@@ -3,6 +3,7 @@ window.MAG_ENV = {
   "influencersApi": "https://script.google.com/macros/s/AKfycbzz3dd4gFiqCDpjo9R5sph6uczf_NcLEwtEwYgbNwuio6L_4K1K4Lyj8F17FLPOyMdi1A/exec?type=influencers",
   "eventsApi": "https://script.google.com/macros/s/AKfycbzz3dd4gFiqCDpjo9R5sph6uczf_NcLEwtEwYgbNwuio6L_4K1K4Lyj8F17FLPOyMdi1A/exec?type=events",
   "challengeApi": "https://script.google.com/macros/s/AKfycbzz3dd4gFiqCDpjo9R5sph6uczf_NcLEwtEwYgbNwuio6L_4K1K4Lyj8F17FLPOyMdi1A/exec?type=challenge",
+  "reviewsApi": "https://script.google.com/macros/s/AKfycbzz3dd4gFiqCDpjo9R5sph6uczf_NcLEwtEwYgbNwuio6L_4K1K4Lyj8F17FLPOyMdi1A/exec?type=reviews",
   "contactForm": "https://docs.google.com/forms/d/e/1FAIpQLScOpcBSRLVhA_2ne9ZQadnWzV-c1N32P7X3ppaya69a2guv3g/viewform",
   "contactEntryType": "921473271",
   "contactEntryChannel": "361469733",
