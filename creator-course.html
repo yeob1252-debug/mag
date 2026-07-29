@@ -693,11 +693,17 @@
 })();
 </script>
 <script>
+// 천 단위 콤마 포맷 (소수 1자리 유지: 70.9 → "70.9", 정수: 4930 → "4,930")
+function fmtCount(n, isDecimal) {
+  return isDecimal
+    ? n.toLocaleString('ko-KR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })
+    : Math.floor(n).toLocaleString('ko-KR');
+}
 function initCountUp() {
   const counters = document.querySelectorAll('.count-up');
   // 폴백: IntersectionObserver 미지원 환경에서는 즉시 최종값 표시
   if (!('IntersectionObserver' in window)) {
-    counters.forEach(el => { el.textContent = el.dataset.target + (el.dataset.suffix || ''); });
+    counters.forEach(el => { el.textContent = fmtCount(parseFloat(el.dataset.target), el.dataset.target.includes('.')) + (el.dataset.suffix || ''); });
     return;
   }
   const observer = new IntersectionObserver((entries) => {
@@ -712,13 +718,13 @@ function initCountUp() {
         function update(now) {
           const progress = Math.min((now - startTime) / duration, 1);
           const current = target * progress;
-          el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+          el.textContent = fmtCount(current, isDecimal) + suffix;
           if (progress < 1) requestAnimationFrame(update);
-          else el.textContent = target + suffix;
+          else el.textContent = fmtCount(target, isDecimal) + suffix;
         }
         requestAnimationFrame(update);
         // 안전장치: rAF 가 억제/미동작해도 종료 시점엔 최종값을 보장
-        setTimeout(() => { el.textContent = target + suffix; }, duration + 120);
+        setTimeout(() => { el.textContent = fmtCount(target, isDecimal) + suffix; }, duration + 120);
         observer.unobserve(el);
       }
     });
