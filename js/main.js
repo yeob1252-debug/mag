@@ -357,6 +357,15 @@
     if (diff < 30) return Math.floor(diff / 7) + '주 전';
     return Math.floor(diff / 30) + '개월 전';
   }
+  // 마감일까지 D-N (YYYY.MM.DD / YYYY-MM-DD 모두 허용). 지났거나 없으면 ''.
+  function ddays(dateStr) {
+    if (!dateStr) return '';
+    const d = new Date(String(dateStr).replace(/\./g, '-').replace(/-$/, ''));
+    if (isNaN(d.getTime())) return '';
+    const diff = Math.ceil((d.getTime() - Date.now()) / 86400000);
+    if (diff < 0) return '';
+    return diff === 0 ? 'D-DAY' : 'D-' + diff;
+  }
 
   function platformIconsHtml(inf) {
     let html = '';
@@ -548,7 +557,7 @@
           </div>
           <div class="event-card-badges">${benefits}${options}</div>
           <div class="event-card-foot">
-            <div class="event-counter"><b class="count-num" data-count-to="${ev.applied}">0</b> / ${ev.capacity}팀 진행</div>
+            <div class="event-counter"><b class="count-num" data-count-to="${ev.applied}">0</b> / ${ev.capacity}팀 진행 ${ddays(ev.endDate) ? `<span class="event-dday">⏳ ${ddays(ev.endDate)}</span>` : ''}</div>
             <div class="event-progress"><span style="width:${pct}%"></span></div>
             <div class="event-period">${ev.startDate} ~ ${ev.endDate}</div>
           </div>
@@ -775,6 +784,130 @@
       }
     });
   }
+
+  /* =======================================================
+     [13] 인기 조합 원터치 칩 → 필터 자동 설정 + 즉시 검색
+     ======================================================= */
+  document.querySelectorAll('#filterCombos .combo-chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      Object.values(state).forEach((s) => s.clear());
+      document.querySelectorAll('.fchip.is-on').forEach((c) => c.classList.remove('is-on'));
+      if (chip.dataset.region) state.region.add(chip.dataset.region);
+      if (chip.dataset.style) state.style.add(chip.dataset.style);
+      if (chip.dataset.price) state.price.add(chip.dataset.price);
+      document.querySelectorAll('.fchip').forEach((c) => {
+        const box = c.closest('[data-filter]');
+        const key = box && box.dataset.filter;
+        if (key && state[key] && state[key].has(c.dataset.value)) c.classList.add('is-on');
+      });
+      syncMapFromState();
+      runSearch();
+    });
+  });
+
+  /* =======================================================
+     [17] 문의폼 — 필수 항목 충족 시 제출 버튼 pulse
+     ======================================================= */
+  (function () {
+    const form = document.getElementById('contactForm');
+    if (!form) return;
+    const submit = form.querySelector('.form-submit');
+    const req = ['storeName', 'phone', 'area'];
+    function check() {
+      const ok = req.every((n) => (form.elements[n] && form.elements[n].value.trim())) &&
+        form.elements['agree'] && form.elements['agree'].checked;
+      submit.classList.toggle('is-ready', !!ok);
+    }
+    form.addEventListener('input', check);
+    form.addEventListener('change', check);
+    check();
+  })();
+
+  /* =======================================================
+     [12] 프로세스 4단계 연결선 SVG draw (스크롤 연동)
+     ======================================================= */
+  (function () {
+    const path = document.getElementById('tlPath');
+    const tl = document.getElementById('processTimeline');
+    if (!path || !tl) return;
+    function draw() {
+      const rect = tl.getBoundingClientRect();
+      const startTop = window.innerHeight * 0.78;
+      let p = (startTop - rect.top) / (rect.height || 1);
+      p = Math.max(0, Math.min(1, p));
+      path.style.strokeDashoffset = String(1 - p);
+    }
+    window.addEventListener('scroll', draw, { passive: true });
+    window.addEventListener('resize', draw);
+    draw();
+  })();
+
+  /* =======================================================
+     [공통] 맥락형 플로팅 CTA 바
+     ======================================================= */
+  (function () {
+    const bar = document.getElementById('floatCta');
+    const link = document.getElementById('floatCtaLink');
+    const label = document.getElementById('floatCtaLabel');
+    if (!bar || !link) return;
+    const CTX = {
+      contact: { label: '지금 문의하기', href: '#contact' },
+      register: { label: '채널 등록하기', href: LINKS.influencerForm || '#join' },
+      challenge: { label: '챌린지 알아보기', href: 'creator-course.html' },
+    };
+    let cur = '';
+    function apply(k) {
+      if (k === cur) return; cur = k;
+      const c = CTX[k];
+      bar.classList.add('is-fading');
+      window.setTimeout(() => {
+        label.textContent = c.label;
+        link.href = c.href;
+        link.dataset.mode = k;
+        link.target = (k === 'register' && LINKS.influencerForm) ? '_blank' : '';
+        link.rel = link.target ? 'noopener' : '';
+        bar.classList.remove('is-fading');
+      }, 180);
+    }
+    apply('contact');
+    link.addEventListener('click', (e) => {
+      const m = link.dataset.mode;
+      if (m === 'contact') { e.preventDefault(); scrollToId('contact'); }
+      else if (m === 'register' && !LINKS.influencerForm) { e.preventDefault(); scrollToId('join'); }
+    });
+
+    // 컨텍스트 판정: 화면 중앙 밴드에 들어온 섹션 기준
+    const active = new Set();
+    const watch = ['recruit', 'join', 'creator-cta', 'contact', 'footer']
+      .map((id) => id === 'footer' ? document.querySelector('.site-footer') : document.getElementById(id))
+      .filter(Boolean);
+    watch.forEach((el) => { el.dataset.fcid = el.id || 'footer'; });
+    function recompute() {
+      if (active.has('footer')) return; // 푸터에선 숨김 처리(아래 show 로직)
+      if (active.has('creator-cta')) apply('challenge');
+      else if (active.has('recruit') || active.has('join')) apply('register');
+      else apply('contact');
+    }
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((ents) => {
+        ents.forEach((en) => {
+          const id = en.target.dataset.fcid;
+          if (en.isIntersecting) active.add(id); else active.delete(id);
+        });
+        recompute();
+        updateShow();
+      }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+      watch.forEach((el) => io.observe(el));
+    }
+    function updateShow() {
+      const past = (window.scrollY || document.documentElement.scrollTop) > 480;
+      const show = past && !active.has('footer');
+      bar.classList.toggle('is-shown', show);
+      bar.setAttribute('aria-hidden', show ? 'false' : 'true');
+    }
+    window.addEventListener('scroll', updateShow, { passive: true });
+    updateShow();
+  })();
 
   /* =======================================================
      부트스트랩

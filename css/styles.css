@@ -1005,3 +1005,71 @@ button { font-family: inherit; cursor: pointer; }
   .reveal, .result-card, .btn, .timeline-step { transition: none !important; }
   .hero-char, .chip-verified, .chip-region, .event-flag .pulse-dot { animation: none !important; }
 }
+
+/* =========================================================
+   추가 인터랙션 (4차 개편)
+   ========================================================= */
+/* [10] Hero 화살표 바운스 + 다음 섹션 peek */
+.hero-cta-arrow { display: inline-block; animation: heroArrowBounce 1.5s ease-in-out infinite; }
+@keyframes heroArrowBounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+@media (min-width: 861px) { .hero { min-height: 90vh; } }
+
+/* [12] 프로세스 세로 타임라인 + SVG 연결선 draw */
+.section-process .timeline { grid-template-columns: 1fr; position: relative; gap: 4px; max-width: 640px; }
+.timeline-line { position: absolute; left: 21px; top: 34px; bottom: 34px; width: 4px; height: auto; overflow: visible; z-index: 0; pointer-events: none; }
+.timeline-line path { fill: none; stroke: url(#tlGrad); stroke-width: 3.5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; }
+.section-process .timeline-step { position: relative; z-index: 1; background: var(--white); margin: 6px 0; }
+@media (min-width: 640px) { .section-process .timeline { grid-template-columns: 1fr; } }
+
+/* [13] 인기 조합 원터치 칩 */
+.filter-combos { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 26px; }
+.filter-combos-label { width: 100%; font-size: 13px; font-weight: 800; color: var(--ink-soft); margin-bottom: 2px; }
+.combo-chip { display: inline-flex; align-items: center; gap: 7px; border: 2px solid var(--line-strong); background: var(--white); color: var(--ink); font-weight: 800; font-size: 13.5px; padding: 10px 16px; border-radius: 999px; cursor: pointer; transition: border-color .2s, transform .2s, background .2s; }
+.combo-chip:hover { border-color: var(--accent); background: rgba(221,42,123,.06); transform: translateY(-2px); }
+.combo-chip .cc-hot { color: var(--tk-pink); }
+
+/* [14] 이벤트 D-day 배지 */
+.event-dday { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 800; color: #fff; background: var(--tk-pink); padding: 4px 11px; border-radius: 999px; }
+.event-card-foot .event-dday { align-self: flex-start; }
+
+/* [17] 문의폼 안심 문구 + 제출 pulse */
+.form-assure { text-align: center; font-size: 13.5px; font-weight: 800; color: var(--accent-deep); margin: 4px 0 12px; }
+.form-assure::before { content: "⏱ "; }
+.form-submit.is-ready { animation: submitPulse 1.7s ease-in-out infinite; }
+@keyframes submitPulse { 0%,100% { box-shadow: var(--shadow-pink); } 50% { box-shadow: 0 0 0 9px rgba(221,42,123,.16), var(--shadow-pink); } }
+
+/* [19] TCL 콘텐츠 강화 — 헤드라인 + 소셜 반응 애니메이션 + 화살표 */
+.tcl-headline-lg { font-size: clamp(1.7rem, 4vw, 2.5rem); font-weight: 900; line-height: 1.2; letter-spacing: -.02em; margin-bottom: 12px; }
+.tcl-headline-lg .tcl-hl { color: #fff; text-shadow: 0 1px 0 rgba(0,0,0,.12); }
+.tcl-visual { position: relative; }
+.tcl-social { position: absolute; z-index: 2; display: inline-flex; align-items: center; justify-content: center; gap: 6px; border-radius: 999px; font-size: 13px; font-weight: 800; box-shadow: var(--shadow-md); background: var(--white); padding: 8px 13px; }
+.tcl-social svg { width: 18px; height: 18px; display: block; }
+.tcl-plat-tt { top: 6%; left: 4%; color: #111; animation: tclFloat 4.6s ease-in-out infinite; }
+.tcl-plat-yt { top: 4%; right: 6%; color: var(--yt-red); animation: tclFloat 5.2s ease-in-out infinite .4s; }
+.tcl-like { bottom: 24%; left: -2%; color: var(--tk-pink); animation: tclRise 3.2s ease-in-out infinite; }
+.tcl-sub { bottom: 10%; right: -2%; color: var(--yt-red); animation: tclRise 3.8s ease-in-out infinite .6s; }
+@keyframes tclFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes tclRise { 0% { transform: translateY(10px) scale(.9); opacity: .5; } 50% { transform: translateY(-8px) scale(1.05); opacity: 1; } 100% { transform: translateY(10px) scale(.9); opacity: .5; } }
+.tcl-cta-arrow { display: inline-block; animation: tclArrow 1.3s ease-in-out infinite; }
+@keyframes tclArrow { 0%,100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+
+/* [21] 나도 크리에이터 강조 배지 + 실시간 문구 */
+.creator-cta-badge { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 14px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.24); color: #fff; font-weight: 800; font-size: 13.5px; padding: 9px 15px; border-radius: 999px; line-height: 1.4; }
+.creator-cta-live { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 800; color: var(--gold); margin-left: 8px; }
+.creator-cta-live .live-dot { width: 7px; height: 7px; border-radius: 50%; background: #35d07f; box-shadow: 0 0 0 0 rgba(53,208,127,.6); animation: livePulse 1.6s infinite; }
+@keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(53,208,127,.5); } 70% { box-shadow: 0 0 0 7px rgba(53,208,127,0); } 100% { box-shadow: 0 0 0 0 rgba(53,208,127,0); } }
+
+/* [공통] 맥락형 플로팅 CTA 바 */
+.float-cta { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%) translateY(120%); z-index: 95; opacity: 0; transition: transform .35s var(--ease), opacity .35s var(--ease); }
+.float-cta.is-shown { transform: translateX(-50%) translateY(0); opacity: 1; }
+.float-cta a { display: inline-flex; align-items: center; gap: 8px; background: var(--ig-grad); color: #fff; font-weight: 800; font-size: 15px; padding: 14px 26px; border-radius: 999px; box-shadow: var(--shadow-lg); white-space: nowrap; }
+.float-cta .fc-label { transition: opacity .25s var(--ease); }
+.float-cta.is-fading .fc-label { opacity: 0; }
+@media (max-width: 560px) {
+  .float-cta { left: 12px; right: 12px; transform: translateY(120%); }
+  .float-cta.is-shown { transform: translateY(0); }
+  .float-cta a { width: 100%; justify-content: center; font-size: 15px; padding: 15px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-cta-arrow, .tcl-social, .tcl-cta-arrow, .creator-cta-live .live-dot, .form-submit.is-ready { animation: none !important; }
+}
