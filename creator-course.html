@@ -7,7 +7,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <title>맛간다 챌린지 | 맛집 크리에이터 입문 과정 — 맛집감별사</title>
-<meta name="description" content="맛있으면 간다 — 맛집으로 크리에이터 되기. 외식업 12년·전국 40호점을 만든 사람이 직접 가르치는 맛집 크리에이터 입문 과정. 스마트폰 하나로 시작해요.">
+<meta name="description" content="맛있으면 간다 — 맛집으로 크리에이터 되기. 외식업 12년·전국 30호점을 만든 사람이 직접 가르치는 맛집 크리에이터 입문 과정. 스마트폰 하나로 시작해요.">
 <link rel="icon" type="image/png" href="assets/images/logo.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
@@ -134,14 +134,59 @@
   .cc-mobile-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 100; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: rgba(255,248,231,.92); backdrop-filter: blur(10px); box-shadow: 0 -6px 20px rgba(42,35,32,.12); display: none; }
   .cc-mobile-bar .btn { width: 100%; }
 
+  /* Hero 진입 애니메이션(페이드인+슬라이드업) */
+  .cc-rise { opacity: 0; transform: translateY(22px); animation: ccRise .7s var(--ease) forwards; }
+  .cc-rise-1 { animation-delay: .05s; } .cc-rise-2 { animation-delay: .18s; } .cc-rise-3 { animation-delay: .31s; } .cc-rise-4 { animation-delay: .44s; }
+  @keyframes ccRise { to { opacity: 1; transform: none; } }
+  .cc-hero h1 .hl-grad { -webkit-background-clip: text; background-clip: text; }
+
+  /* 배지 1.5배 확대 */
+  .cc-reassure-badge { font-size: 22px; padding: 13px 24px; }
+
+  /* 공감 카드: 이미지 + hover 떠오름 */
+  .cc-emp-img { width: 100%; height: auto; border-radius: var(--radius-md); margin-bottom: 16px; display: block; }
+  .cc-emp-grid .cc-card { transition: transform .3s var(--ease), box-shadow .3s var(--ease); }
+  .cc-emp-grid .cc-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+
+  /* 결과 카드: 이미지 + 순차 페이드인 */
+  .cc-outcome-img { width: 64px; height: 64px; object-fit: contain; flex-shrink: 0; margin-left: auto; }
+  .cc-reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+  .cc-reveal.is-in { opacity: 1; transform: none; }
+
+  /* 자격/이력 카드 그리드 */
+  .cc-cred-grid { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 22px 0 0; }
+  .cc-cred-grid li { display: flex; gap: 10px; align-items: flex-start; background: var(--bg-warm); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 14px 16px; font-size: 14px; font-weight: 600; color: var(--ink); line-height: 1.5; }
+  .cc-cred-ico { flex-shrink: 0; font-size: 18px; }
+  .cc-more { margin-top: 24px; }
+
+  /* 왜 지금 — 통계 카드 + 강조 */
+  .cc-why-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 24px; }
+  .cc-emph-text { margin-top: 24px; font-size: clamp(1.05rem, 2vw, 1.25rem); font-weight: 800; color: var(--ink); line-height: 1.6; }
+  .cc-emph-text .hl { color: var(--accent); }
+  .cc-emph-box { margin-top: 18px; padding: 22px 24px; background: linear-gradient(160deg, rgba(221,42,123,.08), var(--white)); border: 1.5px solid rgba(221,42,123,.3); border-radius: var(--radius-lg); font-size: 15.5px; font-weight: 700; color: var(--accent-deep); line-height: 1.6; }
+
+  /* 스탯 카드 출처 */
+  .cc-stat-src { display: block; margin-top: 6px; font-size: 11px; color: var(--ink-faint); font-weight: 500; line-height: 1.4; }
+  /* 결론 화살표 + 박스 */
+  .cc-bounce-arrow { text-align: center; font-size: 30px; color: var(--accent); margin: 22px 0 8px; animation: ccBounce 1.4s infinite; }
+  @keyframes ccBounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(8px)} }
+  .cc-concl-box { padding: 22px 24px; background: var(--ig-grad); color: #fff; border-radius: var(--radius-lg); font-size: clamp(1.05rem,2.2vw,1.3rem); font-weight: 800; text-align: center; line-height: 1.5; box-shadow: var(--shadow-pink); }
+
+  /* 커리큘럼 강조(글로우 펄스) */
+  .cc-curr-glow { margin-top: 18px; padding: 22px 24px; text-align: center; background: linear-gradient(160deg, rgba(221,42,123,.1), var(--white)); border: 2px solid var(--accent); border-radius: var(--radius-lg); font-size: clamp(1.05rem,2.2vw,1.35rem); font-weight: 800; color: var(--accent-deep); animation: ccGlow 2.4s ease-in-out infinite; }
+  @keyframes ccGlow { 0%,100%{box-shadow: 0 0 0 0 rgba(221,42,123,0)} 50%{box-shadow: 0 0 0 8px rgba(221,42,123,.14)} }
+
   @media (min-width: 720px) {
     .cc-emp-grid { grid-template-columns: repeat(3, 1fr); }
     .cc-outcome-list { grid-template-columns: 1fr 1fr; }
     .cc-ins { grid-template-columns: .8fr 1.2fr; }
     .cc-stat-grid { grid-template-columns: repeat(4, 1fr); }
+    .cc-why-grid { grid-template-columns: repeat(3, 1fr); }
+    .cc-cred-grid { grid-template-columns: 1fr 1fr; }
     .cc-price-grid { grid-template-columns: repeat(3, 1fr); align-items: start; }
     .cc-reassure-inner { flex-direction: row; text-align: left; gap: 36px; }
   }
+  @media (prefers-reduced-motion: reduce) { .cc-rise, .cc-curr-glow, .cc-bounce-arrow { animation: none; } .cc-rise { opacity: 1; transform: none; } }
   @media (max-width: 719px) {
     body { padding-bottom: 84px; }
     .cc-mobile-bar { display: block; }
@@ -165,9 +210,9 @@
 <section class="section cc-hero">
   <div class="section-inner container">
     <img class="cc-hero-img" src="assets/images/hero-tiger-cutout.png" alt="맛집감별사 크리에이터 캐릭터">
-    <h1>맛집 영상 하나로<br>용돈도 벌고, 밥값도 안 냅니다</h1>
-    <p class="cc-hero-sub">외식업 12년, 전국 40호점을 만든 사람이 직접 가르치는<br>맛집 크리에이터 입문 과정</p>
-    <p class="cc-sub-tag">맛있으면 간다 — 맛집으로 크리에이터 되기</p>
+    <h1 class="cc-rise cc-rise-1">맛집 영상 하나로<br><span class="hl-grad">용돈도 벌고, 밥값도 안 냅니다</span></h1>
+    <p class="cc-hero-sub cc-rise cc-rise-2">외식업 12년, 전국 30호점을 만든 사람이 직접 가르치는<br>맛집 크리에이터 입문 과정</p>
+    <p class="cc-sub-tag cc-rise cc-rise-3">맛있으면 간다 — 맛집으로 크리에이터 되기</p>
   </div>
 </section>
 
@@ -178,7 +223,7 @@
     <div class="cc-reassure-inner">
       <img class="cc-reassure-char" src="assets/images/hero-tiger-cutout.png" alt="맛집감별사 크리에이터 캐릭터">
       <div class="cc-bubble">
-        <p>카메라 처음 만져봐도 됩니다.<br>편집 앱 이름도 몰라도 됩니다.</p>
+        <p>폰 하나면 다 됩니다.<br>어려운 장비도, 복잡한 편집도 필요 없어요.</p>
         <p class="cc-bubble-soft">저도 그렇게 시작했어요 😊</p>
       </div>
     </div>
@@ -192,15 +237,18 @@
     <h2 class="section-title">시작 전엔 누구나 이런 생각을 해요</h2>
     <div class="cc-emp-grid">
       <div class="cc-card">
+        <img class="cc-emp-img" src="assets/images/worry-1.png" alt="언제 시간을 낼 수 있을까 고민하는 모습">
         <h3>🕐 언제든 할 수 있을까?</h3>
         <p>아이 재우고 나서, 주말에 짬날 때 — 직장·육아랑 병행 가능한 부업이 있을까 고민되시죠?
           <span class="cc-note">(아이 있는 주부님들도 많이 시작하는 이유가 이거예요)</span></p>
       </div>
       <div class="cc-card">
+        <img class="cc-emp-img" src="assets/images/worry-2.png" alt="무엇을 어떻게 찍어야 할지 막막한 모습">
         <h3>📸 뭘 어떻게 찍지?</h3>
         <p>매장 가서 뭐부터 찍어야 할지, 어떤 구도가 맛있어 보이는지 — 막상 가면 머리가 하얘지는 게 당연해요.</p>
       </div>
       <div class="cc-card">
+        <img class="cc-emp-img" src="assets/images/worry-3.png" alt="진짜 돈이 될지 의심하는 모습">
         <h3>💰 진짜 돈이 될까?</h3>
         <p>이런 의심, 당연해요. 오히려 안 하시는 게 이상해요.</p>
       </div>
@@ -214,10 +262,10 @@
     <p class="eyebrow">RESULT</p>
     <h2 class="section-title">이 과정을 마치면</h2>
     <div class="cc-outcome-list">
-      <div class="cc-outcome-item"><span class="cc-num">1</span><p>나만의 <b>캐릭터·브랜딩</b>으로 수익화 채널을 만들어요</p></div>
-      <div class="cc-outcome-item"><span class="cc-num">2</span><p>매장 가기 전에, <b>대본·콘티·기획이 전부 끝나있어요</b> (촬영만 하면 됨)</p></div>
-      <div class="cc-outcome-item"><span class="cc-num">3</span><p><b>캡컷</b>으로 언제 어디서든 바로 편집해요</p></div>
-      <div class="cc-outcome-item"><span class="cc-num">4</span><p>수료 즉시 맛집감별사에 <b>신규 크리에이터로 바로 등록</b>되고, 매칭되면 곧바로 광고가 진행돼요</p></div>
+      <div class="cc-outcome-item cc-reveal"><span class="cc-num">1</span><p>나만의 <b>캐릭터·브랜딩</b>으로 수익화 채널을 만들어요</p><img class="cc-outcome-img" src="assets/images/result-1.png" alt=""></div>
+      <div class="cc-outcome-item cc-reveal"><span class="cc-num">2</span><p>매장 가기 전에, <b>대본·콘티·기획이 전부 끝나있어요</b> (촬영만 하면 됨)</p><img class="cc-outcome-img" src="assets/images/result-2.png" alt=""></div>
+      <div class="cc-outcome-item cc-reveal"><span class="cc-num">3</span><p><b>캡컷</b>으로 언제 어디서든 바로 편집해요</p><img class="cc-outcome-img" src="assets/images/result-3.png" alt=""></div>
+      <div class="cc-outcome-item cc-reveal"><span class="cc-num">4</span><p>수료 즉시 맛집감별사에 <b>신규 크리에이터로 바로 등록</b>되고, 매칭되면 곧바로 광고가 진행돼요</p><img class="cc-outcome-img" src="assets/images/result-4.png" alt=""></div>
     </div>
   </div>
 </section>
@@ -233,13 +281,21 @@
         <span class="cc-ins-badge">FOUNDER</span>
         <h3>와이비</h3>
         <p class="cc-ins-role">맛집감별사 대표</p>
-        <p>
-          외식업 12년, 전국 40호점을 직접 열었습니다.<br>
-          네이버 스마트스토어 <b>[맛집감별사]</b>는 런칭 4개월 만에 빅파워 등급을 달성했고,
-          한식명장 장지녕 간장게장(한남동 최고 맛집) 매장도 함께 만들어왔습니다.<br>
-          이론이 아니라, 직접 부딪혀서 만든 노하우를 그대로 전달합니다.
-        </p>
+        <p>이론이 아니라, 직접 부딪혀서 만든 노하우를 그대로 전달합니다. 한식명장 장지녕 간장게장(한남동 최고 맛집) 매장도 함께 만들어왔어요.</p>
       </div>
+    </div>
+    <ul class="cc-cred-grid">
+      <li><span class="cc-cred-ico" aria-hidden="true">🍽️</span> 외식업 12년 · 전국 30호점 직접 오픈</li>
+      <li><span class="cc-cred-ico" aria-hidden="true">🛍️</span> 네이버 스마트스토어 [맛집감별사] 4개월 만에 빅파워 등급 달성</li>
+      <li><span class="cc-cred-ico" aria-hidden="true">🎓</span> 대구 영남대학교 외식업경영MBA 특강 진행</li>
+      <li><span class="cc-cred-ico" aria-hidden="true">🏫</span> 안동시 꿈이룸 소상공인교육센터 라이브커머스 교육 (2년째)</li>
+      <li><span class="cc-cred-ico" aria-hidden="true">🏪</span> 현풍백년도깨비시장 상인역량강화교육 강사 (중기부·소진공 주관)</li>
+      <li><span class="cc-cred-ico" aria-hidden="true">🏅</span> 2017 부산광역시·고용노동부 ‘소셜프랜차이즈’ 선정 인증</li>
+      <li><span class="cc-cred-ico" aria-hidden="true">📱</span> 서울경제진흥원(SBA) 쇼플루언서 3기 수료</li>
+      <li><span class="cc-cred-ico" aria-hidden="true">🇯🇵</span> 오사카 특송법인 4년+ 운영, 일본 현지 라이브커머스 진행</li>
+    </ul>
+    <div style="text-align:center;margin-top:24px">
+      <a class="btn btn-ghost btn-large" href="https://www.whybe.co.kr/" target="_blank" rel="noopener">와이비 더 알아보기 <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
@@ -258,6 +314,14 @@
       <div class="cc-progress-bar"><span id="ccProgressFill"></span></div>
       <p class="cc-progress-count">남은 자리 <b><span id="ccRemain">6</span></b>석 · 상태 <span id="ccStatus">모집중</span></p>
     </div>
+
+    <div class="cc-why-grid">
+      <div class="cc-stat-card"><span class="cc-stat-num">70.9만</span><span class="cc-stat-label">전국 음식점 수 (잠재 광고주 풀)<span class="cc-stat-src">2018 통계청 전국사업체조사</span></span></div>
+      <div class="cc-stat-card"><span class="cc-stat-num">4,930만</span><span class="cc-stat-label">국내 활성 SNS 사용자 (인구의 95.4%)</span></div>
+      <div class="cc-stat-card"><span class="cc-stat-num">40.6%</span><span class="cc-stat-label">온라인 동영상 중 요리·먹방 시청 비중<span class="cc-stat-src">10대 대상 조사 기준</span></span></div>
+    </div>
+    <p class="cc-emph-text">약 <span class="hl">70만 개</span> 매장에 비해, 맛집 전문으로 활동하는 크리에이터는 아직 상대적으로 적어요 — 지금 시작해도 늦지 않습니다.</p>
+    <div class="cc-emph-box">💡 SNS 채널은 한 번 키워두면 계속 남는 무형자산이에요 — 시간이 지날수록 오히려 가치가 쌓여요.</div>
   </div>
 </section>
 
@@ -267,12 +331,14 @@
     <p class="eyebrow">PROOF</p>
     <h2 class="section-title">"이게 진짜 돈이 될까?"<br>숫자로 보여드릴게요</h2>
     <div class="cc-stat-grid">
-      <div class="cc-stat-card"><span class="cc-stat-num">90%</span><span class="cc-stat-label">음식점이 SNS를 "매우 중요"하다고 응답</span></div>
-      <div class="cc-stat-card"><span class="cc-stat-num">9.9%</span><span class="cc-stat-label">소셜 적극 활용 시 평균 매출 증가 (핵심 전략은 14.1%)</span></div>
-      <div class="cc-stat-card"><span class="cc-stat-num">8배</span><span class="cc-stat-label">동네 맛집 크리에이터 캠페인 평균 광고 효과(ROI)</span></div>
-      <div class="cc-stat-card"><span class="cc-stat-num">30%</span><span class="cc-stat-label">게시 후 일주일 안 예약 증가 (조사 기준)</span></div>
+      <div class="cc-stat-card"><span class="cc-stat-num">90%</span><span class="cc-stat-label">음식점이 SNS를 "매우 중요"하다고 응답<span class="cc-stat-src">외식업 SNS 마케팅 인식 조사</span></span></div>
+      <div class="cc-stat-card"><span class="cc-stat-num">9.9%</span><span class="cc-stat-label">소셜 적극 활용 시 평균 매출 증가 (핵심 전략은 14.1%)<span class="cc-stat-src">소셜미디어 활용도별 매출 분석</span></span></div>
+      <div class="cc-stat-card"><span class="cc-stat-num">8배</span><span class="cc-stat-label">동네 맛집 크리에이터 캠페인 평균 광고 효과(ROI)<span class="cc-stat-src">지역 인플루언서 캠페인 성과 조사</span></span></div>
+      <div class="cc-stat-card"><span class="cc-stat-num">30%</span><span class="cc-stat-label">게시 후 일주일 안 예약 증가<span class="cc-stat-src">로컬 맛집 콘텐츠 예약 전환 조사</span></span></div>
     </div>
-    <p class="cc-stat-note">패션·생활용품은 경기를 타지만 식비 지출은 오히려 계속 늘고 있어요. 작년 엥겔지수가 <b>31년 만에 최고치</b>를 찍었을 정도로, 사람들은 여전히 "오늘 뭐 맛있는 거 먹지"를 고민해요. <b>→ 이 시장은 없어지지 않습니다.</b></p>
+    <p class="cc-stat-note">패션·생활용품은 경기를 타지만 식비 지출은 오히려 계속 늘고 있어요. 작년 엥겔지수가 <b>31년 만에 최고치</b>를 찍었을 정도로, 사람들은 여전히 "오늘 뭐 맛있는 거 먹지"를 고민해요.</p>
+    <div class="cc-bounce-arrow" aria-hidden="true">↓</div>
+    <div class="cc-concl-box">이 시장은 없어지지 않습니다. 사장님들도 계속 SNS 광고비를 쓰고 있어요.</div>
   </div>
 </section>
 
@@ -311,6 +377,7 @@
       </div>
     </div>
     <div class="cc-curr-bonus"><span aria-hidden="true">🎁</span> 보너스 — 수료 후 <b>1개월간 단톡방 피드백</b> 제공</div>
+    <p class="cc-curr-glow">4회차가 끝나면, 이 채널은 온전히 당신의 것입니다.</p>
   </div>
 </section>
 
@@ -369,6 +436,26 @@
         <button class="cc-faq-q" type="button">수료하면 진짜 광고 매칭되나요? <span class="cc-faq-ico" aria-hidden="true">+</span></button>
         <div class="cc-faq-a"><p>네, 수료 즉시 맛집감별사에 신규 크리에이터로 등록되고, 매칭되면 바로 광고가 진행돼요.</p></div>
       </div>
+      <div class="cc-faq-item">
+        <button class="cc-faq-q" type="button">얼굴을 꼭 공개해야 하나요? <span class="cc-faq-ico" aria-hidden="true">+</span></button>
+        <div class="cc-faq-a"><p>아니요, 얼굴 노출 없이 운영하는 방법도 함께 알려드려요.</p></div>
+      </div>
+      <div class="cc-faq-item">
+        <button class="cc-faq-q" type="button">결제 후 환불이 가능한가요? <span class="cc-faq-ico" aria-hidden="true">+</span></button>
+        <div class="cc-faq-a"><p>1회차 시작 전까지는 전액 환불 가능해요.</p></div>
+      </div>
+      <div class="cc-faq-item">
+        <button class="cc-faq-q" type="button">다른 사람들이랑 같이 하나요, 혼자 하나요? <span class="cc-faq-ico" aria-hidden="true">+</span></button>
+        <div class="cc-faq-a"><p>소수 그룹으로 함께하며 서로 피드백도 나눠요.</p></div>
+      </div>
+      <div class="cc-faq-item">
+        <button class="cc-faq-q" type="button">매장 섭외는 제가 직접 해야 하나요? <span class="cc-faq-ico" aria-hidden="true">+</span></button>
+        <div class="cc-faq-a"><p>4회차 실습은 미리 섭외된 매장에서 진행하니 걱정 안 하셔도 돼요.</p></div>
+      </div>
+      <div class="cc-faq-item">
+        <button class="cc-faq-q" type="button">수료 후에도 도움받을 수 있나요? <span class="cc-faq-ico" aria-hidden="true">+</span></button>
+        <div class="cc-faq-a"><p>네, 1개월간 단톡방 피드백이 포함되어 있어요.</p></div>
+      </div>
     </div>
   </div>
 </section>
@@ -395,6 +482,25 @@
   var ENV = window.MAG_ENV || {};
   var APPLY_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSfTUG4JnSWNQD4ZKEpMWgezuUH8EJxmY1V2lT4nMlkoP6-7yg/viewform';
   document.querySelectorAll('.cc-apply').forEach(function (a) { a.href = APPLY_URL; });
+
+  // 결과 카드 순차 페이드인 (.cc-reveal) — 관찰자 미동작 시 1.6s 뒤 강제 노출
+  (function () {
+    var els = [].slice.call(document.querySelectorAll('.cc-reveal'));
+    if (!els.length) return;
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      els.forEach(function (el) { el.classList.add('is-in'); }); return;
+    }
+    var io = new IntersectionObserver(function (ents) {
+      ents.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        var i = Math.max(0, els.indexOf(en.target));
+        setTimeout(function () { en.target.classList.add('is-in'); }, (i % 6) * 140);
+        io.unobserve(en.target);
+      });
+    }, { threshold: 0.15 });
+    els.forEach(function (el) { io.observe(el); });
+    setTimeout(function () { els.forEach(function (el) { el.classList.add('is-in'); }); }, 1600);
+  })();
 
   // FAQ 아코디언
   document.querySelectorAll('.cc-faq-q').forEach(function (btn) {
