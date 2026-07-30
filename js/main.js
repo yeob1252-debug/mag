@@ -19,8 +19,9 @@
   // 문의 폼 → Apps Script 웹앱에 직접 POST("맛집감별사 매장 문의 DB" 시트에 행 추가).
   // ※ 아래 URL 은 실제 배포된 웹앱의 /exec 주소여야 함(ID 가 AKfycb 로 시작).
   //   배포: Apps Script → 배포 > 새 배포 > 웹 앱 > 액세스 "모든 사용자" > 배포.
-  const CONTACT_WEBAPP = 'https://script.google.com/macros/s/14ICNMmI10Ii4aWZQR60UFf87KDrrXLLjgMUxEvuh217YX4Nl6MFwxUw2/exec';
+  const CONTACT_WEBAPP = 'https://script.google.com/macros/s/AKfycbzz3dd4gFiqCDpjo9R5sph6uczf_NcLEwtEwYgbNwuio6L_4K1K4Lyj8F17FLPOyMdi1A/exec';
   // payload 키 = 매장 문의 DB 시트 헤더명과 정확히 일치해야 함(다르면 빈 칸 유입).
+  // Timestamp 열은 doPost 가 자동 기록하므로 payload 에 넣지 않는다.
   function buildContactPayload(data) {
     const v = (k) => String(data.get(k) || '').trim();
     return {
@@ -34,6 +35,7 @@
       '매장 스토리(창업 계기 등)': v('story'),
       '참고 요청사항': v('notes'),
       '촬영 콘텐츠 재사용 희망 여부': data.get('reuse') ? '희망함' : '희망하지 않음',
+      '개인정보 수집·이용 동의': data.get('agree') ? '동의합니다' : '',
     };
   }
 
