@@ -53,6 +53,9 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
+  /* 한글 단어 중간 줄바꿈 방지(전역) + 긴 URL 등은 넘치지 않게 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 /* 장식 요소(글로우/구름 등)가 만드는 가로 넘침을 뿌리에서 차단.
    clip 은 hidden 과 달리 프로그램적 스크롤까지 막아 더 견고하다. */
@@ -647,13 +650,22 @@ button { font-family: inherit; cursor: pointer; }
 .req { color: var(--tk-pink); }
 .form-row input[type="text"],
 .form-row input[type="tel"],
+.form-row select,
 .form-row textarea {
   width: 100%; border: 2px solid var(--line-strong);
   border-radius: var(--radius-sm); padding: 13px 15px;
   font-size: 15px; font-family: inherit; color: var(--ink);
   background: var(--bg); transition: border-color .2s;
 }
-.form-row input:focus, .form-row textarea:focus { outline: none; border-color: var(--accent); }
+/* 셀렉트 화살표 커스텀(브라우저 기본 제거 + 브랜드 톤) */
+.form-row select {
+  -webkit-appearance: none; -moz-appearance: none; appearance: none;
+  padding-right: 40px; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23B71E63' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 15px center;
+}
+.form-row select:invalid { color: var(--ink-faint); }
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: var(--accent); }
 .form-row textarea { resize: vertical; }
 .radio-group { display: flex; gap: 10px; }
 .radio-group-col { flex-direction: column; }
@@ -1031,7 +1043,7 @@ button { font-family: inherit; cursor: pointer; }
 .process-char { position: relative; z-index: 1; width: min(70%, 260px); height: auto; filter: drop-shadow(0 16px 22px rgba(42,35,32,.18)); }
 .process-assure { position: relative; z-index: 1; margin-top: 16px; }
 .process-assure-1 { font-size: clamp(1.05rem, 2.2vw, 1.28rem); font-weight: 900; color: var(--accent-deep); margin-bottom: 7px; }
-.process-assure-2 { font-size: clamp(.9rem, 1.6vw, 1.02rem); font-weight: 600; color: var(--ink-soft); line-height: 1.55; max-width: 320px; margin: 0 auto; }
+.process-assure-2 { font-size: clamp(.9rem, 1.6vw, 1.02rem); font-weight: 600; color: var(--ink-soft); line-height: 1.55; max-width: 348px; margin: 0 auto; }
 .process-layout .timeline { margin-left: 0; margin-right: 0; justify-self: start; width: 100%; }
 
 /* [13] 인기 조합 원터치 칩 */
