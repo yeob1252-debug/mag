@@ -16,43 +16,25 @@
     youtube: '',
     tiktok: '',
   };
-  // 문의 폼 → 실제 구글폼("맛집감별사 매장 문의 DB" 시트로 연결) 연동.
-  // 방식 B: 입력값을 프리필한 구글폼을 새 탭으로 열어 사용자가 최종 [제출].
-  // (구글폼이 익명 formResponse POST 를 거부해 hidden iframe 방식은 접수 불가라 방식 B 채택)
-  const CONTACT_FORM = {
-    viewform: 'https://docs.google.com/forms/d/e/1FAIpQLScOpcBSRLVhA_2ne9ZQadnWzV-c1N32P7X3ppaya69a2guv3g/viewform',
-    entries: {
-      inquiryType: 'entry.1427174598',
-      channelWanted: 'entry.70825016',
-      storeName: 'entry.1440922524',
-      phone: 'entry.1768436531',
-      area: 'entry.794269067',
-      budget: 'entry.1750791158',
-      menu: 'entry.848448447',
-      story: 'entry.2117779470',
-      notes: 'entry.1393681657',
-      reuse: 'entry.1267038363',
-      agree: 'entry.1378321995',
-    },
-  };
-  // 구글폼 프리필 URL 생성 (선택형 값은 구글폼 옵션과 정확히 일치해야 선택됨)
-  function buildContactPrefillUrl(data) {
-    const m = CONTACT_FORM.entries;
+  // 문의 폼 → Apps Script 웹앱에 직접 POST("맛집감별사 매장 문의 DB" 시트에 행 추가).
+  // ※ 아래 URL 은 실제 배포된 웹앱의 /exec 주소여야 함(ID 가 AKfycb 로 시작).
+  //   배포: Apps Script → 배포 > 새 배포 > 웹 앱 > 액세스 "모든 사용자" > 배포.
+  const CONTACT_WEBAPP = 'https://script.google.com/macros/s/14ICNMmI10Ii4aWZQR60UFf87KDrrXLLjgMUxEvuh217YX4Nl6MFwxUw2/exec';
+  // payload 키 = 매장 문의 DB 시트 헤더명과 정확히 일치해야 함(다르면 빈 칸 유입).
+  function buildContactPayload(data) {
     const v = (k) => String(data.get(k) || '').trim();
-    const p = new URLSearchParams();
-    p.set('usp', 'pp_url');
-    if (v('inquiryType')) p.set(m.inquiryType, v('inquiryType'));
-    if (v('channelWanted')) p.set(m.channelWanted, v('channelWanted'));
-    if (v('storeName')) p.set(m.storeName, v('storeName'));
-    if (v('phone')) p.set(m.phone, v('phone'));
-    if (v('area')) p.set(m.area, v('area'));
-    if (v('budget')) p.set(m.budget, v('budget'));
-    if (v('menu')) p.set(m.menu, v('menu'));
-    if (v('story')) p.set(m.story, v('story'));
-    if (v('notes')) p.set(m.notes, v('notes'));
-    if (data.get('reuse')) p.set(m.reuse, '희망함');           // 체크박스 → 구글폼 라디오 옵션
-    if (data.get('agree')) p.set(m.agree, '동의합니다');        // 동의 체크박스 → 구글폼 옵션
-    return CONTACT_FORM.viewform + '?' + p.toString();
+    return {
+      '문의 유형': v('inquiryType'),
+      '관심 채널명(있다면 자동 입력됨, 없으면 비워두셔도 됩니다)': v('channelWanted'),
+      '매장명': v('storeName'),
+      '연락처(문자/카카오톡)': v('phone'),
+      '희망 지역': v('area'),
+      '희망 가격대': v('budget'),
+      '메뉴 소개': v('menu'),
+      '매장 스토리(창업 계기 등)': v('story'),
+      '참고 요청사항': v('notes'),
+      '촬영 콘텐츠 재사용 희망 여부': data.get('reuse') ? '희망함' : '희망하지 않음',
+    };
   }
 
   /* 광고/이벤트 문의 프리필 구조 (11번 요구사항)
@@ -782,7 +764,6 @@
      ======================================================= */
   const contactForm = document.getElementById('contactForm');
   const formStatus = document.getElementById('formStatus');
-  const hiddenIframe = document.getElementById('hiddenFormTarget');
 
   if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
@@ -795,17 +776,31 @@
         formStatus.className = 'form-status is-error';
         return;
       }
-      // 방식 B: 입력값이 프리필된 실제 구글폼을 새 탭으로 열어 최종 제출하게 한다.
-      const url = buildContactPrefillUrl(data);
-      const win = window.open(url, '_blank', 'noopener');
-      if (!win) {
-        // 팝업 차단 시 안내(직접 링크 제공)
-        formStatus.innerHTML = '팝업이 차단됐어요. <a href="' + url + '" target="_blank" rel="noopener" style="text-decoration:underline;font-weight:800;">여기를 눌러 구글폼에서 제출</a>해주세요.';
+      const btn = contactForm.querySelector('.form-submit');
+      const btnText = btn.textContent;
+      btn.disabled = true;
+      btn.classList.add('is-loading');
+      btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span> 전송 중...';
+      formStatus.textContent = '';
+      formStatus.className = 'form-status';
+
+      // 웹앱(Apps Script)에 직접 POST → 매장 문의 DB 시트에 행 추가. (no-cors: 응답 불투명)
+      fetch(CONTACT_WEBAPP, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify(buildContactPayload(data)),
+      }).then(() => {
+        formStatus.textContent = '매칭 신청이 접수되었어요. 맛집감별사가 곧 연락드릴게요!';
+        formStatus.className = 'form-status is-success';
+        contactForm.reset();
+      }).catch(() => {
+        formStatus.textContent = '전송 중 문제가 발생했어요. 잠시 후 다시 시도하거나 카카오톡으로 문의해주세요.';
         formStatus.className = 'form-status is-error';
-        return;
-      }
-      formStatus.textContent = '새 탭에 정보가 미리 채워진 신청서가 열렸어요. 내용을 확인하고 [제출]을 눌러주시면 접수 완료됩니다!';
-      formStatus.className = 'form-status is-success';
+      }).finally(() => {
+        btn.disabled = false;
+        btn.classList.remove('is-loading');
+        btn.textContent = btnText;
+      });
     });
   }
 

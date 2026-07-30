@@ -1061,6 +1061,9 @@ button { font-family: inherit; cursor: pointer; }
 .form-assure { text-align: center; font-size: 13.5px; font-weight: 800; color: var(--accent-deep); margin: 4px 0 12px; }
 .form-assure::before { content: "⏱ "; }
 .form-submit.is-ready { animation: submitPulse 1.7s ease-in-out infinite; }
+.form-submit.is-loading { animation: none; opacity: .85; cursor: progress; }
+.btn-spinner { display: inline-block; width: 15px; height: 15px; vertical-align: -2px; margin-right: 4px; border: 2px solid rgba(255,255,255,.45); border-top-color: #fff; border-radius: 50%; animation: btnSpin .7s linear infinite; }
+@keyframes btnSpin { to { transform: rotate(360deg); } }
 @keyframes submitPulse { 0%,100% { box-shadow: var(--shadow-pink); } 50% { box-shadow: 0 0 0 9px rgba(221,42,123,.16), var(--shadow-pink); } }
 
 /* [19] TCL 콘텐츠 강화 — SNS 배지 행 / 3줄 헤드라인 / 소셜 반응 애니메이션 */
