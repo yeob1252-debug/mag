@@ -255,7 +255,9 @@ button { font-family: inherit; cursor: pointer; }
   line-height: 1.7; margin-bottom: 34px;
 }
 /* 검색엔진용 보조 문장 — 시각적으로 튀지 않게 작게 */
-.hero-seo { font-size: 13px; font-weight: 600; color: var(--ink-faint); letter-spacing: -.01em; margin: -14px 0 26px; }
+.hero-seo { font-size: 13px; font-weight: 600; color: var(--ink-faint); letter-spacing: -.01em; margin: -14px 0 18px; }
+/* CTA 위 강조 문구 (서브헤드라인급) */
+.hero-cta-lead { font-size: clamp(1.5rem, 3.4vw, 1.75rem); font-weight: 700; line-height: 1.35; letter-spacing: -.01em; color: var(--ink); margin: 0 0 20px; }
 .hero-cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
 
 .hero-visual {
