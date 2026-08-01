@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <!-- index.html 과 동일한 :root 변수·폰트·색상·버튼을 재사용 -->
-<link rel="stylesheet" href="css/styles.css?v=21">
+<link rel="stylesheet" href="css/styles.css?v=29">
 <style>
   /* ===== 타이포그래피 시스템 (지정 수치) — 폰트/색상은 styles.css 토큰 ===== */
   .cc-label { display: inline-block; font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-deep); background: rgba(221,42,123,.1); padding: 6px 13px; border-radius: 999px; }
@@ -109,6 +109,15 @@
   .cc-curr-glow { margin-top: 22px; padding: 26px 28px; text-align: center; background: linear-gradient(160deg, rgba(221,42,123,.1), var(--white)); border: 2px solid var(--accent); border-radius: var(--radius-lg); font-size: clamp(1.1rem, 2.4vw, 1.4rem); font-weight: 800; color: var(--accent-deep); animation: ccGlow 2.4s ease-in-out infinite; }
   @keyframes ccGlow { 0%,100%{box-shadow: 0 0 0 0 rgba(221,42,123,0)} 50%{box-shadow: 0 0 0 9px rgba(221,42,123,.14)} }
   .cc-bonus { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; font-size: 13px; font-weight: 700; color: var(--accent-deep); background: rgba(246,185,59,.18); border: 1px solid rgba(246,185,59,.4); padding: 8px 14px; border-radius: 999px; }
+  /* 하루 완성 시간표 */
+  .cc-timetable { display: flex; flex-direction: column; gap: 10px; margin-top: 6px; }
+  .cc-tt-row { display: grid; grid-template-columns: 118px 1fr; gap: 16px; align-items: center; background: var(--white); border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius-md); padding: 15px 20px; box-shadow: var(--shadow-sm); }
+  .cc-tt-time { font-size: 15px; font-weight: 800; color: var(--accent-deep); letter-spacing: -.02em; white-space: nowrap; }
+  .cc-tt-body h3 { font-size: 15.5px; font-weight: 700; color: var(--ink); line-height: 1.4; margin: 0; }
+  .cc-tt-note { font-size: 13px; color: var(--ink-soft); font-weight: 600; margin-top: 3px; }
+  .cc-tt-badge { display: inline-block; margin-left: 6px; font-size: 11px; font-weight: 800; color: var(--accent-deep); background: rgba(221,42,123,.1); padding: 3px 9px; border-radius: 999px; vertical-align: middle; }
+  .cc-tt-field { border-left-color: var(--gold); background: linear-gradient(180deg, rgba(246,185,59,.12), var(--white)); }
+  @media (max-width: 520px) { .cc-tt-row { grid-template-columns: 1fr; gap: 4px; padding: 14px 16px; } }
 
   /* Hero 세로형 캐릭터 크기 제한 */
   .cc-hero-img-tall { max-width: 340px; }
@@ -150,6 +159,7 @@
   .cc-ins-career-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
   .cc-ins-career-list li { display: flex; align-items: flex-start; gap: 8px; font-size: 15.5px; font-weight: 500; color: #4a3a2c; line-height: 1.5; }
   .cc-ins-career-list .cc-ck { color: var(--accent); font-weight: 900; flex-shrink: 0; }
+  .cc-ins-career-list li b { color: #2a1a12; font-weight: 800; }
   .cc-ins p { font-size: 16px; color: var(--ink-soft); font-weight: 500; line-height: 1.8; }
   .cc-ins-badge { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .1em; color: #fff; background: var(--accent); padding: 5px 13px; border-radius: 999px; margin-bottom: 12px; }
   /* credential 8 카드(실사 3:2 + 아이콘 1:1 혼합) */
@@ -212,6 +222,9 @@
   .cc-pricing-meta { text-align: center; font-size: 15px; font-weight: 700; color: var(--ink-soft); margin-bottom: 30px; }
   .cc-pricing-meta b { color: var(--accent-deep); }
   .cc-price-grid { display: grid; grid-template-columns: 1fr; gap: 22px; }
+  .cc-price-solo { max-width: 460px; margin: 0 auto; }
+  .cc-price-vary { margin-top: 18px; padding: 16px 20px; background: rgba(246,185,59,.12); border: 1px solid rgba(246,185,59,.4); border-radius: var(--radius-md); font-size: 13.5px; font-weight: 600; color: var(--ink-soft); line-height: 1.6; text-align: left; }
+  .cc-price-vary b { color: var(--accent-deep); font-weight: 800; }
   .cc-price-card { position: relative; overflow: hidden; background: var(--white); border: 2px solid var(--line); border-radius: var(--radius-lg); padding: 40px 28px 32px; box-shadow: var(--shadow-sm); text-align: center; }
   .cc-price-card.is-featured { border-color: var(--accent); box-shadow: var(--shadow-md); }
   .cc-ribbon { position: absolute; top: 16px; right: -42px; transform: rotate(45deg); width: 170px; text-align: center; font-size: 12px; font-weight: 800; color: #fff; padding: 6px 0; box-shadow: var(--shadow-sm); }
@@ -362,34 +375,24 @@
   </div>
 </section>
 
-<!-- 5. 커리큘럼 (지그재그) -->
+<!-- 5. 커리큘럼 (하루 완성 시간표) -->
 <section class="cc-sec cc-curriculum">
   <div class="cc-sec-inner cc-narrow">
     <div class="cc-head">
       <span class="cc-label">CURRICULUM</span>
-      <h2 class="cc-h2">4회차 커리큘럼</h2>
+      <h2 class="cc-h2">하루 완성 시간표</h2>
+      <p class="cc-sub">점심시간 없이 연속 진행 — 오전 이론·기획부터 저녁 실전 매장 촬영·업로드까지 하루에 끝냅니다.</p>
     </div>
-    <div class="cc-curr-list">
-      <div class="cc-card cc-curr-card cc-reveal">
-        <div class="cc-curr-top"><span class="cc-curr-badge">1</span><img src="assets/images/curriculum-1-branding-scene-transparent.png" alt="브랜딩·계정 세팅 장면"></div>
-        <div class="cc-curr-body"><span class="cc-curr-round">1회차 · 줌 90분</span><h3>나만의 브랜딩 + 수익화 채널 만들기</h3><p>캐릭터·콘셉트 잡기, AI로 브랜딩하기, 계정 세팅까지 — 나만의 채널의 첫 단추를 끼웁니다.</p></div>
-      </div>
-      <div class="cc-card cc-curr-card cc-reveal">
-        <div class="cc-curr-top"><span class="cc-curr-badge">2</span><img src="assets/images/curriculum-2-ai-plan-scene-transparent.png" alt="AI로 기획하는 장면"></div>
-        <div class="cc-curr-body"><span class="cc-curr-round">2회차 · 줌 90분</span><h3>가기 전에 끝내는 기획</h3><p>클로드(AI)로 카테고리별 반응 좋은 영상을 분석해, 매장에 가기 전에 대본·콘티·체크리스트까지 끝냅니다. 도착하면 촬영만 하면 되는 상태예요.</p></div>
-      </div>
-      <div class="cc-card cc-curr-card cc-reveal">
-        <div class="cc-curr-top"><span class="cc-curr-badge">3</span><img src="assets/images/curriculum-3-editing-scene-transparent.png" alt="스마트폰 편집 장면"></div>
-        <div class="cc-curr-body"><span class="cc-curr-round">3회차 · 줌 90분</span><h3>캡컷으로 바로 편집하기</h3><p>스마트폰 하나로 어디서든 편집을 끝내는 법을 익혀요.</p></div>
-      </div>
-      <div class="cc-card cc-curr-card cc-reveal">
-        <div class="cc-curr-top"><span class="cc-curr-badge">4</span><img src="assets/images/curriculum-4-offline-scene-transparent.png" alt="대구 오프라인 실습 장면"></div>
-        <div class="cc-curr-body"><span class="cc-curr-round">4회차 · 오프라인</span><h3>대구 오프라인 모임 및 실전 매장 실습</h3><p>대구에서 직접 만나 실제 매장을 방문하고, 촬영·편집까지 현장에서 완성합니다.</p>
-          <span class="cc-bonus">🎁 보너스 · 수료 후 1개월간 단톡방 피드백</span></div>
-      </div>
+    <div class="cc-timetable">
+      <div class="cc-tt-row cc-reveal"><span class="cc-tt-time">10:00–11:30</span><div class="cc-tt-body"><h3>SNS 맛집채널 정의 + AI 브랜딩</h3></div></div>
+      <div class="cc-tt-row cc-reveal"><span class="cc-tt-time">11:30–13:00</span><div class="cc-tt-body"><h3>클로드 활용 촬영 컨셉·기획 수립</h3><p class="cc-tt-note">개인별 채널에 직접 대입</p></div></div>
+      <div class="cc-tt-row cc-reveal"><span class="cc-tt-time">13:00–14:30</span><div class="cc-tt-body"><h3>촬영기법</h3></div></div>
+      <div class="cc-tt-row cc-reveal"><span class="cc-tt-time">14:30–16:00</span><div class="cc-tt-body"><h3>편집방법</h3></div></div>
+      <div class="cc-tt-row cc-reveal"><span class="cc-tt-time">16:00–17:00</span><div class="cc-tt-body"><h3>업로드 방법 <span class="cc-tt-badge">SEO · 후킹</span></h3></div></div>
+      <div class="cc-tt-row cc-reveal"><span class="cc-tt-time">17:00–18:00</span><div class="cc-tt-body"><h3>이동 및 매장 준비</h3></div></div>
+      <div class="cc-tt-row cc-reveal cc-tt-field"><span class="cc-tt-time">18:00–20:00</span><div class="cc-tt-body"><h3>실제 매장 방문 촬영·편집·업로드 실습</h3><p class="cc-tt-note">배운 걸 그날 바로 실전에 — 첫 영상을 현장에서 완성해요</p></div></div>
     </div>
-    <div class="cc-curr-summary"><span class="cc-curr-ico" aria-hidden="true">🗓️</span><span><b>1~3회차</b> · 온라인 실시간 강의(ZOOM), 회차당 90분<br><b>4회차</b> · 대구 오프라인 매장 방문 및 촬영·업로드 실습</span></div>
-    <p class="cc-curr-glow">4회차가 끝나면, 첫 영상을 시작으로 수익화 계정의 주인이 됩니다</p>
+    <p class="cc-curr-glow">하루가 끝나면, 첫 영상을 시작으로 수익화 계정의 주인이 됩니다</p>
   </div>
 </section>
 
@@ -402,19 +405,21 @@
         <span class="cc-ins-badge">FOUNDER</span>
         <h3>와이비</h3>
         <p class="cc-ins-role">맛집감별사 대표</p>
-        <p class="cc-ins-intro"><b class="cc-hl">외식업 12년, 전국 30호점</b>을 직접 열었어요. 이론이 아니라 직접 부딪혀 만든 노하우를 그대로 전달합니다. 한식명장 장지녕 간장게장(한남동 최고 맛집) 매장도 함께 만들어왔어요.</p>
+        <p class="cc-ins-intro"><b class="cc-hl">외식업 12년, 4개 브랜드 전국 30호점 이상</b>을 직접 열었어요. 이론이 아니라 직접 부딪혀 만든 노하우를 그대로 전달합니다. 한식명장 장지녕 간장게장(한남동 최고 맛집) 매장도 함께 만들어왔어요.</p>
         <div class="cc-ins-career">
           <p class="cc-ins-career-title">주요 이력</p>
           <ul class="cc-ins-career-list">
-            <li><span class="cc-ck" aria-hidden="true">✓</span>대구 영남대학교 외식업경영MBA 특강 진행</li>
-            <li><span class="cc-ck" aria-hidden="true">✓</span>안동시 꿈이룸 소상공인교육센터 라이브커머스 교육 2년 진행</li>
-            <li><span class="cc-ck" aria-hidden="true">✓</span>현풍백년도깨비시장 상인역량강화교육 강사 (중소벤처기업부·소상공인시장진흥공단 주관)</li>
+            <li><span class="cc-ck" aria-hidden="true">✓</span><span>부산시 ‘가치가게’ 인증</span></li>
+            <li><span class="cc-ck" aria-hidden="true">✓</span><span><b>대구 영남대학교 외식업경영MBA 특강</b> — 음식점 메뉴를 SNS·스마트스토어로 전국 판매하는 방법을 이론+실무 검증 위주로 교육</span></li>
+            <li><span class="cc-ck" aria-hidden="true">✓</span><span><b>안동시 꿈이룸 소상공인교육센터</b> — 신시장·구시장 사장님 명의로 SNS 채널(틱톡·유튜브) 개설 및 그립 라이브커머스 입점까지 직접 교육</span></li>
+            <li><span class="cc-ck" aria-hidden="true">✓</span><span><b>현풍백년도깨비시장 상인역량강화교육</b> — 전통시장 음식도 온라인 판매가 가능하고 오히려 더 잘 팔릴 수 있다는 이론+실무 교육</span></li>
+            <li><span class="cc-ck" aria-hidden="true">✓</span><span>개인 매장 → 전국 프랜차이즈 오픈 경험 기반, <b>브랜딩·가맹사업·프랜차이즈 매뉴얼 컨설팅</b> 경험 다수</span></li>
           </ul>
         </div>
       </div>
     </div>
     <div class="cc-cred-grid">
-      <figure class="cc-cred-card cred-photo cc-reveal"><img src="assets/images/credential-restaurant.png" alt=""><figcaption>외식업 12년 · 전국 30호점 직접 오픈</figcaption></figure>
+      <figure class="cc-cred-card cred-photo cc-reveal"><img src="assets/images/credential-restaurant.png" alt=""><figcaption>외식업 12년 · 4개 브랜드 전국 30호점 이상 직접 오픈</figcaption></figure>
       <figure class="cc-cred-card cred-icon cc-reveal" style="transition-delay:.08s"><img src="assets/images/credential-smartstore.png" alt=""><figcaption>네이버 스마트스토어 [맛집감별사] 4개월 만에 빅파워 달성</figcaption></figure>
       <figure class="cc-cred-card cred-photo cc-reveal" style="transition-delay:.16s"><img src="assets/images/credential-mba.png" alt=""><figcaption>영남대학교 외식업경영MBA 특강 진행</figcaption></figure>
       <figure class="cc-cred-card cred-icon cc-reveal" style="transition-delay:.24s"><img src="assets/images/credential-andong.png" alt=""><figcaption>안동시 꿈이룸 소상공인교육센터 라이브커머스 교육 (2년째)</figcaption></figure>
@@ -506,31 +511,16 @@
       <h2 class="cc-h2">신청 정보</h2>
     </div>
     <p class="cc-pricing-meta"><span id="ccCohort2">맛간다 챌린지 1기</span> · 정원 <span class="cc-cap-total">10</span>명 · 모집중 <b>(<span class="cc-applied">4</span>/<span class="cc-cap-total">10</span>명)</b> · <b><span class="cc-closing-text">8월 중 첫 기수 오픈 예정</span></b></p>
-    <div class="cc-price-grid">
+    <div class="cc-price-solo">
       <div class="cc-price-card is-featured">
-        <span class="cc-ribbon cc-ribbon-early">1기 얼리버드</span>
-        <p class="cc-price-name">얼리버드</p>
-        <p class="cc-price-note">1기에게만 드리는 최저가</p>
-        <p class="cc-price-num">59만원</p>
-        <p class="cc-price-strike">정가 79만원</p>
+        <span class="cc-ribbon cc-ribbon-early">1기 한정</span>
+        <p class="cc-price-name">1기 한정가</p>
+        <p class="cc-price-note">하루 완성 전 과정 (오전 이론·기획 → 저녁 실전 매장 촬영·업로드)</p>
+        <p class="cc-price-num">10만원</p>
+        <p class="cc-price-strike">&nbsp;</p>
         <a class="cc-price-btn cc-apply" href="#" target="_blank" rel="noopener">맛간다 챌린지 1기 신청하기</a>
       </div>
-      <div class="cc-price-card">
-        <span class="cc-ribbon cc-ribbon-list">정가</span>
-        <p class="cc-price-name">정가</p>
-        <p class="cc-price-note">4회차 전 과정 + 보너스 피드백</p>
-        <p class="cc-price-num">79만원</p>
-        <p class="cc-price-strike">&nbsp;</p>
-        <a class="cc-price-btn cc-apply" href="#" target="_blank" rel="noopener">신청하기</a>
-      </div>
-      <div class="cc-price-card">
-        <span class="cc-ribbon cc-ribbon-prem">프리미엄</span>
-        <p class="cc-price-name">프리미엄</p>
-        <p class="cc-price-note">1:1 희망 매장 촬영 및 컨설팅 추가</p>
-        <p class="cc-price-num">99만원</p>
-        <p class="cc-price-strike">&nbsp;</p>
-        <a class="cc-price-btn cc-apply" href="#" target="_blank" rel="noopener">신청하기</a>
-      </div>
+      <p class="cc-price-vary">※ 금액은 상시 변동됩니다 — 기수 종료 후 실제 활동·수익 성과가 검증되면 다음 기수부터 인상될 예정이에요. <b>가장 저렴하게 시작할 수 있는 지금이 적기입니다.</b></p>
     </div>
   </div>
 </section>
@@ -581,7 +571,7 @@
   <a class="btn btn-primary cc-apply" href="#" target="_blank" rel="noopener">맛간다 챌린지 1기 신청하기</a>
 </div>
 
-<script src="js/config.js?v=21"></script>
+<script src="js/config.js?v=29"></script>
 <script>
 (function () {
   'use strict';

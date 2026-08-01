@@ -959,6 +959,11 @@ button { font-family: inherit; cursor: pointer; }
 
 /* FOR CREATORS 보조 한 줄 */
 .join-desc-sub { display: inline-block; margin-top: 10px; color: var(--gold); font-weight: 800; }
+/* FOR CREATORS 하단 보조 링크(메인 CTA보다 작게, 위계 낮게) */
+.join-secondary-link { display: inline-block; margin-top: 16px; font-size: 14px; font-weight: 600; color: rgba(255,255,255,.72); transition: color .2s; }
+.join-secondary-link b { color: #fff; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: rgba(255,255,255,.5); }
+.join-secondary-link:hover { color: #fff; }
+.join-secondary-link:hover b { text-decoration-color: #fff; }
 
 /* =========================================================
    RESPONSIVE
@@ -1076,6 +1081,8 @@ button { font-family: inherit; cursor: pointer; }
 .form-submit.is-loading { animation: none; opacity: .85; cursor: progress; }
 .btn-spinner { display: inline-block; width: 15px; height: 15px; vertical-align: -2px; margin-right: 4px; border: 2px solid rgba(255,255,255,.45); border-top-color: #fff; border-radius: 50%; animation: btnSpin .7s linear infinite; }
 @keyframes btnSpin { to { transform: rotate(360deg); } }
+.form-dashboard-link { display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; font-size: 14px; font-weight: 800; color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; }
+.form-dashboard-link:hover { color: var(--accent); }
 @keyframes submitPulse { 0%,100% { box-shadow: var(--shadow-pink); } 50% { box-shadow: 0 0 0 9px rgba(221,42,123,.16), var(--shadow-pink); } }
 
 /* [19] TCL 콘텐츠 강화 — SNS 배지 행 / 3줄 헤드라인 / 소셜 반응 애니메이션 */

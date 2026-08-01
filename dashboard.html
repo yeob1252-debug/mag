@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>내 매칭 현황 | 맛집감별사</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" href="assets/images/logo.png">
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<!-- index.html 과 동일한 디자인 시스템 재사용 -->
+<link rel="stylesheet" href="css/styles.css?v=29">
+<style>
+  /* ===== dashboard 전용 (색상/폰트/토큰은 styles.css 재사용) ===== */
+  .dash-wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+  .dash-sec { padding: 40px 0; }
+  .dash-header { position: sticky; top: 0; z-index: 90; display: flex; align-items: center; justify-content: space-between; padding: 12px 22px; background: rgba(255,248,231,.92); backdrop-filter: blur(10px); box-shadow: var(--shadow-sm); }
+  .dash-back { font-size: 14px; font-weight: 700; color: var(--ink-soft); }
+  .dash-back:hover { color: var(--accent); }
+
+  /* 로그인(조회) 카드 */
+  .dash-login { min-height: 72vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+  .dash-login-card { width: 100%; max-width: 440px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 40px 32px; text-align: center; }
+  .dash-login-emoji { font-size: 40px; }
+  .dash-login-card h1 { font-size: clamp(1.5rem, 4vw, 1.9rem); font-weight: 900; letter-spacing: -.02em; margin: 12px 0 8px; }
+  .dash-login-card p { font-size: 14.5px; color: var(--ink-soft); font-weight: 500; line-height: 1.6; margin-bottom: 24px; }
+  .dash-field { text-align: left; }
+  .dash-field label { display: block; font-size: 13px; font-weight: 800; color: var(--ink-soft); margin-bottom: 8px; }
+  .dash-field input { width: 100%; border: 2px solid var(--line-strong); border-radius: var(--radius-sm); padding: 14px 15px; font-size: 16px; font-family: inherit; color: var(--ink); background: var(--bg); transition: border-color .2s; }
+  .dash-field input:focus { outline: none; border-color: var(--accent); }
+  .dash-login-btn { width: 100%; margin-top: 16px; }
+  .dash-login-hint { font-size: 12px; color: var(--ink-faint); margin-top: 14px; }
+  .dash-msg { margin-top: 16px; font-size: 14px; font-weight: 700; min-height: 20px; }
+  .dash-msg.is-error { color: #d23; }
+
+  /* 요약 히어로 */
+  .dash-summary { background: linear-gradient(135deg, #2A2320 0%, #3A2233 100%); color: #fff; border-radius: var(--radius-lg); padding: 36px 30px; box-shadow: var(--shadow-lg); text-align: center; }
+  .dash-store { font-size: 14px; font-weight: 700; color: rgba(255,255,255,.75); }
+  .dash-bignum { font-size: clamp(3rem, 11vw, 4.6rem); font-weight: 900; line-height: 1.05; letter-spacing: -.03em; background: var(--ig-grad); -webkit-background-clip: text; background-clip: text; color: transparent; margin: 4px 0; }
+  .dash-bignum-label { font-size: 15px; font-weight: 700; color: rgba(255,255,255,.85); }
+
+  /* 마일스톤 진행률 */
+  .dash-milestone { margin-top: 28px; }
+  .dash-ms-track { position: relative; height: 14px; border-radius: 999px; background: rgba(255,255,255,.14); overflow: visible; }
+  .dash-ms-fill { height: 100%; border-radius: 999px; background: var(--ig-grad); width: 0; transition: width 1.1s var(--ease); }
+  .dash-ms-marks { position: relative; margin-top: 10px; height: 18px; }
+  .dash-ms-mark { position: absolute; transform: translateX(-50%); font-size: 12px; font-weight: 800; color: rgba(255,255,255,.7); }
+  .dash-ms-mark.is-reached { color: var(--gold); }
+  .dash-ms-cta { margin-top: 20px; font-size: clamp(1.05rem, 2.4vw, 1.3rem); font-weight: 800; color: #fff; }
+  .dash-ms-cta b { color: var(--gold); }
+
+  /* 배지 */
+  .dash-badges { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+  .dash-badge { border-radius: var(--radius-md); padding: 18px 16px; text-align: center; border: 1.5px solid rgba(255,255,255,.16); background: rgba(255,255,255,.05); transition: transform .2s; }
+  .dash-badge .db-ico { font-size: 30px; filter: grayscale(1) opacity(.5); }
+  .dash-badge .db-name { display: block; margin-top: 6px; font-size: 14px; font-weight: 800; color: rgba(255,255,255,.6); }
+  .dash-badge .db-cond { display: block; margin-top: 2px; font-size: 11.5px; font-weight: 600; color: rgba(255,255,255,.4); }
+  .dash-badge.is-unlocked { border-color: var(--gold); background: rgba(246,185,59,.14); box-shadow: 0 8px 22px rgba(246,185,59,.16); }
+  .dash-badge.is-unlocked .db-ico { filter: none; }
+  .dash-badge.is-unlocked .db-name { color: #fff; }
+  .dash-badge.is-unlocked .db-cond { color: var(--gold); }
+  .dash-badge .db-lock { display: block; margin-top: 6px; font-size: 11px; font-weight: 700; color: rgba(255,255,255,.5); }
+  .dash-badge.is-unlocked .db-lock { color: var(--gold); }
+
+  /* 진행 카드 리스트 */
+  .dash-section-title { font-size: clamp(1.3rem, 3vw, 1.6rem); font-weight: 800; letter-spacing: -.01em; margin-bottom: 18px; }
+  .dash-cards { display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .dash-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 22px; }
+  .dc-top { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .dc-inf { display: flex; align-items: center; gap: 12px; text-decoration: none; color: inherit; flex: 1; min-width: 0; border-radius: var(--radius-md); padding: 6px; margin: -6px; transition: background .2s; }
+  a.dc-inf:hover { background: rgba(221,42,123,.06); }
+  .dc-avatar { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 2px solid var(--white); box-shadow: var(--shadow-sm); background: var(--bg-warm); }
+  .dc-inf-name { font-size: 16px; font-weight: 800; display: inline-flex; align-items: center; gap: 5px; }
+  .dc-arrow { font-size: 14px; color: var(--accent); }
+  .dc-inf-meta { font-size: 12.5px; color: var(--ink-faint); font-weight: 600; margin-top: 2px; }
+  .dc-inf-nolink { font-size: 12px; color: var(--ink-faint); font-weight: 600; margin-top: 3px; opacity: .8; }
+  .dc-status { flex-shrink: 0; }
+  .dc-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 999px; }
+  .dc-badge.done { color: #12864b; background: #E4F7ED; }
+  .dc-badge.pending { color: var(--accent-deep); background: rgba(221,42,123,.1); }
+  .dc-badge.matched { color: #1d6fd0; background: #e6f0fd; }
+  .dc-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 18px; border-top: 1px dashed var(--line); padding-top: 16px; }
+  .dc-row .k { font-size: 11.5px; color: var(--ink-faint); font-weight: 700; }
+  .dc-row .v { font-size: 14.5px; color: var(--ink); font-weight: 700; margin-top: 2px; }
+
+  /* 통계 */
+  .dash-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .dash-stat-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); padding: 24px 18px; text-align: center; }
+  .dash-stat-n { display: block; font-size: clamp(2rem, 7vw, 2.7rem); font-weight: 900; letter-spacing: -.02em; background: var(--ig-grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .dash-stat-l { display: block; margin-top: 8px; font-size: 13px; font-weight: 600; color: var(--ink-soft); line-height: 1.5; }
+  .dash-stat-s { display: block; margin-top: 5px; font-size: 11px; color: var(--ink-faint); }
+
+  @media (min-width: 720px) {
+    .dash-cards { grid-template-columns: 1fr; }
+    .dash-stat-grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  @media (max-width: 460px) {
+    .dc-rows { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="dash-header">
+  <a href="index.html" class="brand" style="text-decoration:none">
+    <img class="brand-mark" src="assets/images/logo-cutout.png" alt="맛집감별사 로고">
+    <span class="brand-name" style="color:var(--ink)">맛집감별사</span>
+  </a>
+  <a href="index.html" class="dash-back">← 홈으로</a>
+</header>
+
+<main>
+  <!-- 1. 로그인(조회) 화면 -->
+  <section class="dash-login" id="loginView">
+    <div class="dash-login-card">
+      <div class="dash-login-emoji" aria-hidden="true">📊</div>
+      <h1>내 매칭 현황 조회하기</h1>
+      <p>문의하실 때 남기신 <b>연락처</b>로 조회하시면<br>매칭 진행 상황을 한눈에 확인하실 수 있어요.</p>
+      <form id="lookupForm" novalidate>
+        <div class="dash-field">
+          <label for="phoneInput">연락처</label>
+          <input type="tel" id="phoneInput" name="phone" placeholder="예) 010-1234-5678" autocomplete="tel" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-large dash-login-btn" id="lookupBtn">내 매칭 현황 보기</button>
+        <p class="dash-login-hint">문의 시 입력하신 연락처와 동일하게 입력해주세요.</p>
+        <p class="dash-msg" id="lookupMsg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- 2. 대시보드 (조회 성공 시 표시) -->
+  <div id="dashboardView" hidden>
+    <!-- 요약 -->
+    <section class="dash-sec">
+      <div class="dash-wrap">
+        <div class="dash-summary">
+          <p class="dash-store" id="dashStore"></p>
+          <div class="dash-bignum count-up" id="dashCount" data-target="0">0회</div>
+          <p class="dash-bignum-label">지금까지 진행한 매칭</p>
+
+          <div class="dash-milestone">
+            <div class="dash-ms-track"><div class="dash-ms-fill" id="dashMsFill"></div></div>
+            <div class="dash-ms-marks">
+              <span class="dash-ms-mark" id="mark3" style="left:60%">🏅 3회</span>
+              <span class="dash-ms-mark" id="mark5" style="left:100%">🎟️ 5회</span>
+            </div>
+            <p class="dash-ms-cta" id="dashMsCta"></p>
+          </div>
+
+          <div class="dash-badges">
+            <div class="dash-badge" id="badge3">
+              <span class="db-ico" aria-hidden="true">🏅</span>
+              <span class="db-name">단골 사장님</span>
+              <span class="db-cond">매칭 3회 달성</span>
+              <span class="db-lock" id="badge3lock">🔒 잠김</span>
+            </div>
+            <div class="dash-badge" id="badge5">
+              <span class="db-ico" aria-hidden="true">🎟️</span>
+              <span class="db-name">우선노출권</span>
+              <span class="db-cond">매칭 5회 달성</span>
+              <span class="db-lock" id="badge5lock">🔒 잠김</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 진행 카드 리스트 -->
+    <section class="dash-sec" style="padding-top:8px">
+      <div class="dash-wrap">
+        <h2 class="dash-section-title">진행 내역</h2>
+        <div class="dash-cards" id="dashCards"></div>
+      </div>
+    </section>
+
+    <!-- 광고 효과 통계 -->
+    <section class="dash-sec">
+      <div class="dash-wrap">
+        <h2 class="dash-section-title">광고 효과, 이 정도는 기대할 수 있어요</h2>
+        <div class="dash-stat-grid">
+          <div class="dash-stat-card"><span class="dash-stat-n">9.9%</span><span class="dash-stat-l">소셜 적극 활용 시 평균 매출 증가</span><span class="dash-stat-s">활용도별 매출 분석</span></div>
+          <div class="dash-stat-card"><span class="dash-stat-n">14.1%</span><span class="dash-stat-l">소셜을 핵심 전략으로 쓸 때 매출 증가</span><span class="dash-stat-s">활용도별 매출 분석</span></div>
+          <div class="dash-stat-card"><span class="dash-stat-n">8배</span><span class="dash-stat-l">동네 맛집 크리에이터 캠페인 평균 광고 효과(ROI)</span><span class="dash-stat-s">지역 캠페인 성과 조사</span></div>
+          <div class="dash-stat-card"><span class="dash-stat-n">30%</span><span class="dash-stat-l">게시 후 일주일 안 예약 증가</span><span class="dash-stat-s">로컬 콘텐츠 예약 전환</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner container">
+    <p class="footer-tagline">팔로워 숫자 말고, 손님을 데려오는 채널만 감별합니다.</p>
+    <p class="footer-copy" style="margin-top:14px">© <span id="year"></span> 맛집감별사</p>
+  </div>
+</footer>
+
+<script src="js/config.js?v=29"></script>
+<script>
+(function () {
+  var ENV = window.MAG_ENV || {};
+  // 모든 API와 동일한 웹앱 배포주소 사용(?type 제거한 /exec 베이스)
+  var EXEC = (ENV.influencersApi || '').split('?')[0]
+    || 'https://script.google.com/macros/s/AKfycbzz3dd4gFiqCDpjo9R5sph6uczf_NcLEwtEwYgbNwuio6L_4K1K4Lyj8F17FLPOyMdi1A/exec';
+
+  var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
+
+  // 헤더명이 조금씩 달라도 견디도록 여러 후보로 조회
+  function pick(obj, keys) {
+    for (var i = 0; i < keys.length; i++) {
+      if (obj[keys[i]] != null && String(obj[keys[i]]).trim() !== '') return String(obj[keys[i]]).trim();
+    }
+    return '';
+  }
+  function esc(s) { return String(s == null ? '' : s).replace(/[<>&"]/g, function (c) { return { '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]; }); }
+  function initialAvatar(name) {
+    var ch = (String(name || '?').trim()[0] || '?');
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" width="52" height="52"><rect width="52" height="52" rx="26" fill="#F6B93B"/><text x="26" y="34" font-size="22" font-family="Pretendard, sans-serif" font-weight="800" fill="#fff" text-anchor="middle">' + ch + '</text></svg>';
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  }
+  function isDone(v) { return /완료|done|y|o|true|1|✅/i.test(String(v || '').trim()) && !/예정|안|미|no/i.test(String(v || '')); }
+
+  var loginView = document.getElementById('loginView');
+  var dashView = document.getElementById('dashboardView');
+  var form = document.getElementById('lookupForm');
+  var msg = document.getElementById('lookupMsg');
+  var btn = document.getElementById('lookupBtn');
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var phone = document.getElementById('phoneInput').value.trim();
+    if (!phone) { msg.textContent = '연락처를 입력해주세요.'; msg.className = 'dash-msg is-error'; return; }
+    var btnText = btn.textContent;
+    btn.disabled = true; btn.classList.add('is-loading');
+    btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span> 조회 중...';
+    msg.textContent = ''; msg.className = 'dash-msg';
+
+    fetch(EXEC + '?type=dashboard&phone=' + encodeURIComponent(phone))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        var records = (data && data.records) || [];
+        if (!records.length) {
+          msg.textContent = '해당 연락처로 접수된 매칭 내역이 없어요. 문의 시 입력한 번호와 동일한지 확인해주세요.';
+          msg.className = 'dash-msg is-error';
+          return;
+        }
+        render(data);
+      })
+      .catch(function (err) {
+        console.warn('[dashboard] 조회 실패', err);
+        msg.textContent = '조회 중 문제가 발생했어요. 잠시 후 다시 시도해주세요.';
+        msg.className = 'dash-msg is-error';
+      })
+      .finally(function () {
+        btn.disabled = false; btn.classList.remove('is-loading'); btn.textContent = btnText;
+      });
+  });
+
+  function render(data) {
+    var records = data.records || [];
+    var completed = Number(data.completedCount) || 0;
+    var total = records.length;
+
+    // 매장명(첫 레코드 기준)
+    var store = pick(records[0], ['매장명', '상호', '가게명']);
+    document.getElementById('dashStore').textContent = store ? (store + ' 사장님') : '내 매칭 현황';
+
+    // 큰 숫자(카운트업 대상은 total)
+    document.getElementById('dashCount').dataset.target = total;
+
+    // 마일스톤(매칭완료 기준, 최대 5)
+    var pct = Math.min(100, (completed / 5) * 100);
+    // fill 은 카운트업 이후에 채우기 위해 값만 저장
+    document.getElementById('dashMsFill').dataset.pct = pct;
+    document.getElementById('mark3').classList.toggle('is-reached', completed >= 3);
+    document.getElementById('mark5').classList.toggle('is-reached', completed >= 5);
+
+    var cta = document.getElementById('dashMsCta');
+    if (completed >= 5) cta.innerHTML = '🎉 <b>우선노출권</b>까지 달성! 다음 이벤트에 우선 노출해 드려요.';
+    else if (completed >= 3) cta.innerHTML = '<b>' + (5 - completed) + '회</b>만 더 하면 <b>우선노출권</b>이 열려요!';
+    else cta.innerHTML = '<b>' + (3 - completed) + '회</b>만 더 하면 <b>단골 사장님 배지</b>가 열려요!';
+
+    // 배지 잠금/열림
+    setBadge('badge3', completed >= 3);
+    setBadge('badge5', completed >= 5);
+
+    // 진행 카드
+    document.getElementById('dashCards').innerHTML = records.map(cardHtml).join('');
+
+    // 화면 전환 + 카운트업/바 애니메이션 시작
+    loginView.hidden = true;
+    dashView.hidden = false;
+    window.scrollTo(0, 0);
+    startAnimations();
+  }
+
+  function setBadge(id, unlocked) {
+    var el = document.getElementById(id);
+    el.classList.toggle('is-unlocked', unlocked);
+    el.querySelector('.db-lock').textContent = unlocked ? '✓ 달성' : '🔒 잠김';
+  }
+
+  function cardHtml(rec) {
+    var applied = pick(rec, ['Timestamp', '타임스탬프', '신청일', '접수일']);
+    if (applied) applied = applied.split(' ')[0].replace('T', ' ');
+    var amount = pick(rec, ['금액', '광고비', '견적금액', '견적', '비용']);
+    var infName = pick(rec, ['매칭 인플루언서', '매칭인플루언서', '인플루언서', '매칭채널', '매칭 채널명', '채널명']);
+    var infMeta = pick(rec, ['인플루언서정보', '채널정보', '플랫폼']);
+    var shootDate = pick(rec, ['촬영예정일', '촬영일', '촬영 예정일']);
+    var uploaded = pick(rec, ['업로드완료여부', '업로드완료', '업로드', '업로드여부']);
+    var channelUrl = pick(rec, ['매칭채널URL', '매칭채널url', '채널URL', '채널링크', '매칭채널링크']);
+    var status = pick(rec, ['매칭상태', '상태']);
+
+    var uploadBadge = uploaded
+      ? (isDone(uploaded)
+          ? '<span class="dc-badge done">✅ 업로드 완료</span>'
+          : '<span class="dc-badge pending">🗓️ 업로드 예정</span>')
+      : (status === '매칭완료'
+          ? '<span class="dc-badge matched">🤝 매칭 완료</span>'
+          : '<span class="dc-badge pending">진행 중</span>');
+
+    var avatar = pick(rec, ['프로필사진', '인플루언서사진', '프로필이미지']) || initialAvatar(infName);
+    var nameLabel = infName || '매칭 진행 중';
+
+    var infInner =
+      '<img class="dc-avatar" src="' + esc(avatar) + '" alt="" onerror="this.onerror=null;this.src=\'' + initialAvatar(infName).replace(/'/g, '%27') + '\'">' +
+      '<div style="min-width:0">' +
+      '<div class="dc-inf-name">' + esc(nameLabel) + (channelUrl ? ' <span class="dc-arrow" aria-hidden="true">↗</span>' : '') + '</div>' +
+      (infMeta ? '<div class="dc-inf-meta">' + esc(infMeta) + '</div>' : '') +
+      (channelUrl ? '' : '<div class="dc-inf-nolink">링크 준비 중</div>') +
+      '</div>';
+
+    var infBlock = channelUrl
+      ? '<a class="dc-inf" href="' + esc(channelUrl) + '" target="_blank" rel="noopener">' + infInner + '</a>'
+      : '<div class="dc-inf">' + infInner + '</div>';
+
+    var rows = [
+      ['신청일', applied || '—'],
+      ['금액', amount || '협의 중'],
+      ['촬영 예정일', shootDate || '조율 중'],
+      ['매칭 상태', status || '접수됨'],
+    ].map(function (kv) {
+      return '<div class="dc-row"><div class="k">' + kv[0] + '</div><div class="v">' + esc(kv[1]) + '</div></div>';
+    }).join('');
+
+    return '<div class="dash-card">' +
+      '<div class="dc-top">' + infBlock + '<div class="dc-status">' + uploadBadge + '</div></div>' +
+      '<div class="dc-rows">' + rows + '</div>' +
+      '</div>';
+  }
+
+  // 카운트업(스크롤/표시 시) — 지시문 제공 코드 + rAF 억제 대비 안전장치
+  function startAnimations() {
+    var counters = document.querySelectorAll('.count-up');
+    if (!('IntersectionObserver' in window)) {
+      counters.forEach(function (el) { el.textContent = parseInt(el.dataset.target || '0', 10) + '회'; });
+      fillBar();
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var el = entry.target;
+          var target = parseInt(el.dataset.target || '0', 10);
+          var current = 0;
+          var step = Math.max(1, Math.ceil(target / 30));
+          var timer = setInterval(function () {
+            current += step;
+            if (current >= target) { current = target; clearInterval(timer); }
+            el.textContent = current + '회';
+          }, 30);
+          // 안전장치: 프레임/타이머 억제 환경에서도 최종값 보장
+          setTimeout(function () { el.textContent = target + '회'; }, 1400);
+          observer.unobserve(el);
+        }
+      });
+    }, { threshold: 0.3 });
+    counters.forEach(function (c) { observer.observe(c); });
+    // 안전장치: IntersectionObserver 가 발화하지 않는 환경에서도 최종값 보장
+    // (요약은 렌더 직후 최상단에 바로 보이므로 애니메이션 완료 후 값을 확정)
+    setTimeout(function () {
+      counters.forEach(function (el) { el.textContent = (parseInt(el.dataset.target || '0', 10)) + '회'; });
+    }, 1500);
+    // 요약이 최상단이라 바로 보이므로 바도 채움
+    requestAnimationFrame(fillBar);
+    setTimeout(fillBar, 200);
+  }
+  function fillBar() {
+    var f = document.getElementById('dashMsFill');
+    if (f) f.style.width = (f.dataset.pct || 0) + '%';
+  }
+})();
+</script>
+</body>
+</html>

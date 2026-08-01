@@ -792,7 +792,7 @@
         mode: 'no-cors',
         body: JSON.stringify(buildContactPayload(data)),
       }).then(() => {
-        formStatus.textContent = '매칭 신청이 접수되었어요. 맛집감별사가 곧 연락드릴게요!';
+        formStatus.innerHTML = '매칭 신청이 접수되었어요. 맛집감별사가 곧 연락드릴게요!<br><a class="form-dashboard-link" href="dashboard.html">📊 내 매칭 현황 보기 <span aria-hidden="true">→</span></a>';
         formStatus.className = 'form-status is-success';
         contactForm.reset();
       }).catch(() => {
