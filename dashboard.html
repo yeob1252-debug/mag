@@ -139,7 +139,7 @@
         <div class="dash-summary">
           <p class="dash-store" id="dashStore"></p>
           <div class="dash-bignum count-up" id="dashCount" data-target="0">0회</div>
-          <p class="dash-bignum-label">지금까지 진행한 매칭</p>
+          <p class="dash-bignum-label">지금까지 완료된 매칭</p>
 
           <div class="dash-milestone">
             <div class="dash-ms-track"><div class="dash-ms-fill" id="dashMsFill"></div></div>
@@ -198,13 +198,10 @@
   </div>
 </footer>
 
-<script src="js/config.js?v=29"></script>
 <script>
 (function () {
-  var ENV = window.MAG_ENV || {};
-  // 모든 API와 동일한 웹앱 배포주소 사용(?type 제거한 /exec 베이스)
-  var EXEC = (ENV.influencersApi || '').split('?')[0]
-    || 'https://script.google.com/macros/s/AKfycbzz3dd4gFiqCDpjo9R5sph6uczf_NcLEwtEwYgbNwuio6L_4K1K4Lyj8F17FLPOyMdi1A/exec';
+  // 대시보드 전용 웹앱 배포주소(doGet ?type=dashboard&phone=)
+  var EXEC = 'https://script.google.com/macros/s/AKfycbzFuGa05cgUSw6IRr_TKq88Nz1hBBsyeWXTT2kSSDXV0JzMdbno3YGdYaxeyPAMn5Fgow/exec';
 
   var y = document.getElementById('year'); if (y) y.textContent = new Date().getFullYear();
 
@@ -238,8 +235,7 @@
     btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span> 조회 중...';
     msg.textContent = ''; msg.className = 'dash-msg';
 
-    fetch(EXEC + '?type=dashboard&phone=' + encodeURIComponent(phone))
-      .then(function (r) { return r.json(); })
+    fetchDashboard(phone, 0)
       .then(function (data) {
         var records = (data && data.records) || [];
         if (!records.length) {
@@ -259,17 +255,32 @@
       });
   });
 
+  // Apps Script 응답이 간헐적으로 HTML(리다이렉트 인터스티셜)로 오므로 JSON 파싱 실패 시 재시도
+  function fetchDashboard(phone, attempt) {
+    return fetch(EXEC + '?type=dashboard&phone=' + encodeURIComponent(phone), { redirect: 'follow' })
+      .then(function (r) { return r.text(); })
+      .then(function (t) {
+        try { return JSON.parse(t); }
+        catch (e) {
+          if (attempt < 2) {
+            return new Promise(function (res) { setTimeout(res, 700); })
+              .then(function () { return fetchDashboard(phone, attempt + 1); });
+          }
+          throw new Error('non-json response');
+        }
+      });
+  }
+
   function render(data) {
     var records = data.records || [];
     var completed = Number(data.completedCount) || 0;
-    var total = records.length;
 
     // 매장명(첫 레코드 기준)
     var store = pick(records[0], ['매장명', '상호', '가게명']);
     document.getElementById('dashStore').textContent = store ? (store + ' 사장님') : '내 매칭 현황';
 
-    // 큰 숫자(카운트업 대상은 total)
-    document.getElementById('dashCount').dataset.target = total;
+    // 큰 숫자(카운트업 대상 = completedCount)
+    document.getElementById('dashCount').dataset.target = completed;
 
     // 마일스톤(매칭완료 기준, 최대 5)
     var pct = Math.min(100, (completed / 5) * 100);
@@ -305,13 +316,13 @@
 
   function cardHtml(rec) {
     var applied = pick(rec, ['Timestamp', '타임스탬프', '신청일', '접수일']);
-    if (applied) applied = applied.split(' ')[0].replace('T', ' ');
-    var amount = pick(rec, ['금액', '광고비', '견적금액', '견적', '비용']);
-    var infName = pick(rec, ['매칭 인플루언서', '매칭인플루언서', '인플루언서', '매칭채널', '매칭 채널명', '채널명']);
+    if (applied) applied = applied.split('T')[0].split(' ')[0];  // 날짜만(YYYY-MM-DD)
+    var amount = pick(rec, ['희망 가격대', '금액', '광고비', '견적']);
+    var infName = pick(rec, ['관심 채널명(있다면 자동 입력됨, 없으면 비워두셔도 됩니다)', '매칭 인플루언서', '인플루언서', '채널명']);
     var infMeta = pick(rec, ['인플루언서정보', '채널정보', '플랫폼']);
-    var shootDate = pick(rec, ['촬영예정일', '촬영일', '촬영 예정일']);
-    var uploaded = pick(rec, ['업로드완료여부', '업로드완료', '업로드', '업로드여부']);
-    var channelUrl = pick(rec, ['매칭채널URL', '매칭채널url', '채널URL', '채널링크', '매칭채널링크']);
+    var shootDate = pick(rec, ['촬영예정일', '촬영일']);
+    var uploaded = pick(rec, ['업로드완료여부', '업로드완료', '업로드']);
+    var channelUrl = pick(rec, ['매칭채널URL', '채널URL', '채널링크']);
     var status = pick(rec, ['매칭상태', '상태']);
 
     var uploadBadge = uploaded
