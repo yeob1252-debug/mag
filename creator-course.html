@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <!-- index.html 과 동일한 :root 변수·폰트·색상·버튼을 재사용 -->
-<link rel="stylesheet" href="css/styles.css?v=30">
+<link rel="stylesheet" href="css/styles.css?v=31">
 <style>
   /* ===== 타이포그래피 시스템 (지정 수치) — 폰트/색상은 styles.css 토큰 ===== */
   .cc-label { display: inline-block; font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-deep); background: rgba(221,42,123,.1); padding: 6px 13px; border-radius: 999px; }
@@ -109,27 +109,27 @@
   .cc-curr-glow { margin-top: 22px; padding: 26px 28px; text-align: center; background: linear-gradient(160deg, rgba(221,42,123,.1), var(--white)); border: 2px solid var(--accent); border-radius: var(--radius-lg); font-size: clamp(1.1rem, 2.4vw, 1.4rem); font-weight: 800; color: var(--accent-deep); animation: ccGlow 2.4s ease-in-out infinite; }
   @keyframes ccGlow { 0%,100%{box-shadow: 0 0 0 0 rgba(221,42,123,0)} 50%{box-shadow: 0 0 0 9px rgba(221,42,123,.14)} }
   .cc-bonus { display: inline-flex; align-items: center; gap: 7px; margin-top: 16px; font-size: 13px; font-weight: 700; color: var(--accent-deep); background: rgba(246,185,59,.18); border: 1px solid rgba(246,185,59,.4); padding: 8px 14px; border-radius: 999px; }
-  /* 후킹 카피(Hero 다음) — 스크롤 진입 순차 등장(stagger) */
-  .cc-hook .hook-line { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
-  .cc-hook .hook-line:last-child { margin-bottom: 0; }
-  .cc-hook .hook-line.visible { opacity: 1; transform: translateY(0); }
-  .cc-hook .hook-ico { font-size: 24px; flex-shrink: 0; line-height: 1; }
-  .cc-hook .hook-txt { font-size: 22px; font-weight: 700; color: #2a1a12; line-height: 1.4; }
-
-  /* 하루 완성 시간표 카드(확대형) */
-  .cc-schedule-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 6px; }
-  .schedule-card { min-height: 220px; padding: 24px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; opacity: 0; transition: opacity 0.6s ease, transform 0.25s ease, box-shadow 0.25s ease; }
-  .schedule-card.visible { opacity: 1; }
-  .schedule-card:hover { transform: translateY(-6px); box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
-  .schedule-card .sc-time { font-size: 15px; font-weight: 600; color: #F5576C; letter-spacing: -.01em; }
-  .schedule-card .sc-title { font-size: 20px; font-weight: 700; color: #2a1a12; line-height: 1.3; margin: 10px 0 12px; }
-  .schedule-card .sc-desc { font-size: 15px; font-weight: 400; color: #4a3a2c; line-height: 1.6; }
-  .schedule-card-field { border-color: rgba(245,87,108,.5); background: linear-gradient(180deg, rgba(245,87,108,.06), var(--white)); }
-  @media (max-width: 768px) {
-    .cc-hook .hook-txt { font-size: 18px; }
-    .cc-schedule-grid { grid-template-columns: 1fr; }   /* 모바일 세로 1열 */
+  /* 원데이 스파르타 커리큘럼 — 가로형 1줄 행 카드 */
+  .cc-schedule-title { font-size: 30px; font-weight: 800; color: #2a1a12; letter-spacing: -.02em; line-height: 1.3; margin: 14px 0 12px; }
+  .cc-schedule-list { margin-top: 6px; }
+  .schedule-row {
+    display: flex; align-items: center; gap: 20px;
+    background: #FFFFFF; border-radius: 16px; padding: 20px 24px; margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-left: 6px solid #F5576C;
+    opacity: 0; transform: translateX(-16px); transition: opacity 0.5s ease, transform 0.5s ease;
   }
-  @media (min-width: 769px) { .cc-schedule-grid { grid-template-columns: 1fr 1fr; } }
+  .schedule-row.visible { opacity: 1; transform: translateX(0); }
+  .schedule-row .time-badge {
+    flex: 0 0 130px; font-size: 15px; font-weight: 700; color: #FFFFFF;
+    background: linear-gradient(135deg, #FF6B4A, #F5576C); padding: 10px 12px; border-radius: 10px; text-align: center;
+  }
+  .schedule-row .content h4 { font-size: 19px; font-weight: 700; color: #2a1a12; margin-bottom: 4px; }
+  .schedule-row .content p { font-size: 14px; font-weight: 400; color: #6a5a4c; line-height: 1.5; }
+  @media (max-width: 768px) {
+    .cc-schedule-title { font-size: 22px; }
+    .schedule-row { flex-direction: column; align-items: flex-start; }
+    .schedule-row .time-badge { margin-bottom: 8px; }
+  }
 
   /* Hero 세로형 캐릭터 크기 제한 */
   .cc-hero-img-tall { max-width: 340px; }
@@ -246,10 +246,14 @@
   .cc-price-name { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
   .cc-price-note { font-size: 13px; color: var(--ink-faint); font-weight: 600; margin-bottom: 14px; min-height: 34px; }
   .cc-price-num { font-size: 32px; font-weight: 900; letter-spacing: -.02em; margin-bottom: 4px; }
-  .cc-price-orig { font-size: 24px; font-weight: 700; color: #9B8D7D; text-decoration: line-through; margin-bottom: 2px; }
-  .cc-price-special { font-size: 56px; font-weight: 900; color: #F5576C; letter-spacing: -.02em; line-height: 1.05; margin-bottom: 6px; }
-  .cc-price-later { font-size: 14px; font-weight: 400; color: #8a7a6c; margin-bottom: 18px; }
-  @media (max-width: 768px) { .cc-price-special { font-size: 40px; } }
+  .cc-price-orig { font-size: 22px; font-weight: 600; color: #9B8D7D; text-decoration: line-through; margin-bottom: 2px; }
+  .cc-price-special { font-size: 52px; font-weight: 900; color: #F5576C; letter-spacing: -.02em; line-height: 1.05; margin-bottom: 6px; }
+  .cc-price-later { font-size: 14px; font-weight: 500; color: #8a7a6c; margin-bottom: 18px; }
+  /* 신청 정보 소제목 + 정원/마감 pill 배지 */
+  .cc-apply-subtitle { font-size: 28px; font-weight: 800; color: #2a1a12; letter-spacing: -.02em; margin-top: 8px; }
+  .cc-apply-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+  .cc-apply-badge { background: #FFF0E8; color: #F5576C; font-size: 15px; font-weight: 700; padding: 8px 16px; border-radius: 999px; }
+  @media (max-width: 768px) { .cc-price-special { font-size: 36px; } .cc-apply-subtitle { font-size: 22px; } }
   .cc-price-card.is-featured .cc-price-num { color: var(--accent); }
   .cc-price-strike { font-size: 14px; color: var(--ink-faint); text-decoration: line-through; margin-bottom: 18px; }
   .cc-price-btn { display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: 6px; background: var(--white); border: 2px solid var(--line-strong); color: var(--ink); font-weight: 800; font-size: 14.5px; padding: 14px; border-radius: 999px; transition: border-color .2s, color .2s, transform .2s; }
@@ -324,15 +328,6 @@
   </div>
 </section>
 
-<!-- 1.5 후킹 카피 -->
-<section class="cc-sec cc-hook">
-  <div class="cc-sec-inner cc-narrow">
-    <div class="hook-line"><span class="hook-ico" aria-hidden="true">⏱</span><span class="hook-txt">하루면, 수익화 맛집 SNS채널의 주인이 됩니다</span></div>
-    <div class="hook-line"><span class="hook-ico" aria-hidden="true">📚</span><span class="hook-txt">이론이 아닌 이론과 실무, 하루 스파르타</span></div>
-    <div class="hook-line"><span class="hook-ico" aria-hidden="true">✅</span><span class="hook-txt">수료 후 즉시 크리에이터 등록</span></div>
-  </div>
-</section>
-
 <!-- 2. 안심 -->
 <section class="cc-sec cc-reassure">
   <div class="cc-sec-inner cc-reassure-grid">
@@ -350,17 +345,17 @@
   <div class="cc-sec-inner cc-narrow">
     <div class="cc-head">
       <span class="cc-label">CURRICULUM</span>
-      <h2 class="cc-h2">하루 완성 시간표</h2>
+      <h2 class="cc-schedule-title">맛간다 : 맛있으면 간다 챌린지, 원데이 스파르타 커리큘럼</h2>
       <p class="cc-sub">점심시간 없이 연속 진행 — 오전 이론·기획부터 저녁 실전 매장 촬영·업로드까지 하루에 끝냅니다.</p>
     </div>
-    <div class="cc-schedule-grid">
-      <div class="schedule-card"><span class="sc-time">10:00~11:30</span><h3 class="sc-title">SNS 맛집채널 정의 + AI 브랜딩</h3><p class="sc-desc">내 채널 컨셉을 잡고, AI로 캐릭터·프로필까지 완성</p></div>
-      <div class="schedule-card"><span class="sc-time">11:30~13:00</span><h3 class="sc-title">클로드 활용 촬영 컨셉·기획 수립</h3><p class="sc-desc">클로드로 매장 카테고리를 분석해 대본·콘티까지 완성, 매장 도착하면 촬영만 하면 되는 상태로 준비</p></div>
-      <div class="schedule-card"><span class="sc-time">13:00~14:30</span><h3 class="sc-title">촬영기법</h3><p class="sc-desc">스마트폰만으로 맛있어 보이는 구도·조명 잡는 법 실습</p></div>
-      <div class="schedule-card"><span class="sc-time">14:30~16:00</span><h3 class="sc-title">편집방법</h3><p class="sc-desc">캡컷으로 후킹 강한 숏폼 편집을 그 자리에서 완성</p></div>
-      <div class="schedule-card"><span class="sc-time">16:00~17:00</span><h3 class="sc-title">업로드 방법 (SEO·후킹)</h3><p class="sc-desc">해시태그·제목·업로드 타이밍까지 조회수 잘 나오는 공식 전수</p></div>
-      <div class="schedule-card"><span class="sc-time">17:00~18:00</span><h3 class="sc-title">이동 및 매장 준비</h3><p class="sc-desc">실전 촬영을 위해 이동하고 매장 세팅을 준비해요</p></div>
-      <div class="schedule-card schedule-card-field"><span class="sc-time">18:00~20:00</span><h3 class="sc-title">실제 매장 방문 촬영·편집·업로드 실습</h3><p class="sc-desc">그날 배운 걸 실전에 바로 적용, 콘텐츠 하나 완성해서 귀가</p></div>
+    <div class="cc-schedule-list">
+      <div class="schedule-row"><span class="time-badge">10:00~11:30</span><div class="content"><h4>SNS 맛집채널 정의 + AI 브랜딩</h4><p>내 채널 컨셉을 잡고, AI로 캐릭터·프로필까지 완성</p></div></div>
+      <div class="schedule-row"><span class="time-badge">11:30~13:00</span><div class="content"><h4>클로드 활용 촬영 컨셉·기획 수립</h4><p>클로드로 매장 카테고리를 분석해 대본·콘티까지 완성</p></div></div>
+      <div class="schedule-row"><span class="time-badge">13:00~14:30</span><div class="content"><h4>촬영기법</h4><p>스마트폰만으로 맛있어 보이는 구도·조명 잡는 법 실습</p></div></div>
+      <div class="schedule-row"><span class="time-badge">14:30~16:00</span><div class="content"><h4>편집방법</h4><p>캡컷으로 후킹 강한 숏폼 편집을 그 자리에서 완성</p></div></div>
+      <div class="schedule-row"><span class="time-badge">16:00~17:00</span><div class="content"><h4>업로드 방법 (SEO·후킹)</h4><p>해시태그·제목·업로드 타이밍까지 조회수 잘 나오는 공식 전수</p></div></div>
+      <div class="schedule-row"><span class="time-badge">17:00~18:00</span><div class="content"><h4>이동 및 매장 준비</h4></div></div>
+      <div class="schedule-row"><span class="time-badge">18:00~20:00</span><div class="content"><h4>실제 매장 방문 촬영·편집·업로드 실습</h4><p>그날 배운 걸 실전에 바로 적용, 콘텐츠 하나 완성해서 귀가</p></div></div>
     </div>
     <p class="cc-curr-glow">하루가 끝나면, 첫 영상을 시작으로 수익화 계정의 주인이 됩니다</p>
   </div>
@@ -479,8 +474,13 @@
     <div class="cc-head" style="text-align:center">
       <span class="cc-label">APPLY</span>
       <h2 class="cc-h2">신청 정보</h2>
+      <p class="cc-apply-subtitle">맛간다 챌린지</p>
     </div>
-    <p class="cc-pricing-meta"><span id="ccCohort2">맛간다 챌린지 1기</span> · 정원 <span class="cc-cap-total">20</span>명 · 모집중 <b>(<span class="cc-applied">4</span>/<span class="cc-cap-total">20</span>명)</b> · <b><span class="cc-closing-text">8월 중 첫 기수 오픈 예정</span></b></p>
+    <div class="cc-apply-badges">
+      <span class="cc-apply-badge" id="ccCohort2">맛간다 챌린지 1기</span>
+      <span class="cc-apply-badge">정원 <span class="cc-cap-total">20</span>명 · <span class="cc-applied">4</span>명 신청</span>
+      <span class="cc-apply-badge"><span class="cc-closing-text">8월 중 첫 기수 오픈 예정</span></span>
+    </div>
     <div class="cc-price-solo">
       <div class="cc-price-card is-featured">
         <span class="cc-ribbon cc-ribbon-early">1기 한정</span>
@@ -542,7 +542,7 @@
   <a class="btn btn-primary cc-apply" href="#" target="_blank" rel="noopener">맛간다 챌린지 1기 신청하기</a>
 </div>
 
-<script src="js/config.js?v=30"></script>
+<script src="js/config.js?v=31"></script>
 <script>
 (function () {
   'use strict';
@@ -724,23 +724,22 @@ if (document.readyState !== 'loading') initBarAnimation();
 else document.addEventListener('DOMContentLoaded', initBarAnimation);
 </script>
 <script>
-function initStagger(selector, delayStep) {
-  const items = document.querySelectorAll(selector);
+function initRowStagger() {
+  const rows = document.querySelectorAll('.schedule-row');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * delayStep);
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.2 });
-  items.forEach(item => observer.observe(item));
+  rows.forEach(row => observer.observe(row));
 }
-document.addEventListener('DOMContentLoaded', () => {
-  initStagger('.hook-line', 150);
-  initStagger('.schedule-card', 120);
-  // 안전장치: IntersectionObserver 미발화 환경에서도 최종적으로 보이도록 보장
-  setTimeout(function () { document.querySelectorAll('.hook-line, .schedule-card').forEach(function (el) { el.classList.add('visible'); }); }, 2000);
+document.addEventListener('DOMContentLoaded', initRowStagger);
+// 안전장치: IntersectionObserver 미발화 환경에서도 최종적으로 보이도록 보장
+document.addEventListener('DOMContentLoaded', function () {
+  setTimeout(function () { document.querySelectorAll('.schedule-row').forEach(function (el) { el.classList.add('visible'); }); }, 2000);
 });
 </script>
 </body>
