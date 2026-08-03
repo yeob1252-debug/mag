@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <!-- index.html 과 동일한 :root 변수·폰트·색상·버튼을 재사용 -->
-<link rel="stylesheet" href="css/styles.css?v=32">
+<link rel="stylesheet" href="css/styles.css?v=33">
 <style>
   /* ===== 타이포그래피 시스템 (지정 수치) — 폰트/색상은 styles.css 토큰 ===== */
   .cc-label { display: inline-block; font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-deep); background: rgba(221,42,123,.1); padding: 6px 13px; border-radius: 999px; }
@@ -440,11 +440,11 @@
 
     <div class="cc-progress-box">
       <div class="cc-progress-top">
-        <span class="cc-progress-title"><span id="ccCohort">맛간다 챌린지 1기</span> · 정원 <span class="cc-cap-total">20</span>명 중 <b><span class="cc-applied">4</span>명</b> 신청</span>
+        <span class="cc-progress-title"><span id="ccCohort">맛간다 챌린지 1기</span> · 정원 <span class="cc-cap-total">10</span>명 중 <b><span class="cc-applied">4</span>명</b> 신청</span>
         <span class="cc-progress-closing" id="ccClosing">8월 중 첫 기수 오픈 예정</span>
       </div>
       <div class="cc-progress-bar"><span id="ccProgressFill"></span></div>
-      <p class="cc-progress-count">남은 자리 <b><span id="ccRemain">16</span></b>석 · 상태 <span id="ccStatus">모집중</span></p>
+      <p class="cc-progress-count">남은 자리 <b><span id="ccRemain">6</span></b>석 · 상태 <span id="ccStatus">모집중</span></p>
     </div>
   </div>
 </section>
@@ -478,7 +478,7 @@
     </div>
     <div class="cc-apply-badges">
       <span class="cc-apply-badge" id="ccCohort2">맛간다 챌린지 1기</span>
-      <span class="cc-apply-badge">정원 <span class="cc-cap-total">20</span>명 · <span class="cc-applied">4</span>명 신청</span>
+      <span class="cc-apply-badge">1기 정원 <span class="cc-cap-total">10</span>명</span>
       <span class="cc-apply-badge"><span class="cc-closing-text">8월 중 첫 기수 오픈 예정</span></span>
     </div>
     <div class="cc-price-solo">
@@ -486,7 +486,7 @@
         <span class="cc-ribbon cc-ribbon-early">1기 한정</span>
         <p class="cc-price-name">1기 한정가</p>
         <p class="cc-price-note">하루 완성 전 과정 (오전 이론·기획 → 저녁 실전 매장 촬영·업로드)</p>
-        <p class="cc-price-orig">39만원</p>
+        <p class="cc-price-orig">59만원</p>
         <p class="cc-price-special">10만원 특가</p>
         <p class="cc-price-later">추후 인상 예정</p>
         <a class="cc-price-btn cc-apply" href="#" target="_blank" rel="noopener">맛간다 챌린지 1기 신청하기</a>
@@ -542,7 +542,7 @@
   <a class="btn btn-primary cc-apply" href="#" target="_blank" rel="noopener">맛간다 챌린지 1기 신청하기</a>
 </div>
 
-<script src="js/config.js?v=32"></script>
+<script src="js/config.js?v=33"></script>
 <script>
 (function () {
   'use strict';
@@ -578,7 +578,7 @@
   });
 
   // 챌린지 현황(?type=challenge). 실패 시 더미 유지.
-  var DUMMY = { cohort: '맛간다 챌린지 1기', capacity: 20, applied: 4, closing: '8월 중 첫 기수 오픈 예정', status: '모집중' };
+  var DUMMY = { cohort: '맛간다 챌린지 1기', capacity: 10, applied: 4, closing: '8월 중 첫 기수 오픈 예정', status: '모집중' };
   function setAll(sel, val) { document.querySelectorAll(sel).forEach(function (e) { e.textContent = val; }); }
   function renderChallenge(c) {
     var cap = Number(c.capacity) || 0, app = Number(c.applied) || 0;
