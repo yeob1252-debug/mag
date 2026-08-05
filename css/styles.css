@@ -625,6 +625,7 @@ button { font-family: inherit; cursor: pointer; }
 .branch-sublink { display: block; text-align: center; margin-top: 18px; font-size: 15px; font-weight: 600; color: var(--ink-soft); cursor: pointer; }
 .branch-sublink b { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; }
 .branch-sublink:hover { color: var(--accent); }
+@media (max-width: 768px) { .branch-card { height: 160px; padding: 18px; } }
 
 /* 맛간다 챌린지 안내(Hero 다음) — 카드형(캐릭터 이미지 없음), 크림 배경 */
 .section-mgd { background: #FFF8E7; }
