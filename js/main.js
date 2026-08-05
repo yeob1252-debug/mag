@@ -176,7 +176,7 @@
     const ss = document.querySelector('.scrollstory');
     if (!ss) return;
     const frame = ss.querySelector('.scrollstory__frame');
-    const targets = ss.querySelectorAll('.scrollstory__img, .scrollstory__caption, .scrollstory__playbtn');
+    const targets = ss.querySelectorAll('.scrollstory__img, .scrollstory__caption');
     const steps = ss.querySelectorAll('.scrollstory__img').length || 5;
     const grads = [
       'linear-gradient(180deg,#F3EEFB,#FAFAFA)',
