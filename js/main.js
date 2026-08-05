@@ -164,6 +164,38 @@
     const t = e.target.closest('[data-scroll-to]');
     if (t) { e.preventDefault(); scrollToId(t.getAttribute('data-scroll-to')); }
   });
+  // 분기 카드/서브링크 키보드 접근(Enter/Space)
+  document.querySelectorAll('[data-scroll-to][role="button"]').forEach((el) => {
+    el.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scrollToId(el.getAttribute('data-scroll-to')); }
+    });
+  });
+
+  /* ---------- 히어로 스크롤 스토리 ---------- */
+  (function initScrollStory() {
+    const ss = document.querySelector('.scrollstory');
+    if (!ss) return;
+    const frame = ss.querySelector('.scrollstory__frame');
+    const targets = ss.querySelectorAll('.scrollstory__img, .scrollstory__caption, .scrollstory__playbtn');
+    const steps = ss.querySelectorAll('.scrollstory__img').length || 5;
+    const grads = [
+      'linear-gradient(180deg,#F3EEFB,#FAFAFA)',
+      'linear-gradient(180deg,#EFEAFA,#FAFAFA)',
+      'linear-gradient(180deg,#FDEDF3,#FAFAFA)',
+      'linear-gradient(180deg,#FFF1E6,#FFF1E0)',
+      'linear-gradient(180deg,#EAFBF3,#FAFAFA)',
+    ];
+    function update() {
+      const rect = ss.getBoundingClientRect();
+      const progress = Math.min(Math.max(-rect.top / (rect.height - window.innerHeight), 0), 1);
+      const step = Math.min(Math.floor(progress * steps), steps - 1);
+      targets.forEach((el) => el.classList.toggle('active', +el.dataset.step === step));
+      if (frame && grads[step]) frame.style.background = grads[step];
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+  })();
 
   /* ---------- 사이드 내비 활성점 ---------- */
   const dots = document.querySelectorAll('.side-nav-dot');

@@ -13,7 +13,7 @@
 <link rel="icon" type="image/png" href="assets/images/logo.png">
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
-<link rel="stylesheet" href="css/styles.css?v=31">
+<link rel="stylesheet" href="css/styles.css?v=34">
 </head>
 <body>
 
@@ -53,37 +53,43 @@
 
 <main>
 
-  <!-- ============ 1. HERO ============ -->
-  <section id="hero" class="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="hero-inner container">
-      <div class="hero-text">
-        <span class="hero-badge reveal">
-          <span class="ig-dot" aria-hidden="true"></span>
-          팔로워 숫자 말고, 손님을 데려오는 채널만
-        </span>
-        <h1 class="hero-title reveal">
-          내 가게처럼 홍보해 줄<br>
-          <span class="hl-grad">사람만 골랐습니다</span>
-        </h1>
-        <p class="hero-desc reveal">
-          팔로워 숫자보다, 진짜 손님을 데려오는 채널만 감별합니다.<br class="only-desktop">
-          성의 없는 광고 말고, 우리 매장을 진짜로 아는 채널로요.
-        </p>
-        <p class="hero-seo reveal">지역 맛집 인플루언서 매칭 · SNS 광고 대행 · 매장 홍보 마케팅</p>
-        <p class="hero-cta-lead reveal">내가 원하는 가격·성향의 크리에이터, <span class="hl-grad">1분만에 찾기</span></p>
-        <div class="hero-cta-row reveal">
-          <button class="btn btn-primary btn-large" data-scroll-to="filter">내 지역 채널 찾아보기 <span class="hero-cta-arrow" aria-hidden="true">↓</span></button>
-          <button class="btn btn-creator btn-large" data-scroll-to="join"><svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M11 2.5l1.5 4.9L17 9l-4.5 1.6L11 15.5 9.5 10.6 5 9l4.5-1.6z"/><path d="M18 13.5l.85 2.65L21.5 17l-2.65.85L18 20.5l-.85-2.65L14.5 17l2.65-.85z" opacity=".75"/></svg>크리에이터 등록하기</button>
-          <button class="hero-cta-link" data-scroll-to="process">어떻게 진행되나요? <span class="hero-ghost-arrow" aria-hidden="true">→</span></button>
-        </div>
+  <!-- ============ 1. HERO — 5단계 스크롤 스토리 ============ -->
+  <section id="hero" class="scrollstory scrollstory--5">
+    <div class="scrollstory__frame">
+      <img class="scrollstory__img active" data-step="0" src="assets/images/hero-01-bg-place.png" alt="네이버 플레이스 화면">
+      <img class="scrollstory__img" data-step="1" src="assets/images/hero-02-bg-searc.png" alt="SNS 검색결과가 비어 있는 화면">
+      <img class="scrollstory__img" data-step="2" src="assets/images/hero-02-shootin.png" alt="음식을 촬영하는 손">
+      <img class="scrollstory__img" data-step="3" src="assets/images/hero-04-video-appeal.png" alt="맛집 영상 재생 화면">
+      <img class="scrollstory__img" data-step="4" src="assets/images/hero-05-bg-found.png" alt="SNS 검색결과에 우리 매장이 등장한 화면">
+      <span class="scrollstory__playbtn" data-step="3" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+      <div class="scrollstory__scrim" aria-hidden="true"></div>
+      <p class="scrollstory__caption active" data-step="0">플레이스는 <span class="kw">기본</span>입니다</p>
+      <p class="scrollstory__caption" data-step="1">근데 SNS엔, <span class="kw">우리 매장이 없습니다</span></p>
+      <p class="scrollstory__caption" data-step="2">그래서, <span class="kw">이 순간</span>을 찍기 시작하면</p>
+      <p class="scrollstory__caption" data-step="3">사진보다, <span class="kw">영상</span>이 더 맛있어 보입니다</p>
+      <p class="scrollstory__caption" data-step="4">이제, <span class="kw">SNS에서 우리 매장</span>을 찾습니다</p>
+      <span class="scrollstory__hint" aria-hidden="true">SCROLL <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></span>
+    </div>
+  </section>
+
+  <!-- ============ 1.2 분기형 CTA ============ -->
+  <section id="branchCta" class="section section-branch">
+    <div class="section-inner container">
+      <div class="branch-grid">
+        <a class="branch-card branch-card-owner" data-scroll-to="filter" role="button" tabindex="0">
+          <span class="branch-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10l8-6 8 6v11M9 21v-6h6v6"/></svg></span>
+          <span class="branch-title">사장님이신가요?</span>
+          <span class="branch-desc">우리 매장 홍보하기</span>
+          <span class="branch-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="branch-card branch-card-creator" href="creator-course.html" role="button">
+          <span class="branch-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.5-2.6v9.2L15 14M4 8h9a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z"/></svg></span>
+          <span class="branch-title">크리에이터가 되고 싶으신가요?</span>
+          <span class="branch-desc">맛간다 챌린지 보기</span>
+          <span class="branch-arrow" aria-hidden="true">→</span>
+        </a>
       </div>
-      <div class="hero-visual reveal" aria-hidden="true">
-        <div class="hero-char-glow"></div>
-        <img class="hero-char" src="assets/images/hero-tiger-cutout.png" alt="맛집감별사 인플루언서 매칭 캐릭터">
-        <span class="hero-float-chip chip-verified">✔ 실제 활동 확인 채널</span>
-        <span class="hero-float-chip chip-region">📍 내 지역 매칭</span>
-      </div>
+      <a class="branch-sublink" data-scroll-to="join" role="button" tabindex="0">이미 채널이 있으신가요? <b>크리에이터 등록하기</b> →</a>
     </div>
   </section>
 
@@ -559,8 +565,8 @@
   <a id="floatCtaLink" href="#"><span class="fc-label" id="floatCtaLabel">지금 문의하기</span> <span aria-hidden="true">→</span></a>
 </div>
 
-<script src="js/config.js?v=31"></script>
-<script src="js/data.js?v=31"></script>
-<script src="js/main.js?v=31"></script>
+<script src="js/config.js?v=34"></script>
+<script src="js/data.js?v=34"></script>
+<script src="js/main.js?v=34"></script>
 </body>
 </html>
