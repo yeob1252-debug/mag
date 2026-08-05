@@ -197,6 +197,18 @@
     update();
   })();
 
+  /* ---------- FOR CREATORS 혜택 아코디언 (+/− 브랜드 토글) ---------- */
+  document.querySelectorAll('.ja-q').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.ja-item');
+      const open = item.classList.toggle('is-open');
+      const ans = item.querySelector('.ja-a');
+      ans.style.maxHeight = open ? ans.scrollHeight + 'px' : '0';
+      const tog = item.querySelector('.ja-toggle');
+      if (tog) tog.textContent = open ? '−' : '+';
+    });
+  });
+
   /* ---------- 사이드 내비 활성점 ---------- */
   const dots = document.querySelectorAll('.side-nav-dot');
   const navSections = [...dots].map((d) => document.getElementById(d.getAttribute('data-target'))).filter(Boolean);
