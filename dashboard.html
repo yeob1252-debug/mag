@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <!-- index.html 과 동일한 디자인 시스템 재사용 -->
-<link rel="stylesheet" href="css/styles.css?v=29">
+<link rel="stylesheet" href="css/styles.css?v=36">
 <style>
   /* ===== dashboard 전용 (색상/폰트/토큰은 styles.css 재사용) ===== */
   .dash-wrap { max-width: 900px; margin: 0 auto; padding: 0 20px; }
@@ -24,7 +24,9 @@
   /* 로그인(조회) 카드 */
   .dash-login { min-height: 72vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
   .dash-login-card { width: 100%; max-width: 440px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); padding: 40px 32px; text-align: center; }
-  .dash-login-emoji { font-size: 40px; }
+  .dash-login-emoji { color: var(--accent); }
+  .dash-login-emoji svg { width: 42px; height: 42px; display: inline-block; }
+  .dc-badge svg { width: 13px; height: 13px; }
   .dash-login-card h1 { font-size: clamp(1.5rem, 4vw, 1.9rem); font-weight: 900; letter-spacing: -.02em; margin: 12px 0 8px; }
   .dash-login-card p { font-size: 14.5px; color: var(--ink-soft); font-weight: 500; line-height: 1.6; margin-bottom: 24px; }
   .dash-field { text-align: left; }
@@ -55,11 +57,12 @@
   /* 배지 */
   .dash-badges { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
   .dash-badge { border-radius: var(--radius-md); padding: 18px 16px; text-align: center; border: 1.5px solid rgba(255,255,255,.16); background: rgba(255,255,255,.05); transition: transform .2s; }
-  .dash-badge .db-ico { font-size: 30px; filter: grayscale(1) opacity(.5); }
+  .dash-badge .db-ico { color: rgba(255,255,255,.4); display: inline-flex; }
+  .dash-badge .db-ico svg { width: 30px; height: 30px; }
   .dash-badge .db-name { display: block; margin-top: 6px; font-size: 14px; font-weight: 800; color: rgba(255,255,255,.6); }
   .dash-badge .db-cond { display: block; margin-top: 2px; font-size: 11.5px; font-weight: 600; color: rgba(255,255,255,.4); }
   .dash-badge.is-unlocked { border-color: var(--gold); background: rgba(246,185,59,.14); box-shadow: 0 8px 22px rgba(246,185,59,.16); }
-  .dash-badge.is-unlocked .db-ico { filter: none; }
+  .dash-badge.is-unlocked .db-ico { color: var(--gold); }
   .dash-badge.is-unlocked .db-name { color: #fff; }
   .dash-badge.is-unlocked .db-cond { color: var(--gold); }
   .dash-badge .db-lock { display: block; margin-top: 6px; font-size: 11px; font-weight: 700; color: rgba(255,255,255,.5); }
@@ -116,7 +119,7 @@
   <!-- 1. 로그인(조회) 화면 -->
   <section class="dash-login" id="loginView">
     <div class="dash-login-card">
-      <div class="dash-login-emoji" aria-hidden="true">📊</div>
+      <div class="dash-login-emoji" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5M4 19h16"/><path d="M8 16v-4M12 16V8M16 16v-6"/></svg></div>
       <h1>내 매칭 현황 조회하기</h1>
       <p>문의하실 때 남기신 <b>연락처</b>로 조회하시면<br>매칭 진행 상황을 한눈에 확인하실 수 있어요.</p>
       <form id="lookupForm" novalidate>
@@ -144,24 +147,24 @@
           <div class="dash-milestone">
             <div class="dash-ms-track"><div class="dash-ms-fill" id="dashMsFill"></div></div>
             <div class="dash-ms-marks">
-              <span class="dash-ms-mark" id="mark3" style="left:60%">🏅 3회</span>
-              <span class="dash-ms-mark" id="mark5" style="left:100%">🎟️ 5회</span>
+              <span class="dash-ms-mark" id="mark3" style="left:60%">3회</span>
+              <span class="dash-ms-mark" id="mark5" style="left:100%">5회</span>
             </div>
             <p class="dash-ms-cta" id="dashMsCta"></p>
           </div>
 
           <div class="dash-badges">
             <div class="dash-badge" id="badge3">
-              <span class="db-ico" aria-hidden="true">🏅</span>
+              <span class="db-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="9" r="5"/><path d="M9 13.3L7.3 21 12 18l4.7 3-1.7-7.7"/></svg></span>
               <span class="db-name">단골 사장님</span>
               <span class="db-cond">매칭 3회 달성</span>
-              <span class="db-lock" id="badge3lock">🔒 잠김</span>
+              <span class="db-lock" id="badge3lock">잠김</span>
             </div>
             <div class="dash-badge" id="badge5">
-              <span class="db-ico" aria-hidden="true">🎟️</span>
+              <span class="db-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h13A1.5 1.5 0 0 1 20 8.5a2 2 0 0 0 0 4A1.5 1.5 0 0 1 18.5 14h-13A1.5 1.5 0 0 1 4 12.5a2 2 0 0 0 0-4z"/><path d="M14 7v10"/></svg></span>
               <span class="db-name">우선노출권</span>
               <span class="db-cond">매칭 5회 달성</span>
-              <span class="db-lock" id="badge5lock">🔒 잠김</span>
+              <span class="db-lock" id="badge5lock">잠김</span>
             </div>
           </div>
         </div>
@@ -290,7 +293,7 @@
     document.getElementById('mark5').classList.toggle('is-reached', completed >= 5);
 
     var cta = document.getElementById('dashMsCta');
-    if (completed >= 5) cta.innerHTML = '🎉 <b>우선노출권</b>까지 달성! 다음 이벤트에 우선 노출해 드려요.';
+    if (completed >= 5) cta.innerHTML = '<b>우선노출권</b>까지 달성! 다음 이벤트에 우선 노출해 드려요.';
     else if (completed >= 3) cta.innerHTML = '<b>' + (5 - completed) + '회</b>만 더 하면 <b>우선노출권</b>이 열려요!';
     else cta.innerHTML = '<b>' + (3 - completed) + '회</b>만 더 하면 <b>단골 사장님 배지</b>가 열려요!';
 
@@ -311,7 +314,7 @@
   function setBadge(id, unlocked) {
     var el = document.getElementById(id);
     el.classList.toggle('is-unlocked', unlocked);
-    el.querySelector('.db-lock').textContent = unlocked ? '✓ 달성' : '🔒 잠김';
+    el.querySelector('.db-lock').textContent = unlocked ? '달성' : '잠김';
   }
 
   function cardHtml(rec) {
@@ -325,12 +328,15 @@
     var channelUrl = pick(rec, ['매칭채널URL', '채널URL', '채널링크']);
     var status = pick(rec, ['매칭상태', '상태']);
 
+    var icoDone = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>';
+    var icoCal = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M4 9h16M8 3v4M16 3v4"/></svg>';
+    var icoMatch = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 5-5"/></svg>';
     var uploadBadge = uploaded
       ? (isDone(uploaded)
-          ? '<span class="dc-badge done">✅ 업로드 완료</span>'
-          : '<span class="dc-badge pending">🗓️ 업로드 예정</span>')
+          ? '<span class="dc-badge done">' + icoDone + '업로드 완료</span>'
+          : '<span class="dc-badge pending">' + icoCal + '업로드 예정</span>')
       : (status === '매칭완료'
-          ? '<span class="dc-badge matched">🤝 매칭 완료</span>'
+          ? '<span class="dc-badge matched">' + icoMatch + '매칭 완료</span>'
           : '<span class="dc-badge pending">진행 중</span>');
 
     var avatar = pick(rec, ['프로필사진', '인플루언서사진', '프로필이미지']) || initialAvatar(infName);

@@ -622,6 +622,13 @@ button { font-family: inherit; cursor: pointer; }
 @media (max-width: 768px) { .mgd-card { padding: 28px 22px; } }
 /* 맛간다 챌린지 크리에이터 섹션 하단 문구 */
 .recruit-note { text-align: center; margin-top: 24px; font-size: 17px; font-weight: 600; color: #2a1a12; line-height: 1.6; }
+/* 인라인 라인 아이콘(이모지 대체) 크기 정렬 */
+.fp-ico svg { width: 13px; height: 13px; display: block; }
+.jb-ico svg { width: 18px; height: 18px; display: block; }
+.kakao-icon svg { width: 22px; height: 22px; display: block; }
+.tcl-social svg { width: 15px; height: 15px; vertical-align: -3px; }
+.pa-ico { width: 15px; height: 15px; vertical-align: -3px; }
+.fc-flame { width: 15px; height: 15px; vertical-align: -2px; }
 
 .section-metrics { background: linear-gradient(135deg, #2A2320 0%, #3A2233 100%); color: #fff; }
 .metric-grid { display: grid; grid-template-columns: 1fr; gap: 18px; }
