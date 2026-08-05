@@ -93,6 +93,13 @@
     youtube: `<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4.5" fill="#FF0000"/><path d="M10 8.8v6.4l5.4-3.2z" fill="#fff"/></svg>`,
     tiktok: `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.2 3h2.5c.2 1.6 1.1 3 2.9 3.4v2.5c-1.1 0-2.1-.3-3-.9v5.7a5.2 5.2 0 1 1-5.2-5.2c.3 0 .5 0 .8.1v2.6a2.6 2.6 0 1 0 1.8 2.5V3z" fill="#111"/><path d="M14.8 3h2.5c.2 1.6 1.1 3 2.9 3.4v2.5c-1.1 0-2.1-.3-3-.9v5.7a5.2 5.2 0 1 1-5.2-5.2c.3 0 .5 0 .8.1v2.6a2.6 2.6 0 1 0 1.8 2.5V3z" fill="#25F4EE" opacity=".6" transform="translate(-.6 .5)"/></svg>`,
   };
+  /* ---------- UI 라인 아이콘 (이모지 대체, Tabler 스타일) ---------- */
+  const UI = {
+    check: `<svg class="ui-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg>`,
+    plus: `<svg class="ui-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>`,
+    clock: `<svg class="ui-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>`,
+    arrow: `<svg class="ui-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`,
+  };
 
   /* ---------- 연도 ---------- */
   const yearEl = document.getElementById('year');
@@ -609,8 +616,8 @@
       const pct = ev.capacity ? Math.min(100, Math.round((ev.applied / ev.capacity) * 100)) : 0;
       const plats = (ev.platforms || []).filter((p) => ICONS[p])
         .map((p) => `<span class="event-plat" title="${p}">${ICONS[p]}</span>`).join('');
-      const benefits = (ev.benefits || []).map((b) => `<span class="event-badge">✔ ${b}</span>`).join('');
-      const options = (ev.options || []).map((b) => `<span class="event-badge event-badge-opt">＋ ${b}</span>`).join('');
+      const benefits = (ev.benefits || []).map((b) => `<span class="event-badge">${UI.check} ${b}</span>`).join('');
+      const options = (ev.options || []).map((b) => `<span class="event-badge event-badge-opt">${UI.plus} ${b}</span>`).join('');
       return `
         <div class="event-card reveal-card" role="button" tabindex="0" data-inquiry="이달의 이벤트 문의" data-channel="${ev.name}">
           <div class="event-card-top">
@@ -628,11 +635,11 @@
           </div>
           <div class="event-card-badges">${benefits}${options}</div>
           <div class="event-card-foot">
-            <div class="event-counter"><b class="count-num" data-count-to="${ev.applied}">0</b> / ${ev.capacity}팀 진행 ${ddays(ev.endDate) ? `<span class="event-dday">⏳ ${ddays(ev.endDate)}</span>` : ''}</div>
+            <div class="event-counter"><b class="count-num" data-count-to="${ev.applied}">0</b> / ${ev.capacity}팀 진행 ${ddays(ev.endDate) ? `<span class="event-dday">${UI.clock} ${ddays(ev.endDate)}</span>` : ''}</div>
             <div class="event-progress"><span style="width:${pct}%"></span></div>
             <div class="event-period">${ev.startDate} ~ ${ev.endDate}</div>
           </div>
-          <span class="event-cta">이벤트 문의하기 <span aria-hidden="true">→</span></span>
+          <span class="event-cta">이벤트 문의하기 ${UI.arrow}</span>
         </div>`;
     }).join('');
 
@@ -687,7 +694,7 @@
           <div class="event-card-foot">
             <div class="event-counter">팔로워 <b class="count-num" data-count-to="${c.followers}" data-format="comma">0</b> · 최근 ${daysAgo(c.lastUpload)}</div>
           </div>
-          <span class="event-cta">이벤트 문의하기 <span aria-hidden="true">→</span></span>
+          <span class="event-cta">이벤트 문의하기 ${UI.arrow}</span>
         </div>`;
     }).join('');
     revealCards(grid);
