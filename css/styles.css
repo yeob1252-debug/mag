@@ -6,6 +6,8 @@
 
 :root {
   --font: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  /* 헤드라인 폰트 — 타이거커머스랩과 동일(Paperlogy), 본문은 Pretendard 유지 */
+  --font-head: 'Paperlogy', 'Pretendard', -apple-system, 'Malgun Gothic', sans-serif;
 
   /* 베이스 (크림/옐로우) */
   --bg: #FFF8E7;
@@ -61,6 +63,14 @@ body {
    clip 은 hidden 과 달리 프로그램적 스크롤까지 막아 더 견고하다. */
 body { overflow-x: clip; max-width: 100%; }
 img { max-width: 100%; display: block; }
+/* 헤드라인/대형 표시 텍스트 = Paperlogy (본문은 Pretendard) */
+h1, h2, h3, h4,
+.hero-title, .section-title, .mgd-title, .mgd-subeyebrow, .scrollstory__caption, .branch-desc,
+.tcl-line, .join-headline, .metric-num, .event-name,
+.cc-h1, .cc-h2, .cc-h3, .cc-schedule-title, .cc-apply-subtitle, .cc-price-special, .cc-price-num, .cc-bignum-n, .cc-stat-n, .cc-ins h3,
+.dash-bignum, .dash-section-title, .dash-stat-n, .dash-login-card h1 {
+  font-family: var(--font-head);
+}
 a { color: inherit; text-decoration: none; }
 ul, ol { margin: 0; padding: 0; list-style: none; }
 h1, h2, h3, p { margin: 0; }
