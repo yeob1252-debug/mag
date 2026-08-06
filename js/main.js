@@ -116,7 +116,6 @@
   applyLink('footerTcl', LINKS.tcl);
   applyLink('kakaoLink', LINKS.kakao);
   applyLink('joinFormLink', LINKS.influencerForm);
-  applyLink('branchCreatorLink', LINKS.influencerForm);
   // 동의 체크박스 라벨 안의 '개인정보처리방침' 링크 클릭이 체크박스를 토글하지 않도록
   document.querySelectorAll('.form-privacy a').forEach((a) => a.addEventListener('click', (e) => e.stopPropagation()));
 
@@ -195,7 +194,11 @@
     ];
     function update() {
       const rect = ss.getBoundingClientRect();
-      const progress = Math.min(Math.max(-rect.top / (rect.height - window.innerHeight), 0), 1);
+      const denom = rect.height - window.innerHeight;
+      // denom<=0(뷰포트가 섹션보다 크거나 측정 불가) 시 NaN 방지 → step 0 로 안전 폴백
+      let progress = denom > 0 ? -rect.top / denom : 0;
+      if (!isFinite(progress)) progress = 0;
+      progress = Math.min(Math.max(progress, 0), 1);
       const step = Math.min(Math.floor(progress * steps), steps - 1);
       targets.forEach((el) => el.classList.toggle('active', +el.dataset.step === step));
       if (frame && grads[step]) frame.style.background = grads[step];
