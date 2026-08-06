@@ -22,7 +22,7 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css">
 <!-- index.html 과 동일한 :root 변수·폰트·색상·버튼을 재사용 -->
-<link rel="stylesheet" href="css/styles.css?v=44">
+<link rel="stylesheet" href="css/styles.css?v=45">
 <style>
   /* ===== 타이포그래피 시스템 (지정 수치) — 폰트/색상은 styles.css 토큰 ===== */
   .cc-label { display: inline-block; font-size: 12.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent-deep); background: rgba(221,42,123,.1); padding: 6px 13px; border-radius: 999px; }
@@ -173,16 +173,14 @@
   .cc-ins-career-list li b { color: #2a1a12; font-weight: 800; }
   .cc-ins p { font-size: 16px; color: var(--ink-soft); font-weight: 500; line-height: 1.8; }
   .cc-ins-badge { display: inline-block; font-size: 12px; font-weight: 800; letter-spacing: .1em; color: #fff; background: var(--accent); padding: 5px 13px; border-radius: 999px; margin-bottom: 12px; }
-  /* credential 8 배지 — 동일 정사각형 그리드로 통일 (텍스트 길이 편차는 line-clamp+자동 폰트 축소로 흡수) */
+  /* credential 8 카드 — 이미지 상단 + 텍스트 하단, 균일 그리드 */
   .cc-cred-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .cc-cred-card { margin: 0; aspect-ratio: 1 / 1; background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 16px;
-    display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 10px; overflow: hidden;
-    box-shadow: var(--shadow-sm); transition: transform .28s var(--ease), box-shadow .28s var(--ease), border-color .28s var(--ease); }
-  .cc-cred-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: var(--accent); }
-  .cc-cred-ico { flex: 0 0 auto; width: 30px; height: 30px; color: var(--accent); }
-  .cc-cred-ico svg { width: 100%; height: 100%; }
-  .cc-cred-card .badge-text { font-size: clamp(11px, 1.4vw, 14px); line-height: 1.35; font-weight: 700; color: var(--ink);
-    overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; }
+  .cc-cred-card { margin: 0; background: #fff; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06); transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+  .cc-cred-card:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,.12); }
+  .cc-cred-card img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+  .cc-cred-card figcaption { padding: 16px; text-align: center; font-size: clamp(12px, 1.4vw, 15px); line-height: 1.4; color: #333;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .cc-more-wrap { text-align: center; margin-top: 36px; }
 
   /* ===== 왜 지금 (다크) ===== */
@@ -389,14 +387,14 @@
       </div>
     </div>
     <div class="cc-cred-grid">
-      <figure class="cc-cred-card cc-reveal"><span class="cc-cred-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.4 7 21l5-2.6L17 21l-1.2-7.6"/></svg></span><figcaption class="badge-text">외식업 12년 · 4개 브랜드 전국 30호점 이상 직접 오픈</figcaption></figure>
-      <figure class="cc-cred-card cc-reveal" style="transition-delay:.08s"><span class="cc-cred-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.4 7 21l5-2.6L17 21l-1.2-7.6"/></svg></span><figcaption class="badge-text">네이버 스마트스토어 [맛집감별사] 4개월 만에 빅파워 달성</figcaption></figure>
-      <figure class="cc-cred-card cc-reveal" style="transition-delay:.16s"><span class="cc-cred-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.4 7 21l5-2.6L17 21l-1.2-7.6"/></svg></span><figcaption class="badge-text">영남대학교 외식업경영MBA 특강 진행</figcaption></figure>
-      <figure class="cc-cred-card cc-reveal" style="transition-delay:.24s"><span class="cc-cred-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.4 7 21l5-2.6L17 21l-1.2-7.6"/></svg></span><figcaption class="badge-text">안동시 꿈이룸 소상공인교육센터 라이브커머스 교육 (2년째)</figcaption></figure>
-      <figure class="cc-cred-card cc-reveal"><span class="cc-cred-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.4 7 21l5-2.6L17 21l-1.2-7.6"/></svg></span><figcaption class="badge-text">현풍백년도깨비시장 상인역량강화교육 강사 (중기부·소진공)</figcaption></figure>
-      <figure class="cc-cred-card cc-reveal" style="transition-delay:.08s"><span class="cc-cred-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.4 7 21l5-2.6L17 21l-1.2-7.6"/></svg></span><figcaption class="badge-text">2017 부산·고용노동부 ‘소셜프랜차이즈’ 선정 인증</figcaption></figure>
-      <figure class="cc-cred-card cc-reveal" style="transition-delay:.16s"><span class="cc-cred-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.4 7 21l5-2.6L17 21l-1.2-7.6"/></svg></span><figcaption class="badge-text">오사카 특송법인 4년+ 운영 · 일본 현지 라이브커머스</figcaption></figure>
-      <figure class="cc-cred-card cc-reveal" style="transition-delay:.24s"><span class="cc-cred-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8.2 13.4 7 21l5-2.6L17 21l-1.2-7.6"/></svg></span><figcaption class="badge-text">서울경제진흥원(SBA) 쇼플루언서 3기 수료</figcaption></figure>
+      <figure class="cc-cred-card cc-reveal"><img src="assets/images/credential-restaurant.png" alt="외식업 12년 · 전국 30호점 오픈"><figcaption>외식업 12년 · 4개 브랜드 전국 30호점 이상 직접 오픈</figcaption></figure>
+      <figure class="cc-cred-card cc-reveal" style="transition-delay:.08s"><img src="assets/images/credential-smartstore.png" alt="네이버 스마트스토어 빅파워"><figcaption>네이버 스마트스토어 [맛집감별사] 4개월 만에 빅파워 달성</figcaption></figure>
+      <figure class="cc-cred-card cc-reveal" style="transition-delay:.16s"><img src="assets/images/credential-mba.png" alt="영남대 외식업경영MBA 특강"><figcaption>영남대학교 외식업경영MBA 특강 진행</figcaption></figure>
+      <figure class="cc-cred-card cc-reveal" style="transition-delay:.24s"><img src="assets/images/credential-andong.png" alt="안동시 소상공인 라이브커머스 교육"><figcaption>안동시 꿈이룸 소상공인교육센터 라이브커머스 교육 (2년째)</figcaption></figure>
+      <figure class="cc-cred-card cc-reveal"><img src="assets/images/credential-hyeonpung.png" alt="현풍시장 상인역량강화 교육 강사"><figcaption>현풍백년도깨비시장 상인역량강화교육 강사 (중기부·소진공)</figcaption></figure>
+      <figure class="cc-cred-card cc-reveal" style="transition-delay:.08s"><img src="assets/images/credential-social-franchise.png" alt="2017 소셜프랜차이즈 선정 인증"><figcaption>2017 부산·고용노동부 ‘소셜프랜차이즈’ 선정 인증</figcaption></figure>
+      <figure class="cc-cred-card cc-reveal" style="transition-delay:.16s"><img src="assets/images/credential-osaka.png" alt="오사카 특송법인 · 일본 라이브커머스"><figcaption>오사카 특송법인 4년+ 운영 · 일본 현지 라이브커머스</figcaption></figure>
+      <figure class="cc-cred-card cc-reveal" style="transition-delay:.24s"><img src="assets/images/credential-sba.png" alt="서울경제진흥원 쇼플루언서 3기 수료"><figcaption>서울경제진흥원(SBA) 쇼플루언서 3기 수료</figcaption></figure>
     </div>
     <div class="cc-more-wrap"><a class="btn btn-ghost btn-large" href="https://www.whybe.co.kr/" target="_blank" rel="noopener">와이비 더 알아보기 <span aria-hidden="true">→</span></a></div>
   </div>
@@ -547,7 +545,7 @@
   <a class="btn btn-primary cc-apply" href="#" target="_blank" rel="noopener">맛간다 챌린지 1기 신청하기</a>
 </div>
 
-<script src="js/config.js?v=44"></script>
+<script src="js/config.js?v=45"></script>
 <script>
 (function () {
   'use strict';
