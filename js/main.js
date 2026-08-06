@@ -116,6 +116,7 @@
   applyLink('footerTcl', LINKS.tcl);
   applyLink('kakaoLink', LINKS.kakao);
   applyLink('joinFormLink', LINKS.influencerForm);
+  applyLink('branchCreatorLink', LINKS.influencerForm);
   // 동의 체크박스 라벨 안의 '개인정보처리방침' 링크 클릭이 체크박스를 토글하지 않도록
   document.querySelectorAll('.form-privacy a').forEach((a) => a.addEventListener('click', (e) => e.stopPropagation()));
 
