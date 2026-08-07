@@ -9,5 +9,5 @@ window.MAG_ENV = {
   "contactEntryChannel": "361469733",
   "influencerForm": "https://docs.google.com/forms/d/e/1FAIpQLSeoYxsdYMnyHM_E_CDqlzOje0AwP3DHjlfn1FHkRUmTEd14Jg/viewform",
   "challengePriceApi": "https://script.google.com/macros/s/AKfycbw801acfjDxtU64jC4mqxMA7vc890qteRbtRE59a3UxjjYOskDfzs_Qz6Yc3q5p4Ll7/exec",
-  "brandingWebapp": ""
+  "brandingWebapp": "https://script.google.com/macros/s/AKfycbwF3Rc6jwXoNlqJtl6EePBFd58Q0_rq9BSAzx-7IvkjfO4l8sABzlSfPbGTfoWciN_h-Q/exec"
 };
