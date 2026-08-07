@@ -7,5 +7,7 @@ window.MAG_ENV = {
   "contactForm": "https://docs.google.com/forms/d/e/1FAIpQLScOpcBSRLVhA_2ne9ZQadnWzV-c1N32P7X3ppaya69a2guv3g/viewform",
   "contactEntryType": "921473271",
   "contactEntryChannel": "361469733",
-  "influencerForm": "https://docs.google.com/forms/d/e/1FAIpQLSeoYxsdYMnyHM_E_CDqlzOje0AwP3DHjlfn1FHkRUmTEd14Jg/viewform"
+  "influencerForm": "https://docs.google.com/forms/d/e/1FAIpQLSeoYxsdYMnyHM_E_CDqlzOje0AwP3DHjlfn1FHkRUmTEd14Jg/viewform",
+  "challengePriceApi": "https://script.google.com/macros/s/AKfycbw801acfjDxtU64jC4mqxMA7vc890qteRbtRE59a3UxjjYOskDfzs_Qz6Yc3q5p4Ll7/exec",
+  "brandingWebapp": ""
 };

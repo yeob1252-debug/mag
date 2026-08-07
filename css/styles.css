@@ -642,6 +642,63 @@ button { font-family: inherit; cursor: pointer; }
 .branch-sublink a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 @media (max-width: 768px) { .branch-card { padding: 16px; } .branch-card .branch-desc { font-size: 18px; } .challenge-banner { padding: 24px; } }
 
+/* ===== 히어로 하단 3줄 CTA (가로 배너, 세로 스택) ===== */
+.triple-cta { padding: clamp(26px, 5vw, 52px) 0; }
+.triple-cta .section-inner { display: flex; flex-direction: column; gap: 18px; }
+.cta-row { position: relative; min-height: 190px; border-radius: 16px; overflow: hidden;
+  display: flex; align-items: center; padding: 30px 38px;
+  opacity: 0; transform: translateY(24px); transition: opacity .5s var(--ease), transform .5s var(--ease), box-shadow .3s; }
+.cta-row.visible { opacity: 1; transform: translateY(0); }
+.cta-row__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+.cta-row::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(20,12,24,.82) 0%, rgba(20,12,24,.55) 48%, rgba(20,12,24,.16) 100%); }
+.cta-row::before { content: ""; position: absolute; inset: 0; padding: 2px; border-radius: 16px; z-index: 3; pointer-events: none;
+  background: linear-gradient(90deg, #FF3C8C, #FF6B35);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; opacity: 0; transition: opacity .5s; }
+.cta-row.visible::before { opacity: 1; }
+.cta-row:hover { box-shadow: 0 0 24px rgba(255,60,140,.35); }
+.cta-row__content { position: relative; z-index: 2; max-width: 640px; color: #fff; }
+.cta-row__content h2 { font-size: clamp(20px, 3.4vw, 30px); font-weight: 800; letter-spacing: -.02em; line-height: 1.28; margin: 0 0 12px; color: #fff; }
+.cta-row__content .kw-o { color: #FF9700; }
+.cta-row__teaser { list-style: none; margin: 0 0 18px; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.cta-row__teaser li { position: relative; padding-left: 20px; font-size: clamp(13px, 1.6vw, 15px); font-weight: 500; color: rgba(255,255,255,.92); line-height: 1.5; }
+.cta-row__teaser li::before { content: ""; position: absolute; left: 2px; top: .55em; width: 7px; height: 7px; border-radius: 50%; background: linear-gradient(135deg, #FF3C8C, #FF6B35); }
+.cta-row__price { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; margin: 0 0 18px; }
+.cta-row__price .price-old { font-size: 16px; font-weight: 600; color: rgba(255,255,255,.6); text-decoration: line-through; }
+.cta-row__price .price-new { font-size: clamp(26px, 4.6vw, 38px); font-weight: 900; color: #FF9700; letter-spacing: -.02em; }
+.cta-row__price .price-date { flex-basis: 100%; font-size: 13px; font-weight: 600; color: rgba(255,255,255,.85); }
+.cta-row__price .price-loading { font-size: 14px; color: rgba(255,255,255,.7); }
+.cta-row__btn { display: inline-flex; align-items: center; gap: 6px; align-self: flex-start;
+  background: linear-gradient(90deg, #FF3C8C, #FF6B35); color: #fff; font-weight: 800; font-size: 15px;
+  padding: 12px 22px; border-radius: 999px; border: none; cursor: pointer; text-decoration: none;
+  box-shadow: 0 6px 16px rgba(255,60,140,.35); transition: transform .2s, box-shadow .2s; font-family: inherit; }
+.cta-row__btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(255,60,140,.45); }
+.triple-cta .branch-sublink { margin-top: 6px; }
+@media (max-width: 640px) {
+  .cta-row { padding: 24px 22px; min-height: 168px; }
+  .cta-row::after { background: linear-gradient(90deg, rgba(20,12,24,.88) 0%, rgba(20,12,24,.68) 68%, rgba(20,12,24,.44) 100%); }
+  .cta-row__content { max-width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) { .cta-row { opacity: 1 !important; transform: none !important; } .cta-row::before { opacity: 1 !important; } }
+
+/* ===== 모달 (무료 브랜딩 신청 폼) ===== */
+.modal-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: flex-start; justify-content: center;
+  padding: 4vh 16px; background: rgba(15,10,20,.62); opacity: 0; visibility: hidden;
+  transition: opacity .28s, visibility .28s; overflow-y: auto; }
+.modal-overlay.is-open { opacity: 1; visibility: visible; }
+.modal { position: relative; width: 100%; max-width: 560px; margin: auto; background: var(--white); border-radius: 20px;
+  padding: clamp(22px, 4vw, 34px); box-shadow: 0 30px 80px rgba(0,0,0,.35);
+  transform: translateY(16px) scale(.98); transition: transform .3s var(--ease); }
+.modal-overlay.is-open .modal { transform: translateY(0) scale(1); }
+.modal-close { position: absolute; top: 14px; right: 16px; width: 36px; height: 36px; border: none; background: #f4efe6;
+  border-radius: 50%; font-size: 22px; line-height: 1; color: var(--ink); cursor: pointer; transition: background .2s, color .2s; }
+.modal-close:hover { background: #ffe0d0; color: var(--accent); }
+.modal-title { font-size: clamp(20px, 3vw, 26px); font-weight: 800; letter-spacing: -.02em; margin: 0 34px 6px 0; color: var(--ink); }
+.modal-lead { font-size: 14px; color: var(--ink-soft); margin: 0 0 20px; }
+.modal-form { padding: 0 !important; box-shadow: none !important; border-radius: 0 !important; }
+body.modal-open { overflow: hidden; }
+
 /* 맛간다 챌린지 안내(Hero 다음) — 카드형(캐릭터 이미지 없음), 크림 배경 */
 .section-mgd { background: #FFF8E7; }
 .mgd-card { background: #FFFFFF; border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,0.08); padding: 40px; text-align: left; }

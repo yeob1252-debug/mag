@@ -28,7 +28,7 @@
 <link rel="preconnect" href="https://cdn.jsdelivr.net">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/subsets/Paperlogy-dynamic-subset.css">
-<link rel="stylesheet" href="css/styles.css?v=44">
+<link rel="stylesheet" href="css/styles.css?v=45">
 </head>
 <body>
 
@@ -85,26 +85,39 @@
     </div>
   </section>
 
-  <!-- ============ 1.2 분기형 CTA ============ -->
-  <section id="branchCta" class="section section-branch">
+  <!-- ============ 1.2 히어로 하단 3줄 CTA ============ -->
+  <section id="branchCta" class="triple-cta">
     <div class="section-inner container">
-      <div class="branch-grid">
-        <a class="branch-card branch-card-owner" data-scroll-to="filter" role="button" tabindex="0">
-          <img src="assets/images/branch-owner.png?v=2" alt="" aria-hidden="true">
-          <span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M4 21V10l8-6 8 6v11M9 21v-6h6v6"/></svg></span>
-          <span class="label">
-            <span class="branch-title">사장님이신가요?</span>
-            <span class="branch-desc">우리 매장 홍보하기 <span aria-hidden="true">→</span></span>
-          </span>
-        </a>
-        <a class="branch-card branch-card-creator" href="creator-course.html" role="button">
-          <img src="assets/images/challenge-02-shooting.png?v=2" alt="" aria-hidden="true">
-          <span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l4.5-2.6v9.2L15 14M4 8h9a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2z"/></svg></span>
-          <span class="label">
-            <span class="branch-title">원데이클래스</span>
-            <span class="branch-desc">맛간다 챌린지 알아보기 <span aria-hidden="true">→</span></span>
-          </span>
-        </a>
+      <!-- 1행: 무료 브랜딩 -->
+      <div class="cta-row" data-row="branding">
+        <img src="assets/images/branding-free-banner.png?v=1" class="cta-row__bg" alt="" aria-hidden="true"
+             onerror="this.onerror=null;this.src='assets/images/hero-02-shootin.png?v=2'">
+        <div class="cta-row__content">
+          <h2>내 맛집채널 <span class="kw-o">무료 브랜딩</span></h2>
+          <ul class="cta-row__teaser">
+            <li>인물 위주 브랜딩을 원하시나요?</li>
+            <li>별명/닉네임으로 브랜딩을 원하시나요?</li>
+            <li>원하는 스타일 컨셉이 있으신가요?</li>
+          </ul>
+          <button type="button" class="cta-row__btn" data-open="branding-form">무료 브랜딩 신청하기</button>
+        </div>
+      </div>
+      <!-- 2행: 원데이클래스 -->
+      <div class="cta-row" data-row="challenge">
+        <img src="assets/images/challenge-02-shooting.png?v=2" class="cta-row__bg" alt="" aria-hidden="true">
+        <div class="cta-row__content">
+          <h2>휴대폰 하나로 <span class="kw-o">크리에이터</span> 되는 하루</h2>
+          <div class="cta-row__price" id="challenge-price"><span class="price-loading">가격·일정 불러오는 중…</span></div>
+          <a href="creator-course.html" class="cta-row__btn">맛간다챌린지 알아보기 <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <!-- 3행: 사장님 -->
+      <div class="cta-row" data-row="owner">
+        <img src="assets/images/branch-owner.png?v=2" class="cta-row__bg" alt="" aria-hidden="true">
+        <div class="cta-row__content">
+          <h2>예산에 맞게 <span class="kw-o">크리에이터 매칭</span></h2>
+          <a href="#owner-apply" class="cta-row__btn" data-scroll-to="owner-apply">우리매장 홍보하기 <span aria-hidden="true">→</span></a>
+        </div>
       </div>
       <p class="branch-sublink">이미 채널이 있으신가요? <a href="https://docs.google.com/forms/d/e/1FAIpQLSeoYxsdYMnyHM_E_CDqlzOje0AwP3DHjlfn1FHkRUmTEd14Jg/viewform" target="_blank" rel="noopener">크리에이터 등록하기 <span aria-hidden="true">→</span></a></p>
     </div>
@@ -190,6 +203,7 @@
   </section>
 
   <!-- ============ 2. 지역/가격대 필터 탐색 ============ -->
+  <span id="owner-apply" aria-hidden="true" style="display:block; position:relative; top:-72px;"></span>
   <section id="filter" class="section section-filter">
     <div class="section-inner container">
       <p class="eyebrow reveal">FIND YOUR CHANNEL</p>
@@ -582,8 +596,69 @@
   <a id="floatCtaLink" href="#"><span class="fc-label" id="floatCtaLabel">지금 문의하기</span> <span aria-hidden="true">→</span></a>
 </div>
 
-<script src="js/config.js?v=44"></script>
-<script src="js/data.js?v=44"></script>
-<script src="js/main.js?v=44"></script>
+<!-- 무료 브랜딩 신청 모달 -->
+<div class="modal-overlay" id="brandingModal" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="brandingModalTitle">
+    <button type="button" class="modal-close" data-close-modal aria-label="닫기">&times;</button>
+    <h2 class="modal-title" id="brandingModalTitle">내 맛집채널 무료 브랜딩 신청</h2>
+    <p class="modal-lead">10개 문항이면 끝나요. 답변을 바탕으로 맞춤 브랜딩 방향을 잡아드릴게요.</p>
+    <form id="brandingForm" class="contact-form modal-form" novalidate>
+      <div class="form-row"><label for="b_name">이름/활동명 <span class="req">*</span></label><input type="text" id="b_name" name="name" required></div>
+      <div class="form-row"><label for="b_nick">별명·닉네임</label><input type="text" id="b_nick" name="nickname" placeholder="원하는 별명이 있다면"></div>
+      <div class="form-row">
+        <span class="form-legend">브랜딩 선호</span>
+        <div class="radio-group radio-group-col" role="radiogroup">
+          <label class="radio-pill"><input type="radio" name="brandingType" value="인물 위주" checked> 인물 위주</label>
+          <label class="radio-pill"><input type="radio" name="brandingType" value="닉네임 위주"> 별명·닉네임 위주</label>
+          <label class="radio-pill"><input type="radio" name="brandingType" value="비공개"> 비공개(얼굴 노출 X)</label>
+        </div>
+      </div>
+      <div class="form-row"><label for="b_concept">원하는 스타일 컨셉</label><textarea id="b_concept" name="concept" rows="2" placeholder="예) 감성적이고 따뜻한 / 위트있고 발랄한 등"></textarea></div>
+      <div class="form-two">
+        <div class="form-row"><label for="b_color">좋아하는 색깔</label><input type="text" id="b_color" name="favColor" placeholder="예) 파스텔 핑크"></div>
+        <div class="form-row"><label for="b_food">좋아하는 음식/디저트</label><input type="text" id="b_food" name="favFood" placeholder="예) 마라탕, 티라미수"></div>
+      </div>
+      <div class="form-row"><label for="b_refs">좋아하는 유튜브·틱톡 맛집채널 <span class="filter-sub">(최대 3개, 쉼표로 구분)</span></label><input type="text" id="b_refs" name="refChannels" placeholder="예) 채널A, 채널B, 채널C"></div>
+      <div class="form-row">
+        <span class="form-legend">성향</span>
+        <div class="radio-group" role="radiogroup">
+          <label class="radio-pill"><input type="radio" name="personality" value="외향적" checked> 외향적</label>
+          <label class="radio-pill"><input type="radio" name="personality" value="조용한"> 조용한 편</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <span class="form-legend">말투 톤</span>
+        <div class="radio-group" role="radiogroup">
+          <label class="radio-pill"><input type="radio" name="tone" value="반말" checked> 반말</label>
+          <label class="radio-pill"><input type="radio" name="tone" value="존댓말"> 존댓말</label>
+          <label class="radio-pill"><input type="radio" name="tone" value="유머러스"> 유머러스</label>
+        </div>
+      </div>
+      <div class="form-row">
+        <span class="form-legend">목표 <span class="filter-sub">(가장 중요한 1가지)</span></span>
+        <div class="radio-group" role="radiogroup">
+          <label class="radio-pill"><input type="radio" name="goal" value="부수입" checked> 부수입</label>
+          <label class="radio-pill"><input type="radio" name="goal" value="재미"> 재미</label>
+          <label class="radio-pill"><input type="radio" name="goal" value="인지도"> 인지도</label>
+        </div>
+      </div>
+      <div class="form-row"><label for="b_phone">연락처 <span class="req">*</span></label><input type="tel" id="b_phone" name="phone" placeholder="010-1234-5678" required></div>
+      <div class="form-row">
+        <label class="check-row check-required">
+          <input type="checkbox" id="b_agree" name="agree" required>
+          <span>개인정보 수집·이용에 동의합니다. <span class="req">*</span>
+            <span class="form-privacy">입력하신 정보는 무료 브랜딩 상담 목적으로만 사용되며, 상담 완료 후 안전하게 관리됩니다. 자세한 내용은 <a href="privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>을 참고하세요.</span>
+          </span>
+        </label>
+      </div>
+      <button type="submit" class="btn btn-primary btn-large form-submit">무료 브랜딩 신청하기</button>
+      <p class="form-status" id="brandingStatus" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</div>
+
+<script src="js/config.js?v=45"></script>
+<script src="js/data.js?v=45"></script>
+<script src="js/main.js?v=45"></script>
 </body>
 </html>

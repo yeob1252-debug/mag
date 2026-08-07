@@ -862,6 +862,118 @@
   }
 
   /* =======================================================
+     히어로 하단 3줄 CTA — 순차 등장 + 원데이클래스 가격/일정 실시간
+     ======================================================= */
+  (function () {
+    const rows = document.querySelectorAll('.triple-cta .cta-row');
+    if (rows.length) {
+      if (!('IntersectionObserver' in window) || prefersReduced) {
+        rows.forEach((r) => r.classList.add('visible'));
+      } else {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              const i = Math.max(0, [...rows].indexOf(en.target));
+              window.setTimeout(() => en.target.classList.add('visible'), i * 150);
+              obs.unobserve(en.target);
+            }
+          });
+        }, { threshold: 0.2 });
+        rows.forEach((r) => obs.observe(r));
+        // 안전장치: 관찰자 미발화 시에도 화면 안이면 강제 노출
+        window.addEventListener('load', () => window.setTimeout(() => {
+          rows.forEach((r) => { if (r.getBoundingClientRect().top < window.innerHeight * 1.1) r.classList.add('visible'); });
+        }, 600));
+      }
+    }
+
+    // 원데이클래스 가격·일정 (구글시트 실시간 GET)
+    const priceBox = document.getElementById('challenge-price');
+    if (priceBox) {
+      const API = (ENV && ENV.challengePriceApi) || 'https://script.google.com/macros/s/AKfycbw801acfjDxtU64jC4mqxMA7vc890qteRbtRE59a3UxjjYOskDfzs_Qz6Yc3q5p4Ll7/exec';
+      const won = (n) => Number(n).toLocaleString('ko-KR') + '원';
+      const KST = { timeZone: 'Asia/Seoul' };
+      const fmtDate = (v) => { const d = new Date(v); return isNaN(d) ? '' : d.toLocaleDateString('ko-KR', { ...KST, year: 'numeric', month: 'long', day: 'numeric' }); };
+      const fmtTime = (v) => { const d = new Date(v); return isNaN(d) ? '' : d.toLocaleTimeString('ko-KR', { ...KST, hour: '2-digit', minute: '2-digit', hour12: false }); };
+      (async function loadPrice() {
+        if (!API) return;
+        for (let i = 0; i < 3; i++) {
+          try {
+            const res = await fetch(API, { cache: 'no-store' });
+            const txt = await res.text();
+            let data; try { data = JSON.parse(txt); } catch (_) { continue; } // 간혹 HTML 반환 → 재시도
+            const row = Array.isArray(data) ? data[0] : data;
+            if (!row) continue;
+            const date = fmtDate(row['강의일정(날짜)']);
+            const st = fmtTime(row['시작시간']), et = fmtTime(row['종료시간']);
+            const when = [date, (st && et ? `${st}~${et}` : (st || ''))].filter(Boolean).join(' · ');
+            priceBox.innerHTML =
+              (row['정상가'] ? `<span class="price-old">${won(row['정상가'])}</span>` : '') +
+              (row['특가'] ? `<span class="price-new">${won(row['특가'])}</span>` : '') +
+              (when ? `<span class="price-date">${when}</span>` : '');
+            return;
+          } catch (_) { /* 재시도 */ }
+        }
+        priceBox.innerHTML = '<span class="price-date">가격·일정은 “맛간다챌린지 알아보기”에서 확인하세요</span>';
+      })();
+    }
+  })();
+
+  /* =======================================================
+     무료 브랜딩 신청 모달 (10문항 → Apps Script doPost)
+     ======================================================= */
+  (function () {
+    const modal = document.getElementById('brandingModal');
+    if (!modal) return;
+    const form = document.getElementById('brandingForm');
+    const status = document.getElementById('brandingStatus');
+    // 브랜딩 응답용 Apps Script 웹앱 URL — .env / config.js 의 brandingWebapp 에 배포 후 입력
+    const BRANDING_WEBAPP = (ENV && ENV.brandingWebapp) || '';
+    let lastFocus = null;
+    function open() { lastFocus = document.activeElement; modal.classList.add('is-open'); modal.setAttribute('aria-hidden', 'false'); document.body.classList.add('modal-open'); const f = modal.querySelector('input,textarea,button.form-submit'); if (f) f.focus(); }
+    function close() { modal.classList.remove('is-open'); modal.setAttribute('aria-hidden', 'true'); document.body.classList.remove('modal-open'); if (lastFocus && lastFocus.focus) lastFocus.focus(); }
+    document.querySelectorAll('[data-open="branding-form"]').forEach((b) => b.addEventListener('click', open));
+    modal.querySelectorAll('[data-close-modal]').forEach((b) => b.addEventListener('click', close));
+    modal.addEventListener('click', (e) => { if (e.target === modal) close(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('is-open')) close(); });
+
+    if (form) form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      if (!String(data.get('name') || '').trim() || !String(data.get('phone') || '').trim() || !data.get('agree')) {
+        status.textContent = '이름/활동명, 연락처, 개인정보 동의를 확인해주세요.';
+        status.className = 'form-status is-error'; return;
+      }
+      if (!BRANDING_WEBAPP) {
+        status.textContent = '신청 접수 채널을 준비 중이에요. 잠시 후 다시 시도하거나 카카오톡으로 문의해주세요.';
+        status.className = 'form-status is-error'; return;
+      }
+      const payload = {
+        '타임스탬프': new Date().toISOString(),
+        '이름/활동명': data.get('name') || '',
+        '별명/닉네임': data.get('nickname') || '',
+        '브랜딩 선호': data.get('brandingType') || '',
+        '스타일 컨셉': data.get('concept') || '',
+        '좋아하는 색깔': data.get('favColor') || '',
+        '좋아하는 음식/디저트': data.get('favFood') || '',
+        '레퍼런스 채널': data.get('refChannels') || '',
+        '성향': data.get('personality') || '',
+        '말투 톤': data.get('tone') || '',
+        '목표': data.get('goal') || '',
+        '연락처': data.get('phone') || '',
+        '개인정보 수집·이용 동의': data.get('agree') ? '동의' : '',
+      };
+      const btn = form.querySelector('.form-submit'); const bt = btn.textContent;
+      btn.disabled = true; btn.textContent = '전송 중...';
+      status.textContent = ''; status.className = 'form-status';
+      fetch(BRANDING_WEBAPP, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) })
+        .then(() => { status.textContent = '무료 브랜딩 신청이 접수됐어요! 맛집감별사가 곧 연락드릴게요.'; status.className = 'form-status is-success'; form.reset(); })
+        .catch(() => { status.textContent = '전송 중 문제가 발생했어요. 잠시 후 다시 시도하거나 카카오톡으로 문의해주세요.'; status.className = 'form-status is-error'; })
+        .finally(() => { btn.disabled = false; btn.textContent = bt; });
+    });
+  })();
+
+  /* =======================================================
      [13] 인기 조합 원터치 칩 → 필터 자동 설정 + 즉시 검색
      ======================================================= */
   document.querySelectorAll('#filterCombos .combo-chip').forEach((chip) => {
