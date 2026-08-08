@@ -253,6 +253,21 @@
   .cc-price-orig { font-size: 22px; font-weight: 600; color: #9B8D7D; text-decoration: line-through; margin-bottom: 2px; }
   .cc-price-special { font-size: 52px; font-weight: 900; color: #F5576C; letter-spacing: -.02em; line-height: 1.05; margin-bottom: 6px; }
   .cc-price-later { font-size: 14px; font-weight: 500; color: #8a7a6c; margin-bottom: 18px; }
+  /* 1기 가격 섹션 재구성 — 가격 최대 + 보조정보(일정/정원/시간) 위계 */
+  #cohort1-price { margin-bottom: 18px; }
+  #cohort1-price .price-orig { font-size: 20px; font-weight: 600; color: #9B8D7D; text-decoration: line-through; margin: 0 0 2px; }
+  .price-main { font-size: clamp(48px, 8vw, 72px); font-weight: 900; color: #FF3C8C; letter-spacing: -.02em; line-height: 1.04; }
+  .price-divider { border: none; border-top: 1px solid var(--line); margin: 18px auto; max-width: 320px; }
+  .price-meta { display: flex; justify-content: center; gap: 32px; margin-top: 16px; flex-wrap: wrap; }
+  .meta-item { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 16px; }
+  .meta-item .meta-ico { width: 24px; height: 24px; color: var(--accent); }
+  .meta-item .meta-ico svg { width: 100%; height: 100%; }
+  .meta-item span { color: #7A7286; font-size: 16px; }
+  .meta-item strong { font-size: 18px; color: #2A2438; font-weight: 800; }
+  @media (max-width: 480px) {
+    .price-meta { flex-direction: column; gap: 12px; align-items: stretch; }
+    .meta-item { flex-direction: row; justify-content: center; gap: 8px; }
+  }
   /* 신청 정보 소제목 + 정원/마감 pill 배지 */
   .cc-apply-subtitle { font-size: 28px; font-weight: 800; color: #2a1a12; letter-spacing: -.02em; margin-top: 8px; }
   .cc-apply-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
@@ -494,10 +509,15 @@
         <span class="cc-ribbon cc-ribbon-early">1기 한정</span>
         <p class="cc-price-name">1기 한정가</p>
         <p class="cc-price-note">하루 완성 전 과정 (오전 이론·기획 → 저녁 실전 매장 촬영·업로드)</p>
-        <div id="cohort1-price">
-          <p class="cc-price-orig">590,000원</p>
-          <p class="cc-price-special">100,000원 특가</p>
-          <p class="cc-price-later">추후 인상 예정</p>
+        <div id="cohort1-price" class="price-section">
+          <p class="price-orig">590,000원</p>
+          <div class="price-main">100,000원</div>
+          <hr class="price-divider">
+          <div class="price-meta">
+            <div class="meta-item"><span class="meta-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="5" width="16" height="16" rx="2"/><path d="M16 3v4M8 3v4M4 11h16"/></svg></span><span>강의일정</span><strong data-meta="date">-</strong></div>
+            <div class="meta-item"><span class="meta-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><path d="M16 5.5a3 3 0 0 1 0 5M21 20c0-2.4-1.7-4.3-4-4.8"/></svg></span><span>정원</span><strong data-meta="cap">10명</strong></div>
+            <div class="meta-item"><span class="meta-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span><span>시간</span><strong data-meta="time">-</strong></div>
+          </div>
         </div>
         <a class="cc-price-btn cc-apply" href="#" target="_blank" rel="noopener">맛간다 챌린지 1기 신청하기</a>
       </div>
@@ -790,13 +810,16 @@ else document.addEventListener('DOMContentLoaded', initBarAnimation);
 })();
 </script>
 <script>
-// 1기 가격표 — 구글시트 실시간 값 (정상가/특가/강의일정). 실패 시 하드코딩 폴백 유지.
+// 1기 가격표 — 구글시트 실시간 값 (정상가/특가/강의일정/시작·종료시간). 실패 시 하드코딩 폴백 유지.
 (function () {
   var box = document.getElementById('cohort1-price');
   if (!box) return;
   var API = 'https://script.google.com/macros/s/AKfycbw801acfjDxtU64jC4mqxMA7vc890qteRbtRE59a3UxjjYOskDfzs_Qz6Yc3q5p4Ll7/exec';
+  var KST = { timeZone: 'Asia/Seoul' };
   var won = function (n) { return Number(n).toLocaleString('ko-KR') + '원'; };
-  var fmtDate = function (v) { var d = new Date(v); return isNaN(d) ? '' : d.toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul', year: 'numeric', month: 'long', day: 'numeric' }); };
+  var fmtMD = function (v) { var d = new Date(v); if (isNaN(d)) return ''; var p = d.toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul', month: 'numeric', day: 'numeric' }); return p.replace(/\.\s*/g, '/').replace(/\/$/, ''); };
+  var fmtHM = function (v) { var d = new Date(v); return isNaN(d) ? '' : d.toLocaleTimeString('ko-KR', { timeZone: 'Asia/Seoul', hour: '2-digit', minute: '2-digit', hour12: false }); };
+  var setMeta = function (k, val) { var el = box.querySelector('[data-meta="' + k + '"]'); if (el && val) el.textContent = val; };
   (async function () {
     for (var i = 0; i < 3; i++) {
       try {
@@ -805,11 +828,14 @@ else document.addEventListener('DOMContentLoaded', initBarAnimation);
         var data; try { data = JSON.parse(txt); } catch (e) { continue; } // 간혹 HTML → 재시도
         var row = Array.isArray(data) ? data[0] : data;
         if (!row) continue;
-        var date = fmtDate(row['강의일정(날짜)']);
-        box.innerHTML =
-          (row['정상가'] ? '<p class="cc-price-orig">' + won(row['정상가']) + '</p>' : '') +
-          (row['특가'] ? '<p class="cc-price-special">' + won(row['특가']) + ' 특가</p>' : '') +
-          '<p class="cc-price-later">' + (date ? date + ' 진행' : '추후 인상 예정') + '</p>';
+        if (row['정상가']) box.querySelector('.price-orig').textContent = won(row['정상가']);
+        if (row['특가']) box.querySelector('.price-main').textContent = won(row['특가']);
+        setMeta('date', fmtMD(row['강의일정(날짜)']));
+        var st = fmtHM(row['시작시간']), et = fmtHM(row['종료시간']);
+        setMeta('time', (st && et) ? (st + '~' + et) : (st || et));
+        // 정원은 가격시트에 없음 → 챌린지 현황(cc-cap-total)과 동기화(있으면)
+        var cap = document.querySelector('.cc-cap-total');
+        if (cap && cap.textContent.trim()) setMeta('cap', cap.textContent.trim() + '명');
         return;
       } catch (e) { /* 재시도 */ }
     }
