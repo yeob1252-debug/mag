@@ -494,9 +494,11 @@
         <span class="cc-ribbon cc-ribbon-early">1기 한정</span>
         <p class="cc-price-name">1기 한정가</p>
         <p class="cc-price-note">하루 완성 전 과정 (오전 이론·기획 → 저녁 실전 매장 촬영·업로드)</p>
-        <p class="cc-price-orig">59만원</p>
-        <p class="cc-price-special">10만원 특가</p>
-        <p class="cc-price-later">추후 인상 예정</p>
+        <div id="cohort1-price">
+          <p class="cc-price-orig">590,000원</p>
+          <p class="cc-price-special">100,000원 특가</p>
+          <p class="cc-price-later">추후 인상 예정</p>
+        </div>
         <a class="cc-price-btn cc-apply" href="#" target="_blank" rel="noopener">맛간다 챌린지 1기 신청하기</a>
       </div>
       <p class="cc-price-vary">※ 금액은 상시 변동됩니다 — 기수 종료 후 실제 활동·수익 성과가 검증되면 다음 기수부터 인상될 예정이에요. <b>가장 저렴하게 시작할 수 있는 지금이 적기입니다.</b></p>
@@ -785,6 +787,34 @@ else document.addEventListener('DOMContentLoaded', initBarAnimation);
   window.addEventListener('scroll', update, { passive: true });
   window.addEventListener('resize', update);
   update();
+})();
+</script>
+<script>
+// 1기 가격표 — 구글시트 실시간 값 (정상가/특가/강의일정). 실패 시 하드코딩 폴백 유지.
+(function () {
+  var box = document.getElementById('cohort1-price');
+  if (!box) return;
+  var API = 'https://script.google.com/macros/s/AKfycbw801acfjDxtU64jC4mqxMA7vc890qteRbtRE59a3UxjjYOskDfzs_Qz6Yc3q5p4Ll7/exec';
+  var won = function (n) { return Number(n).toLocaleString('ko-KR') + '원'; };
+  var fmtDate = function (v) { var d = new Date(v); return isNaN(d) ? '' : d.toLocaleDateString('ko-KR', { timeZone: 'Asia/Seoul', year: 'numeric', month: 'long', day: 'numeric' }); };
+  (async function () {
+    for (var i = 0; i < 3; i++) {
+      try {
+        var res = await fetch(API, { cache: 'no-store' });
+        var txt = await res.text();
+        var data; try { data = JSON.parse(txt); } catch (e) { continue; } // 간혹 HTML → 재시도
+        var row = Array.isArray(data) ? data[0] : data;
+        if (!row) continue;
+        var date = fmtDate(row['강의일정(날짜)']);
+        box.innerHTML =
+          (row['정상가'] ? '<p class="cc-price-orig">' + won(row['정상가']) + '</p>' : '') +
+          (row['특가'] ? '<p class="cc-price-special">' + won(row['특가']) + ' 특가</p>' : '') +
+          '<p class="cc-price-later">' + (date ? date + ' 진행' : '추후 인상 예정') + '</p>';
+        return;
+      } catch (e) { /* 재시도 */ }
+    }
+    // 3회 실패 시: 하드코딩 폴백 그대로 둠
+  })();
 })();
 </script>
 </body>

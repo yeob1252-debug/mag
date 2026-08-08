@@ -862,61 +862,29 @@
   }
 
   /* =======================================================
-     히어로 하단 3줄 CTA — 순차 등장 + 원데이클래스 가격/일정 실시간
+     히어로 하단 3줄 CTA — 순차 등장 (가격 표시 없음: 원데이클래스 가격은 creator-course 로 이동)
      ======================================================= */
   (function () {
     const rows = document.querySelectorAll('.triple-cta .cta-row');
-    if (rows.length) {
-      if (!('IntersectionObserver' in window) || prefersReduced) {
-        rows.forEach((r) => r.classList.add('visible'));
-      } else {
-        const obs = new IntersectionObserver((entries) => {
-          entries.forEach((en) => {
-            if (en.isIntersecting) {
-              const i = Math.max(0, [...rows].indexOf(en.target));
-              window.setTimeout(() => en.target.classList.add('visible'), i * 150);
-              obs.unobserve(en.target);
-            }
-          });
-        }, { threshold: 0.2 });
-        rows.forEach((r) => obs.observe(r));
-        // 안전장치: 관찰자 미발화 시에도 화면 안이면 강제 노출
-        window.addEventListener('load', () => window.setTimeout(() => {
-          rows.forEach((r) => { if (r.getBoundingClientRect().top < window.innerHeight * 1.1) r.classList.add('visible'); });
-        }, 600));
-      }
+    if (!rows.length) return;
+    if (!('IntersectionObserver' in window) || prefersReduced) {
+      rows.forEach((r) => r.classList.add('visible'));
+      return;
     }
-
-    // 원데이클래스 가격·일정 (구글시트 실시간 GET)
-    const priceBox = document.getElementById('challenge-price');
-    if (priceBox) {
-      const API = (ENV && ENV.challengePriceApi) || 'https://script.google.com/macros/s/AKfycbw801acfjDxtU64jC4mqxMA7vc890qteRbtRE59a3UxjjYOskDfzs_Qz6Yc3q5p4Ll7/exec';
-      const won = (n) => Number(n).toLocaleString('ko-KR') + '원';
-      const KST = { timeZone: 'Asia/Seoul' };
-      const fmtDate = (v) => { const d = new Date(v); return isNaN(d) ? '' : d.toLocaleDateString('ko-KR', { ...KST, year: 'numeric', month: 'long', day: 'numeric' }); };
-      const fmtTime = (v) => { const d = new Date(v); return isNaN(d) ? '' : d.toLocaleTimeString('ko-KR', { ...KST, hour: '2-digit', minute: '2-digit', hour12: false }); };
-      (async function loadPrice() {
-        if (!API) return;
-        for (let i = 0; i < 3; i++) {
-          try {
-            const res = await fetch(API, { cache: 'no-store' });
-            const txt = await res.text();
-            let data; try { data = JSON.parse(txt); } catch (_) { continue; } // 간혹 HTML 반환 → 재시도
-            const row = Array.isArray(data) ? data[0] : data;
-            if (!row) continue;
-            const date = fmtDate(row['강의일정(날짜)']);
-            const st = fmtTime(row['시작시간']), et = fmtTime(row['종료시간']);
-            const when = [date, (st && et ? `${st}~${et}` : (st || ''))].filter(Boolean).join(' · ');
-            priceBox.innerHTML =
-              (row['정상가'] ? `<span class="price-old">${won(row['정상가'])}</span>` : '') +
-              (row['특가'] ? `<span class="price-new">${won(row['특가'])}</span>` : '') +
-              (when ? `<span class="price-date">${when}</span>` : '');
-            return;
-          } catch (_) { /* 재시도 */ }
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (en.isIntersecting) {
+          const i = Math.max(0, [...rows].indexOf(en.target));
+          window.setTimeout(() => en.target.classList.add('visible'), i * 150);
+          obs.unobserve(en.target);
         }
-        priceBox.innerHTML = '<span class="price-date">가격·일정은 “맛간다챌린지 알아보기”에서 확인하세요</span>';
-      })();
-    }
+      });
+    }, { threshold: 0.2 });
+    rows.forEach((r) => obs.observe(r));
+    // 안전장치: 관찰자 미발화 시에도 화면 안이면 강제 노출
+    window.addEventListener('load', () => window.setTimeout(() => {
+      rows.forEach((r) => { if (r.getBoundingClientRect().top < window.innerHeight * 1.1) r.classList.add('visible'); });
+    }, 600));
   })();
 
   /* =======================================================
