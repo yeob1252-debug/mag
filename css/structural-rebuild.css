@@ -88,109 +88,54 @@ body a{text-decoration:none}
 .sr-editorial-layout{display:grid;grid-template-columns:minmax(300px,.85fr) 1fr;align-items:center;gap:clamp(40px,8vw,130px)}
 .sr-editorial-frame{position:relative;width:min(100%,560px);padding:9px;border-radius:40px;background:linear-gradient(135deg,#f9ce34,#ee2a7b 45%,#6228d7);box-shadow:0 28px 80px rgba(0,0,0,.35)}
 .sr-editorial-frame>img{display:block;width:100%;aspect-ratio:4/5;border:7px solid #171714;border-radius:31px;object-fit:cover;transition:opacity .22s ease}
-.sr-editorial-frame>div{position:absolute;left:32px;right:32px;bottom:34px;padding:72px 20px 20px;border-radius:0 0 24px 24px;background:linear-gradient(transparent,rgba(0,0,0,.82));color:#fff}.sr-editorial-frame>div span{font-size:.65rem;font-weight:900}.sr-editorial-frame>div strong{display:block;margin-top:5px;font-ó›h‘éì¶»§q«^u[™œ™Ø˜JMJNÙ›Û\Ú^™N‹N™[_B‹œÜ‹XØ]YÛÜžK]XœÞÙ\Ü^N™›^Ù›^Y\™XÝ[ÛŽ˜ÛÛ[[ŸKœÜ‹XØ]YÛÜžK]XœÈ]ÛžÙ\Ü^N™›^ÛZ[‹ZZYÚÎØ[YÛ‹Z][\Î˜Ù[\ŽÙØ\ŒŒœÜY[™ÎŒMœœØ›Ü™\ŽŒØ›Ü™\‹X›ÝÛNŒ\ÛÛY™Ø˜JMKMKMKŒMŠNØ˜XÚÙÜ›Ý[™˜[œÜ\™[ØÛÛÜŽœ™Ø˜JMKMKMKŒÎ
-NÙ›ÛY˜[Z[Nš[š\š]Ù›Û\Ú^™N˜Û[\
-KŒÍ\™[KËŒËËŒ\™[JNÙ›Û]ÙZYÚŽLÛ]\‹\ÜXÚ[™Î‹KŒY[NÝ^X[YÛŽ›YØÝ\œÛÜŽœÚ[\ŸKœÜ‹XØ]YÛÜžK]XœÈ]ÛˆÜ[žÙ›Û\Ú^™N‹ŒÜ™[NÛ]\‹\ÜXÚ[™Î‹Œ[_KœÜ‹XØ]YÛÜžK]XœÈ]Û‹š\ËXXÝ]™^ØÛÛÜŽˆÙ™™ŸKœÜ‹XØ]YÛÜžK]XœÈ]Û‹š\ËXXÝ]™N˜Y\žØÛÛ[ˆ•’QUÈŽÛX\™Ú[‹[Y˜]]ÎØÛÛÜŽˆÙ™ŽMÙŽÙ›Û\Ú^™N‹MÜ™[NÛ]\‹\ÜXÚ[™Î‹ŒL™[_B‚‹œÜ‹\™]˜[Y^Ù\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎŒKŒ™œˆŽœŽØ[YÛ‹Z][\Î˜Ù[\ŽÙØ\˜Û[\
-œ]ËML
-NÜY[™Î˜Û[\
-Ì]ËLÌ
-HÛ[\
-ŒœÝËLLœ
-NØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹XÛÜ˜[
-NØÛÛÜŽˆÙ™™ŸKœÜ‹\™]˜[YHœÜ‹ZÚXÚÙ\žØÛÛÜŽˆÌ˜ŒMÌLŸKœÜ‹\™]˜[YHžÛX\™Ú[ŽŒÙ›Û\Ú^™N˜Û[\
-‹Œœ™[K]Ë\™[JNÙ›Û]ÙZYÚŽLÛ]\‹\ÜXÚ[™Î‹KŒY[NÛ[™KZZYÚŒKŒKœÜ‹\™]˜[YH›\ÝXÚ[ÛX\™Ú[ŽŒÛX^]ÚYLØÛÛÜŽœ™Ø˜JMKMKMKÎ
-NÛ[™KZZYÚŒKßB‚‹œÜ‹[ÝÛ™\žØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹XÜ™X[J_KœÜ‹[ÝÛ™\šXY\žÙ\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎŒKŒYœˆÌ™œŽØ[YÛ‹Z][\Î™[™ÙØ\LKœÜ‹[ÝÛ™\šXY\ˆœÜ‹ZÚXÚÙ\žÙÜšYXÛÛ[[ŽŒKËL_B‹œÜ‹[ÝÛ™\‹\Ý\ÞÙ\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎœ™\X]
-ËYœŠNÙØ\ŒLœÛX\™Ú[ŽÌLÜY[™ÎŒÛ\Ý\Ý[N››Û™_KœÜ‹[ÝÛ™\‹\Ý\È^ÛZ[‹ZZYÚŒLÜY[™ÎŒŽØ›Ü™\ŽŒ\ÛÛY˜\ŠK\Ü‹[[™JNØ›Ü™\‹\˜Y]\Î˜\ŠK\Ü‹\˜Y]\ÊNØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹\\\Š_KœÜ‹[ÝÛ™\‹\Ý\ÈžØÛÛÜŽ˜\ŠK\Ü‹XÛÜ˜[
-NÙ›Û\Ú^™N‹Ü™[_KœÜ‹[ÝÛ™\‹\Ý\ÈÞÛX\™Ú[ŽŒLœÙ›Û\Ú^™NŒK\™[NÙ›Û]ÙZYÚŽLKœÜ‹[ÝÛ™\‹\Ý\ÈÛX\™Ú[ŽŒØÛÛÜŽ˜\ŠK\Ü‹\ÛÙ
-NÛ[™KZZYÚŒKŸB‹œÜ‹[ÝÛ™\‹XÛÛ™\œÚ[ÛžÙ\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎ‹ŽœˆKŒ™œŽÙØ\˜Û[\
-ÍœÝËLL
-NÜY[™Î˜Û[\
-Ž]ËÌœ
-NØ›Ü™\‹\˜Y]\ÎØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹Z[šÊNØÛÛÜŽˆÙ™™ŸKœÜ‹[ÝÛ™\‹Y›Ü›KZ[›ÈÞÛX\™Ú[ŽŒÙ›Û\Ú^™N˜Û[\
-‹Œ\™[KË™[JNÙ›Û]ÙZYÚŽLÛ]\‹\ÜXÚ[™Î‹KŒ™[NÛ[™KZZYÚŒKŒŸKœÜ‹[ÝÛ™\‹Y›Ü›KZ[›Ïœ›\ÝXÚ[ÛX\™Ú[‹]ÜŒŽØÛÛÜŽœ™Ø˜JMKMKMK
-NÛ[™KZZYÚŒKŽKœÜ‹[ÝÛ™\‹Y›Ü›KZ[›Ïœ›\ÝXÚ[žØÛÛÜŽˆÙ™™ŸB‹œÜ‹[ÝÛ™\‹Y›Ü›K›XYY›Ü›^ÜY[™ÎŒØ˜XÚÙÜ›Ý[™˜[œÜ\™[Ø›Ü™\ŽŒØÛÛÜŽˆÙ™™ŸKœÜ‹[ÝÛ™\‹Y›Ü›H™›Ü›KYÜšYÙØ\ŒMKœÜ‹[ÝÛ™\‹Y›Ü›HX™[œÜ[žØÛÛÜŽœ™Ø˜JMKMKMKÎ
-_KœÜ‹[ÝÛ™\‹Y›Ü›H[œ]œÜ‹[ÝÛ™\‹Y›Ü›HÙ[XÝœÜ‹[ÝÛ™\‹Y›Ü›H^\™X^ÛZ[‹ZZYÚLØ›Ü™\‹XÛÛÜŽœ™Ø˜JMKMKMKŒŠNØ˜XÚÙÜ›Ý[™ˆÌŽLŽLNØÛÛÜŽˆÙ™™ŸKœÜ‹[ÝÛ™\‹Y›Ü›H^\™X^ÛZ[‹ZZYÚŒLKœÜ‹[ÝÛ™\‹Y›Ü›H[œ]ŽœXÙZÛ\‹œÜ‹[ÝÛ™\‹Y›Ü›H^\™XNŽœXÙZÛ\žØÛÛÜŽœ™Ø˜JMKMKMKŒÍJ_KœÜ‹[ÝÛ™\‹Y›Ü›HÙ[XÝÜ[ÛžØÛÛÜŽˆÌMÌMÌMØ˜XÚÙÜ›Ý[™ˆÙ™™ŸKœÜ‹[ÝÛ™\‹Y›Ü›H˜ÛÛœÙ[ÛX\™Ú[ŽŒMœØÛÛÜŽœ™Ø˜JMKMKMK
-_KœÜ‹[ÝÛ™\‹Y›Ü›H˜ÛÛœÙ[^ØÛÛÜŽˆÙ™™ŽÝ^YXÛÜ˜][ÛŽ[™\›[™_KœÜ‹[ÝÛ™\‹Y›Ü›H™›Ü›K\Ý]\ÞØÛÛÜŽˆÙ™™ŸB‚‹œÜ‹Yš[˜[Ø˜XÚÙÜ›Ý[™ˆÙÙXÎÝ^X[YÛŽ˜Ù[\ŸKœÜ‹Yš[˜[žÙ›Û\Ú^™N˜Û[\
-‹ŒÜ™[KKŒËKÜ™[J_KœÜ‹Yš[˜[™]žÙ\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎœ™\X]
-‹YœŠNÙØ\ŒLœÝÚY›Z[ŠLLL	JNÛX\™Ú[ŽM\]]ÈÝ^X[YÛŽ›YKœÜ‹Yš[˜[™]ˆ^Ù\Ü^N™›^ÛZ[‹ZZYÚŒ\Ù›^Y\™XÝ[ÛŽ˜ÛÛ[[ŽÜY[™ÎŒÌœØ›Ü™\ŽŒ\ÛÛY™Ø˜JŒËŒËŒŒMŠNØ›Ü™\‹\˜Y]\Î˜\ŠK\Ü‹\˜Y]\ÊNØÛÛÜŽ˜\ŠK\Ü‹Z[šÊNØ˜XÚÙÜ›Ý[™œ™Ø˜JMKMKMKŒŽ
-_KœÜ‹Yš[˜[™]ˆN™š\œÝXÚ[Ø˜XÚÙÜ›Ý[™˜\ŠK\Ü‹Z[šÊNØÛÛÜŽˆÙ™™ŸKœÜ‹Yš[˜[ÛX[ÛX\™Ú[‹X›ÝÛN˜]]ÎØÛÛÜŽ˜\ŠK\Ü‹\ÛÙ
-NÙ›Û]ÙZYÚÌKœÜ‹Yš[˜[N™š\œÝXÚ[ÛX[ØÛÛÜŽœ™Ø˜JMKMKMKJ_KœÜ‹Yš[˜[Ý›Û™ÞÙ›Û\Ú^™N˜Û[\
-KŒ\™[K‹Ë‹Œ\™[JNÙ›Û]ÙZYÚŽLÛ[™KZZYÚŒKŒÍ_KœÜ‹Yš[˜[Ü[žÛX\™Ú[‹]ÜŒM\Ù›Û\Ú^™N‹Î™[NÛÜXÚ]N‹ŸB‚‹œÜ‹Y›ÛÝ\‹œÚ]KY›ÛÝ\žØ˜XÚÙÜ›Ý[™ˆÌMÌMÌMØÛÛÜŽˆÙ™™ŸKœÜ‹Y›ÛÝ\ˆœÜ‹]ÛÜ™X\šÞØÛÛÜŽˆÙ™™ŸKœÜ‹Y›ÛÝ\ˆ™›ÛÝ\‹[[šÜÈ^ØÛÛÜŽœ™Ø˜JMKMKMKÌŠ_KœÜ‹Y›ÛÝ\ˆ™›ÛÝ\‹[Y]KœÜ‹Y›ÛÝ\ˆ™›ÛÝ\‹XÛÜKœÜ‹\]›Ü›K[YØ[ØÛÛÜŽœ™Ø˜JMKMKMKŠ_KœÜ‹\]›Ü›K[YØ[ÛX^]ÚYŒÙ›Û\Ú^™N‹Ü™[NÛ[™KZZYÚŒKM_B‚‹ÊˆÛÝ\œÙHYÙH
-‹Â‹œÜ‹XÛÝ\œÙK[XZ[žÜY[™Ë]Ü˜\ŠK\Ü‹ZXY\Š_B‹œÜ‹XÛÝ\œÙKZ\›ÞÙ\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎŒKŒYœˆÍYœŽÛZ[‹ZZYÚ˜Ø[ÊLÝšH˜\ŠK\Ü‹ZXY\ŠJNØ[YÛ‹Z][\Î˜Ù[\ŽÙØ\˜Û[\
-ËLÌ
-NÜY[™Î˜Û[\
-Ì]ËLÌ
-HÛ[\
-ŒœÝËLLœ
-NØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹XÜ™X[J_B‹œÜ‹XÛÝ\œÙKZ\›È^ÛX\™Ú[ŽŒÙ›Û\Ú^™N˜Û[\
-Ü™[KÝËËŒœ™[JNÙ›Û]ÙZYÚŽLÛ]\‹\ÜXÚ[™Î‹KŒÍY[NÛ[™KZZYÚ‹ŽMŸKœÜ‹XÛÝ\œÙKZ\›ÈH[^Ù›Û\Ý[N››Ü›X[ØÛÛÜŽ˜\ŠK\Ü‹XÛÜ˜[
-_KœÜ‹XÛÝ\œÙKZ\›ËXÛÜOœ››Ý
-œÜ‹ZÚXÚÙ\Š^ÛX^]ÚYŒŒÛX\™Ú[ŽŒŽØÛÛÜŽ˜\ŠK\Ü‹\ÛÙ
-NÙ›Û\Ú^™NŒKŒ\™[NÛ[™KZZYÚŒKßKœÜ‹XÛÝ\œÙKXXÝ[ÛœÞÙ\Ü^N™›^Ù›^]Ü˜\Ü˜\ÙØ\ŒLKœÜ‹XÛÝ\œÙKZÛ[[šÞØÛÛÜŽ˜\ŠK\Ü‹\ÛÙ
-NØ›Ü™\‹XÛÛÜŽ˜\ŠK\Ü‹[[™JNØ˜XÚÙÜ›Ý[™˜[œÜ\™[B‹œÜ‹XÛÝ\œÙK]š\ÝX[ÜÜÚ][ÛŽœ™[]]™NÝÚY›Z[ŠL	KÌ
-NÚ\ÝYžK\Ù[Ž˜Ù[\ŸKœÜ‹XÛÝ\œÙK]š\ÝX[˜™Y›Ü™^ØÛÛ[ˆˆŽÜÜÚ][ÛŽ˜XœÛÛ]NÚ[œÙ]‹MÉNØ›Ü™\ŽŒ\ÛÛY™Ø˜JŒËŒËŒŒLÊNØ›Ü™\‹\˜Y]\ÎL	NÝ˜[œÙ›Ü›Nœ›Ý]JLMYÊ_KœÜ‹XÛÝ\œÙK]š\ÝX[œÜ‹\Û™K\Ú[ÝÚYINÛX\™Ú[Ž˜]]ÎÝ˜[œÙ›Ü›Nœ›Ý]JYYÊ_KœÜ‹XÛÝ\œÙK]š\ÝX[œÜÜÚ][ÛŽ˜XœÛÛ]NÛYŒØ›ÝÛNŒM‰NÜY[™ÎŒMNØ›Ü™\‹\˜Y]\ÎŒMØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹Z[šÊNØÛÛÜŽˆÙ™™ŽÙ›Û\Ú^™N‹Î™[NÙ›Û]ÙZYÚŽKœÜ‹XÛÝ\œÙK]š\ÝX[œÛX[ÜÜÚ][ÛŽ˜XœÛÛ]NÜšYÚŒÝÜŒMÉNÜY[™ÎŒLœMœØ›Ü™\‹\˜Y]\ÎŒMØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹\\\ŠNØ›Þ\ÚYÝÎŒMÌ™Ø˜JŒNM‹ŒLŠNÙ›Û\Ú^™N‹Ìœ™[NÙ›Û]ÙZYÚŽLB‹œÜ‹XÛÝ\œÙKY˜XÝÞÙ\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎœ™\X]
-YœŠNÙØ\Œ\ÜY[™ÎŒÛ[\
-ŒœÝËLLœ
-NØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹[[™J_KœÜ‹XÛÝ\œÙKY˜XÝÈ]žÜY[™ÎŒœŒØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹\\\Š_KœÜ‹XÛÝ\œÙKY˜XÝÈÛX[Ù\Ü^N˜›ØÚÎØÛÛÜŽ˜\ŠK\Ü‹\ÛÙ
-NÙ›Û\Ú^™N‹Ü™[NÙ›Û]ÙZYÚŽKœÜ‹XÛÝ\œÙKY˜XÝÈÝ›Û™ÞÙ\Ü^N˜›ØÚÎÛX\™Ú[‹]ÜŽÙ›Û\Ú^™NŒKŒ\™[NÙ›Û]ÙZYÚŽLB‹œÜ‹XÛÝ\œÙK\ÙXÝ[ÛžÜY[™Î˜Û[\
-LËML
-HÛ[\
-ŒœÝËLLœ
-_KœÜ‹XÛÝ\œÙK\ÙXÝ[Û‹KY\šÞØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹Z[šÊNØÛÛÜŽˆÙ™™ŸKœÜ‹XÛÝ\œÙK\ÙXÝ[ÛšXY\žÛX^]ÚYŽLÛX\™Ú[‹X›ÝÛNŒKœÜ‹XÛÝ\œÙK\ÙXÝ[ÛˆžÛX\™Ú[ŽŒÙ›Û\Ú^™N˜Û[\
-‹ŒÜ™[K]ËKœ™[JNÙ›Û]ÙZYÚŽLÛ]\‹\ÜXÚ[™Î‹KŒÙ[NÛ[™KZZYÚŒKŒŸKœÜ‹XÛÝ\œÙK\ÙXÝ[ÛšXY\œ›\ÝXÚ[ÛX\™Ú[‹]ÜŒŒœØÛÛÜŽ˜\ŠK\Ü‹\ÛÙ
-NÛ[™KZZYÚŒKßKœÜ‹XÛÝ\œÙK\ÙXÝ[Û‹KY\šÏšXY\œ›\ÝXÚ[ØÛÛÜŽœ™Ø˜JMKMKMKN
-_B‹œÜ‹Y^KY›ÝÞÙ\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎœ™\X]
-YœŠNÙØ\ŒLœÜY[™ÎŒÛ\Ý\Ý[N››Û™_KœÜ‹Y^KY›ÝÈ^ÛZ[‹ZZYÚŒÌÜY[™ÎŒ\Ø›Ü™\ŽŒ\ÛÛY™Ø˜JMKMKMKŒMÊNØ›Ü™\‹\˜Y]\ÎŒ\KœÜ‹Y^KY›ÝÈ[Y^ØÛÛÜŽˆÙ™ŽLØÎÙ›Û\Ú^™N‹Ü™[NÙ›Û]ÙZYÚŽLKœÜ‹Y^KY›ÝÈÞÛX\™Ú[ŽŒLLLœÙ›Û\Ú^™NŒKŒÍ\™[NÙ›Û]ÙZYÚŽLKœÜ‹Y^KY›ÝÈÛX\™Ú[ŽŒØÛÛÜŽœ™Ø˜JMKMKMKMŠNÛ[™KZZYÚŒKŸB‹œÜ‹XÝ\œšXÝ[[^Ù\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎœ™\X]
-KYœŠNÙØ\ŒLKœÜ‹XÝ\œšXÝ[[H\XÛ^ÜY[™ÎŒØ›Ü™\ŽŒ\ÛÛY˜\ŠK\Ü‹[[™JNØ›Ü™\‹\˜Y]\ÎŒŒœØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹\\\Š_KœÜ‹XÝ\œšXÝ[[HÜ[žØÛÛÜŽ˜\ŠK\Ü‹XÛÜ˜[
-NÙ›Û\Ú^™N‹Ž™[NÙ›Û]ÙZYÚŽLKœÜ‹XÝ\œšXÝ[[HÞÛX\™Ú[ŽLÙ›Û\Ú^™NŒKŒœ™[NÙ›Û]ÙZYÚŽLKœÜ‹XÝ\œšXÝ[[HÛX\™Ú[ŽŒØÛÛÜŽ˜\ŠK\Ü‹\ÛÙ
-NÙ›Û\Ú^™N‹Ž™[NÛ[™KZZYÚŒKŸB‹œÜ‹YXÚ\Ú[ÛžÙ\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎ‹ŽœˆKŒ™œŽÙØ\˜Û[\
-ËM
-NÜY[™Î˜Û[\
-Ì]ËLÌ
-HÛ[\
-ŒœÝËLLœ
-NØ˜XÚÙÜ›Ý[™ˆÙ™ØßKœÜ‹YXÚ\Ú[ÛˆžÛX\™Ú[ŽŒÙ›Û\Ú^™N˜Û[\
-‹ŒÜ™[KŽËKŒœ™[JNÙ›Û]ÙZYÚŽLÛ]\‹\ÜXÚ[™Î‹KŒÙ[NÛ[™KZZYÚŒKŒŸKœÜ‹\Ý]\ËYÜšYÙ\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎœ™\X]
-‹YœŠNÙØ\ŒLKœÜ‹\Ý]\ËYÜšY]žÛZ[‹ZZYÚŒLŽÜY[™ÎŒŒœØ›Ü™\ŽŒ\ÛÛY˜\ŠK\Ü‹[[™JNØ›Ü™\‹\˜Y]\ÎŒŒØ˜XÚÙÜ›Ý[™œ™Ø˜JMKMKMKŒÎ
-_KœÜ‹\Ý]\ËYÜšYÛX[Ù\Ü^N˜›ØÚÎØÛÛÜŽ˜\ŠK\Ü‹\ÛÙ
-NÙ›Û\Ú^™N‹\™[NÙ›Û]ÙZYÚŽKœÜ‹\Ý]\ËYÜšYÝ›Û™ÞÙ\Ü^N˜›ØÚÎÛX\™Ú[‹]ÜŒMœÙ›Û\Ú^™NŒKŒ\™[NÛ[™KZZYÚŒK_KœÜ‹\Ý]\Ë[›Ý^ÙÜšYXÛÛ[[ŽŒKËLNÛX\™Ú[ŽŒMœØÛÛÜŽ˜\ŠK\Ü‹\ÛÙ
-NÙ›Û\Ú^™N‹Ž™[NÛ[™KZZYÚŒK_B‹œÜ‹Z[\™\ÝÜY[™Î˜Û[\
-LËML
-HÛ[\
-ŒœÝËLLœ
-NØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹XÛÜ˜[
-NØÛÛÜŽˆÙ™™ŽÝ^X[YÛŽ˜Ù[\ŸKœÜ‹Z[\™\ÝœÜ‹ZÚXÚÙ\žØÛÛÜŽˆÌ˜ŒMÌLŸKœÜ‹Z[\™\ÝžÛX\™Ú[ŽŒÙ›Û\Ú^™N˜Û[\
-‹\™[KË‹\™[JNÙ›Û]ÙZYÚŽLÛ]\‹\ÜXÚ[™Î‹KŒÍY[NÛ[™KZZYÚ‹ŽNKœÜ‹Z[\™\Ýœ››Ý
-œÜ‹ZÚXÚÙ\Š^ÛX^]ÚYÌŒÛX\™Ú[ŽŒŽ]]ÎØÛÛÜŽœ™Ø˜JMKMKMKÍJNÛ[™KZZYÚŒKßKœÜ‹Z[\™\ÝœÜ‹X]ÛžÛZ[‹]ÚY›Z[ŠL	KÍŒ
-_B‚YYXJX^]ÚYŽL
-^Âˆœ›ÛÝËK\Ü‹ZXY\ŽŽBˆœÜ‹ZXY\‹œÚ]KZXY\žÜY[™Ë[YŒŒœÜY[™Ë\šYÚŒMœKœÜ‹ZXY\ˆ›Y[K]ÙÙÛ^Ù\Ü^N™›^ÜÜÚ][ÛŽœ™[]]™NÞ‹Z[™^ŒŽØ[YÛ‹Z][\Î˜Ù[\ŽÚ\ÝYžKXÛÛ[˜Ù[\ŽÙ›^Y\™XÝ[ÛŽ˜ÛÛ[[ŽÙØ\\KœÜ‹ZXY\ˆ›Y[K]ÙÙÛOœÜ[Ž››Ý
-œÜ‹[Û›J^Ù\Ü^N˜›ØÚÎÝÚYŒŒœÚZYÚŒœØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹Z[šÊ_BˆœÜ‹ZXY\ˆœÚ]K[˜]žÜÜÚ][ÛŽ™š^YÚ[œÙ]˜\ŠK\Ü‹ZXY\ŠH]]ÎÙ\Ü^N››Û™NÙ›^Y\™XÝ[ÛŽ˜ÛÛ[[ŽØ[YÛ‹Z][\ÎœÝ™]ÚÙØ\ŒÜY[™ÎŒLœŒX^
-[ŠØY™KX\™XKZ[œÙ]X›ÝÛJJNØ˜XÚÙÜ›Ý[™˜\ŠK\Ü‹\\\ŠNØ›Ü™\‹X›ÝÛNŒ\ÛÛY˜\ŠK\Ü‹[[™J_KœÜ‹ZXY\ˆœÚ]K[˜]‹š\Ë[Ü[žÙ\Ü^N™›^KœÜ‹ZXY\ˆœÚ]K[˜]ˆ^ÛZ[‹ZZYÚLœÙ\Ü^N™›^Ø[YÛ‹Z][\Î˜Ù[\ŽØ›Ü™\‹X›ÝÛNŒ\ÛÛY˜\ŠK\Ü‹[[™JNÙ›Û\Ú^™NŒ\™[_K›Y[K[Ü[žÛÝ™\™›ÝÎšY[ŸBˆœÜ‹Z\›Ë\ÝYÙ^ÜY[™Ë[YŒŽÜY[™Ë\šYÚŒŽKœÜ‹Z\›ËXÛÜH^Ù›Û\Ú^™N˜Û[\
-Ü™[K]Ë\™[J_KœÜ‹Z\›Ë\Û™^ÝÚY›Z[ŠÍ]ËŽ
-_BˆœÜ‹[˜\œ˜]]™K\ÝYÙ^ÙÜšY][\]KXÛÛ[[œÎŒYœˆZ[›X^
-ŒÌÙœŠNÙØ\ŒÍ\ÜY[™Ë[YÜY[™Ë\šYÚKœÜ‹\Ý]KXÛÜHÞÙ›Û\Ú^™N˜Û[\
-‹Œ\™[KKŒÝËËœ™[J_KœÜ‹\]›Ü›\ÞÜÜÚ][ÛŽ˜XœÛÛ]NÜšYÚŒÍÝÜL	NÝÚYŒMLÝ˜[œÙ›Ü›N˜[œÛ]VJML	J_KœÜ‹[˜\œ˜]]™K\ÝYÙVÙ]K\Ý]OH\ØY—O‹œÜ‹\]›Ü›\ÞÝ˜[œÙ›Ü›N˜[œÛ]VJML	J_BˆœÜ‹XÛÝ\œÙK]X\Ù\‹œÜ‹\™]˜[YKœÜ‹[ÝÛ™\šXY\‹œÜ‹[ÝÛ™\‹XÛÛ™\œÚ[Û‹œÜ‹XÛÝ\œÙKZ\›ËœÜ‹YXÚ\Ú[ÛžÙÜšY][\]KXÛÛ[[œÎŒYœŸKœÜ‹Y˜XÝ\[™[ÛX\™Ú[‹]ÜŒLKœÜ‹YY]ÜšX[šXY\žÙÜšY][\]KXÛÛ[[œÎŒYœŸKœÜ‹YY]ÜšX[[^[Ý]ÙÜšY][\]KXÛÛ[[œÎ›Z[›X^
-ÌŽ™œŠHYœŽÙØ\KœÜ‹[ÝÛ™\‹\Ý\ÞÙØ\ŽKœÜ‹[ÝÛ™\‹\Ý\È^ÜY[™ÎŒŒœKœÜ‹Yš[˜[™]žÙÜšY][\]KXÛÛ[[œÎŒYœŸKœÜ‹Yš[˜[™]ˆ^ÛZ[‹ZZYÚŒNLBˆœÜ‹XÛÝ\œÙKZ\›ÞÛZ[‹ZZYÚ˜]]ßKœÜ‹XÛÝ\œÙK]š\ÝX[ÝÚY›Z[ŠÌËÌ
-NÛX\™Ú[‹]ÜŒÌKœÜ‹XÛÝ\œÙKY˜XÝÞÙÜšY][\]KXÛÛ[[œÎœ™\X]
-‹YœŠ_KœÜ‹Y^KY›ÝÞÙÜšY][\]KXÛÛ[[œÎœ™\X]
-‹YœŠ_KœÜ‹XÝ\œšXÝ[[^ÙÜšY][\]KXÛÛ[[œÎœ™\X]
-‹YœŠ_BŸB‚YYXJX^]ÚYŒ
-^ÂˆœÜ‹ZÚXÚÙ\žÛX\™Ú[‹X›ÝÛNŒLÜÙ›Û\Ú^™N‹Œœ™[_KœÜ‹X]ÛžÛZ[‹ZZYÚLÝÚYŒL	NÜY[™ÎŒMNÙ›Û\Ú^™N‹Ž™[_BˆœÜ‹Z\›ÞÚZYÚŒŒLÝšKœÜ‹Z\›Ë\ÝYÙ^ÛZ[‹ZZYÚMŒÜY[™Î˜Ø[Ê˜\ŠK\Ü‹ZXY\ŠH
-ÈN
-HNŽKœÜ‹Z\›Ë\ÝYÙN˜™Y›Ü™^ÝÚYŒL]ÎÜšYÚ‹MŒ	NØ›ÝÛN‹L	_KœÜ‹Z\›ËXÛÜH^Ù›Û\Ú^™N˜Û[\
-‹\™[KLK]ËËœ™[JNÛ[™KZZYÚŒKŒ_KœÜ‹[Y^ÛX\™Ú[ŽŒN]]ÈŒÙ›Û\Ú^™N‹ŽLœ™[_KœÜ‹Yš\œÝXXÝ[ÛœÞÙÜšY][\]KXÛÛ[[œÎŒYœŽÙØ\ŽKœÜ‹XXÝ[ÛžÛZ[‹ZZYÚÍœÜY[™ÎŒLÜMœØ›Ü™\‹\˜Y]\ÎŒNKœÜ‹XXÝ[ÛˆÛX[Ù›Û\Ú^™N‹Ü™[NÛX\™Ú[‹X›ÝÛNKœÜ‹XXÝ[ÛˆÝ›Û™ÞÙ›Û\Ú^™N‹ŽÜ™[_KœÜ‹Z\›Ë\Û™^ÝÜLINÝÚY›Z[ŠMËŒ\
-_KœÜ‹\Û™K\Ú[ÜY[™ÎÜØ›Ü™\‹\˜Y]\ÎŒÍKœÜ‹\Û™K\ØÜ™Y[žØ›Ü™\‹\˜Y]\ÎŒÜKœÜ‹\Û™K\ÜXZÙ\žÝÜŒLÚZYÚŒNKœÜ‹Z\›Ë\Û™OœÛX\™Ú[ŽŒLœMŒÙ›Û\Ú^™N‹Ü™[_KœÜ‹\ØÜ›ÛØ›ÝÛNŒM\BˆœÜ‹[˜\œ˜]]™^ÚZYÚŒÝšKœÜ‹[˜\œ˜]]™K\ÝYÙ^ÛZ[‹ZZYÚMŒÙÜšY][\]KXÛÛ[[œÎŒYœŽÙÜšY][\]K\›ÝÜÎŒÍ	HYœŽÙØ\ÜY[™Î˜Ø[Ê˜\ŠK\Ü‹ZXY\ŠH
-È
-HNœÝ^X[YÛŽ˜Ù[\ŸKœÜ‹\Ý]KXÛÜ^ÛZ[‹ZZYÚŒØ[YÛ‹\Ù[Ž˜Ù[\ŸKœÜ‹\Ý]KXÛÜHÛX\™Ú[‹X›ÝÛNŽKœÜ‹\Ý]KXÛÜHÞÙ›Û\Ú^™N˜Û[\
-KÌœ™[KË‹\™[JNÛ[™KZZYÚŒKŒßKœÜ‹\Ý]KXÛÜHÜ[žÛX\™Ú[‹]ÜŒLÙ›Û\Ú^™N‹Ü™[_KœÜ‹\ÝÜžK\Û™^ÝÚY›Z[ŠLËŒL
-NØ[YÛ‹\Ù[Ž˜Ù[\ŸKœÜ‹\]›Ü›\ÞÝÜ˜]]ÎÜšYÚŒLØ›ÝÛNÌÜÝÚYŽLÜÙØ\\Ý^X[YÛŽ›YÝ˜[œÙ›Ü›N››Û™_KœÜ‹\]›Ü›\ÈÜ[žÛZ[‹ZZYÚŒÌ\ÜY[™ÎœÙ›Û\Ú^™N‹Mœ™[NØ˜XÚÙÜ›Ý[™œ™Ø˜JŒŒNLŠ_KœÜ‹[˜\œ˜]]™K\ÝYÙVÙ]K\Ý]OH\ØY—O‹œÜ‹\]›Ü›\ÞÝ˜[œÙ›Ü›N››Û™_KœÜ‹\Ý]KYÝÞÛYŒNÜšYÚŒNØ›ÝÛNŒMKœÜ‹\Ý]KYÝÈ^Ù›Û\Ú^™N‹Ü™[_KœÜ‹[X]ÚXØ\™ÜY[™ÎŒ\NKœÜ‹[X]ÚXØ\™Ý›Û™ÞÙ›Û\Ú^™N‹Ž\™[_BˆœÜ‹XÛÝ\œÙK]X\Ù\‹œÜ‹YY]ÜšX[œÜ‹[ÝÛ™\‹œÜ‹Yš[˜[ÜY[™ÎÎNKœÜ‹XÛÝ\œÙK]X\Ù\ˆ‹œÜ‹YY]ÜšX[‹œÜ‹[ÝÛ™\šXY\ˆ‹œÜ‹Yš[˜[žÙ›Û\Ú^™N˜Û[\
-‹ŒM\™[KL]ËË™[J_KœÜ‹Y˜XÝ\[™[ÜY[™ÎŒŒØ›Ü™\‹\˜Y]\ÎŒŒœKœÜ‹Y˜XÝ\[™[Ý›Û™ÞÙ›Û\Ú^™NŒ\™[_BˆœÜ‹YY]ÜšX[šXY\žÛX\™Ú[‹X›ÝÛNŒÍœKœÜ‹YY]ÜšX[[^[Ý]ÙÜšY][\]KXÛÛ[[œÎŒYœŸKœÜ‹YY]ÜšX[Yœ˜[Y^ÝÚY›Z[ŠËÎL
-NÛX\™Ú[Ž˜]]ÎØ›Ü™\‹\˜Y]\ÎŒÌ\KœÜ‹YY]ÜšX[Yœ˜[YOš[YÞØ›Ü™\‹\˜Y]\ÎŒŒÜKœÜ‹YY]ÜšX[Yœ˜[YO™]žÛYŒ\ÜšYÚŒ\Ø›ÝÛNŒÜKœÜ‹XØ]YÛÜžK]XœÈ]ÛžÛZ[‹ZZYÚŒÙ›Û\Ú^™NŒKŒÜ™[_BˆœÜ‹\™]˜[Y^ÜY[™ÎÌNKœÜ‹\™]˜[YHžÙ›Û\Ú^™NŒ‹Œ\™[_KœÜ‹\™]˜[YH›\ÝXÚ[Ù›Û\Ú^™N‹ŽL\™[_KœÜ‹[ÝÛ™\‹\Ý\ÞÙÜšY][\]KXÛÛ[[œÎŒYœŽÛX\™Ú[ŽMœKœÜ‹[ÝÛ™\‹\Ý\È^ÛZ[‹ZZYÚŒÜY[™ÎŒŒœKœÜ‹[ÝÛ™\‹\Ý\ÈÞÛX\™Ú[ŽŒŽKœÜ‹[ÝÛ™\‹XÛÛ™\œÚ[ÛžÜY[™ÎŒŽNØ›Ü™\‹\˜Y]\ÎŒ\KœÜ‹[ÝÛ™\‹Y›Ü›KZ[›ÈÞÙ›Û\Ú^™NŒ‹ŒM\™[_KœÜ‹[ÝÛ™\‹Y›Ü›H™›Ü›KYÜšYÙÜšY][\]KXÛÛ[[œÎŒYœŸKœÜ‹Yš[˜[™]žÛX\™Ú[‹]ÜŒÍKœÜ‹Yš[˜[™]ˆ^ÛZ[‹ZZYÚŒMÍ\ÜY[™ÎŒKœÜ‹Yš[˜[Ý›Û™ÞÙ›Û\Ú^™NŒKŒœ™[_BˆœÜ‹XÛÝ\œÙKZ\›ÞÜY[™ÎŒœNÍKœÜ‹XÛÝ\œÙKZ\›È^Ù›Û\Ú^™N˜Û[\
-‹Ž™[KMË™[J_KœÜ‹XÛÝ\œÙKZ\›ËXÛÜOœ››Ý
-œÜ‹ZÚXÚÙ\Š^Ù›Û\Ú^™N‹ŽMœ™[_KœÜ‹XÛÝ\œÙKXXÝ[ÛœÞÙ\Ü^N™ÜšYKœÜ‹XÛÝ\œÙK]š\ÝX[ÝÚY›Z[ŠËÍŒ
-_KœÜ‹XÛÝ\œÙKY˜XÝÞÜY[™ÎŒÙÜšY][\]KXÛÛ[[œÎŒYœˆYœŸKœÜ‹XÛÝ\œÙKY˜XÝÈ]žÜY[™ÎŒŒM\KœÜ‹XÛÝ\œÙK\ÙXÝ[ÛžÜY[™ÎÍœNKœÜ‹XÛÝ\œÙK\ÙXÝ[ÛˆžÙ›Û\Ú^™NŒ‹M\™[_KœÜ‹Y^KY›ÝÞÙÜšY][\]KXÛÛ[[œÎŒYœŸKœÜ‹Y^KY›ÝÈ^ÛZ[‹ZZYÚŒKœÜ‹Y^KY›ÝÈÞÛX\™Ú[ŽLœLKœÜ‹XÝ\œšXÝ[[^ÙÜšY][\]KXÛÛ[[œÎŒYœŸKœÜ‹XÝ\œšXÝ[[HÞÛX\™Ú[‹]ÜŒÌœKœÜ‹YXÚ\Ú[ÛžÜY[™ÎÌœNKœÜ‹YXÚ\Ú[ÛˆžÙ›Û\Ú^™NŒ‹\™[_KœÜ‹\Ý]\ËYÜšYÙÜšY][\]KXÛÛ[[œÎŒYœŸKœÜ‹\Ý]\Ë[›Ý^ÙÜšYXÛÛ[[Ž˜]]ßKœÜ‹Z[\™\ÝÜY[™ÎÎNKœÜ‹Z[\™\ÝžÙ›Û\Ú^™NŒÜ™[_BŸB‚YYXJ™Y™\œË\™YXÙY[[Ý[ÛŽœ™YXÙJ^Âˆ[ÜØÜ›ÛX™Z]š[ÜŽ˜]]ßJ‹
-Ž˜™Y›Ü™K
-Ž˜Y\žØ[š[X][Û‹Y\˜][ÛŽ‹Œ[\ÈZ[\Ü[Ø[š[X][Û‹Z]\˜][Û‹XÛÝ[ŒHZ[\Ü[Ý˜[œÚ][Û‹Y\˜][ÛŽ‹Œ[\ÈZ[\Ü[BˆœÜ‹Z\›ÞÚZYÚ˜]]ßKœÜ‹Z\›Ë\ÝYÙ^ÜÜÚ][ÛŽœ™[]]™NÚZYÚ˜]]ÎÛZ[‹ZZYÚŒÙ\Ü^N™›^Ù›^Y\™XÝ[ÛŽ˜ÛÛ[[ŽÜY[™Ë]Ü˜Ø[Ê˜\ŠK\Ü‹ZXY\ŠH
-ÈÌ
-NÜY[™ËX›ÝÛNŽÛÝ™\™›ÝÎš\ÚX›_KœÜ‹Z\›ËXÛÜ^ÛÜXÚ]NŒHZ[\Ü[Ý˜[œÙ›Ü›N››Û™HZ[\Ü[KœÜ‹Z\›Ë\Û™^ÜÜÚ][ÛŽœ™[]]™NÛY˜]]ÎÝÜ˜]]ÎÝÚY›Z[ŠLÌÊNÛX\™Ú[ŽM\]]ÈÛÜXÚ]NŒHZ[\Ü[Ý˜[œÙ›Ü›N››Û™HZ[\Ü[KœÜ‹\ØÜ›ÛÙ\Ü^N››Û™_BˆœÜ‹[˜\œ˜]]™^ÚZYÚ˜]]ÎØ˜XÚÙÜ›Ý[™ˆÌYŸKœÜ‹[˜\œ˜]]™K\ÝYÙ^Ù\Ü^N››Û™_KœÜ‹\Ý]XË\Ý]\ÞÙ\Ü^N™ÜšYÙØ\ŒLÜY[™ÎÍ\NØ˜XÚÙÜ›Ý[™ˆÌYŽØÛÛÜŽˆÙ™™ŸKœÜ‹\Ý]XË\Ý]\È\XÛ^Ù\Ü^N™›^Ù›^Y\™XÝ[ÛŽ˜ÛÛ[[ŽÙØ\ŽÜY[™ÎŒŒØ›Ü™\ŽŒ\ÛÛY™Ø˜JMKMKMKŒN
-NØ›Ü™\‹\˜Y]\ÎŒNKœÜ‹\Ý]XË\Ý]\ÈžØÛÛÜŽˆÙ™ŽLØÎÙ›Û\Ú^™N‹Ìœ™[_KœÜ‹\Ý]XË\Ý]\ÈÜ[žÙ›Û\Ú^™N‹ŽLœ™[NÛ[™KZZYÚŒKM_KœÜ‹\]›Ü›\ËK\Ý]XÞÜÜÚ][ÛŽœÝ]XÎÙ\Ü^N™ÜšYÙÜšY][\]KXÛÛ[[œÎŒYœˆYœŽÝÚY˜]]ÎÛÜXÚ]NŒNÝ˜[œÙ›Ü›N››Û™_KœÜ‹\]›Ü›\ËK\Ý]XÈÜ[žØ˜XÚÙÜ›Ý[™˜[œÜ\™[BŸB
+.sr-editorial-frame>div{position:absolute;left:32px;right:32px;bottom:34px;padding:72px 20px 20px;border-radius:0 0 24px 24px;background:linear-gradient(transparent,rgba(0,0,0,.82));color:#fff}.sr-editorial-frame>div span{font-size:.65rem;font-weight:900}.sr-editorial-frame>div strong{display:block;margin-top:5px;font-size:clamp(1.7rem,3vw,2.5rem);font-weight:900}.sr-editorial-frame>div p{margin:8px 0 0;color:rgba(255,255,255,.72);font-size:.8rem;line-height:1.5}.sr-editorial-frame>small{position:absolute;right:26px;top:24px;padding:6px 9px;border-radius:99px;background:rgba(0,0,0,.55);font-size:.58rem}
+.sr-category-tabs{display:flex;flex-direction:column}.sr-category-tabs button{display:flex;min-height:78px;align-items:center;gap:22px;padding:16px 6px;border:0;border-bottom:1px solid rgba(255,255,255,.16);background:transparent;color:rgba(255,255,255,.38);font-family:inherit;font-size:clamp(1.35rem,3.2vw,3.1rem);font-weight:900;letter-spacing:-.05em;text-align:left;cursor:pointer}.sr-category-tabs button span{font-size:.63rem;letter-spacing:.08em}.sr-category-tabs button.is-active{color:#fff}.sr-category-tabs button.is-active:after{content:"VIEW";margin-left:auto;color:#ff947f;font-size:.57rem;letter-spacing:.12em}
+
+.sr-prevalue{display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:clamp(42px,9vw,150px);padding:clamp(70px,9vw,130px) clamp(22px,7vw,112px);background:var(--sr-coral);color:#fff}.sr-prevalue .sr-kicker{color:#2b1712}.sr-prevalue h2{margin:0;font-size:clamp(2.2rem,4.5vw,5rem);font-weight:900;letter-spacing:-.065em;line-height:1.04}.sr-prevalue p:last-child{margin:24px 0 0;max-width:650px;color:rgba(255,255,255,.78);line-height:1.7}
+
+.sr-owner{background:var(--sr-cream)}.sr-owner>header{display:grid;grid-template-columns:1.1fr .72fr;align-items:end;gap:50px}.sr-owner>header .sr-kicker{grid-column:1/-1}
+.sr-owner-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:70px 0 90px;padding:0;list-style:none}.sr-owner-steps li{min-height:250px;padding:28px;border:1px solid var(--sr-line);border-radius:var(--sr-radius);background:var(--sr-paper)}.sr-owner-steps b{color:var(--sr-coral);font-size:.7rem}.sr-owner-steps h3{margin:60px 0 12px;font-size:1.45rem;font-weight:900}.sr-owner-steps p{margin:0;color:var(--sr-soft);line-height:1.6}
+.sr-owner-conversion{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(36px,7vw,110px);padding:clamp(28px,5vw,72px);border-radius:40px;background:var(--sr-ink);color:#fff}.sr-owner-form-intro h3{margin:0;font-size:clamp(2.1rem,4vw,4rem);font-weight:900;letter-spacing:-.06em;line-height:1.06}.sr-owner-form-intro>p:last-child{margin-top:28px;color:rgba(255,255,255,.64);line-height:1.8}.sr-owner-form-intro>p:last-child b{color:#fff}
+.sr-owner-form.lead-form{padding:0;background:transparent;border:0;color:#fff}.sr-owner-form .form-grid{gap:14px}.sr-owner-form label>span{color:rgba(255,255,255,.78)}.sr-owner-form input,.sr-owner-form select,.sr-owner-form textarea{min-height:50px;border-color:rgba(255,255,255,.2);background:#292925;color:#fff}.sr-owner-form textarea{min-height:100px}.sr-owner-form input::placeholder,.sr-owner-form textarea::placeholder{color:rgba(255,255,255,.35)}.sr-owner-form select option{color:#171714;background:#fff}.sr-owner-form .consent{margin:16px 0;color:rgba(255,255,255,.64)}.sr-owner-form .consent a{color:#fff;text-decoration:underline}.sr-owner-form .form-status{color:#fff}
+
+.sr-final{background:#dcd5c8;text-align:center}.sr-final h2{font-size:clamp(2.3rem,5.2vw,5.7rem)}.sr-final>div{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:min(1050px,100%);margin:55px auto 0;text-align:left}.sr-final>div a{display:flex;min-height:245px;flex-direction:column;padding:32px;border:1px solid rgba(23,23,20,.16);border-radius:var(--sr-radius);color:var(--sr-ink);background:rgba(255,255,255,.28)}.sr-final>div a:first-child{background:var(--sr-ink);color:#fff}.sr-final small{margin-bottom:auto;color:var(--sr-soft);font-weight:700}.sr-final a:first-child small{color:rgba(255,255,255,.5)}.sr-final strong{font-size:clamp(1.25rem,2.4vw,2.05rem);font-weight:900;line-height:1.35}.sr-final span{margin-top:15px;font-size:.78rem;opacity:.6}
+
+.sr-footer.site-footer{background:#171714;color:#fff}.sr-footer .sr-wordmark{color:#fff}.sr-footer .footer-links a{color:rgba(255,255,255,.72)}.sr-footer .footer-meta,.sr-footer .footer-copy,.sr-platform-legal{color:rgba(255,255,255,.42)}.sr-platform-legal{max-width:600px;font-size:.7rem;line-height:1.55}
+
+/* Course page */
+.sr-course-main{padding-top:var(--sr-header)}
+.sr-course-hero{display:grid;grid-template-columns:1.05fr .75fr;min-height:calc(100svh - var(--sr-header));align-items:center;gap:clamp(44px,8vw,130px);padding:clamp(70px,9vw,130px) clamp(22px,7vw,112px);background:var(--sr-cream)}
+.sr-course-hero h1{margin:0;font-size:clamp(3rem,7vw,7.2rem);font-weight:900;letter-spacing:-.075em;line-height:.96}.sr-course-hero h1 em{font-style:normal;color:var(--sr-coral)}.sr-course-hero-copy>p:not(.sr-kicker){max-width:620px;margin:28px 0;color:var(--sr-soft);font-size:1.1rem;line-height:1.7}.sr-course-actions{display:flex;flex-wrap:wrap;gap:10px}.sr-course-hold-link{color:var(--sr-soft);border-color:var(--sr-line);background:transparent}
+.sr-course-visual{position:relative;width:min(100%,430px);justify-self:center}.sr-course-visual:before{content:"";position:absolute;inset:-7%;border:1px solid rgba(23,23,20,.13);border-radius:50%;transform:rotate(-14deg)}.sr-course-visual .sr-phone-shell{width:65%;margin:auto;transform:rotate(5deg)}.sr-course-visual>p{position:absolute;left:0;bottom:16%;padding:14px 18px;border-radius:14px;background:var(--sr-ink);color:#fff;font-size:.78rem;font-weight:800}.sr-course-visual>small{position:absolute;right:0;top:17%;padding:12px 16px;border-radius:14px;background:var(--sr-paper);box-shadow:0 14px 30px rgba(20,18,16,.12);font-size:.72rem;font-weight:900}
+.sr-course-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;padding:0 clamp(22px,7vw,112px);background:var(--sr-line)}.sr-course-facts div{padding:26px 20px;background:var(--sr-paper)}.sr-course-facts small{display:block;color:var(--sr-soft);font-size:.67rem;font-weight:800}.sr-course-facts strong{display:block;margin-top:8px;font-size:1.05rem;font-weight:900}
+.sr-course-section{padding:clamp(80px,10vw,150px) clamp(22px,7vw,112px)}.sr-course-section--dark{background:var(--sr-ink);color:#fff}.sr-course-section>header{max-width:850px;margin-bottom:60px}.sr-course-section h2{margin:0;font-size:clamp(2.3rem,5vw,5.6rem);font-weight:900;letter-spacing:-.07em;line-height:1.02}.sr-course-section>header>p:last-child{margin-top:22px;color:var(--sr-soft);line-height:1.7}.sr-course-section--dark>header>p:last-child{color:rgba(255,255,255,.58)}
+.sr-day-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:0;list-style:none}.sr-day-flow li{min-height:300px;padding:25px;border:1px solid rgba(255,255,255,.17);border-radius:25px}.sr-day-flow time{color:#ff927c;font-size:.7rem;font-weight:900}.sr-day-flow h3{margin:110px 0 12px;font-size:1.35rem;font-weight:900}.sr-day-flow p{margin:0;color:rgba(255,255,255,.56);line-height:1.6}
+.sr-curriculum{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.sr-curriculum article{padding:24px;border:1px solid var(--sr-line);border-radius:22px;background:var(--sr-paper)}.sr-curriculum span{color:var(--sr-coral);font-size:.68rem;font-weight:900}.sr-curriculum h3{margin:48px 0 10px;font-size:1.2rem;font-weight:900}.sr-curriculum p{margin:0;color:var(--sr-soft);font-size:.88rem;line-height:1.6}
+.sr-decision{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(40px,8vw,140px);padding:clamp(70px,9vw,130px) clamp(22px,7vw,112px);background:#dfd8cc}.sr-decision h2{margin:0;font-size:clamp(2.3rem,4.8vw,5.2rem);font-weight:900;letter-spacing:-.07em;line-height:1.02}.sr-status-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.sr-status-grid div{min-height:128px;padding:22px;border:1px solid var(--sr-line);border-radius:20px;background:rgba(255,255,255,.38)}.sr-status-grid small{display:block;color:var(--sr-soft);font-size:.65rem;font-weight:800}.sr-status-grid strong{display:block;margin-top:16px;font-size:1.05rem;line-height:1.45}.sr-status-note{grid-column:1/-1;margin:16px 0 0;color:var(--sr-soft);font-size:.84rem;line-height:1.65}
+.sr-interest{padding:clamp(80px,10vw,150px) clamp(22px,7vw,112px);background:var(--sr-coral);color:#fff;text-align:center}.sr-interest .sr-kicker{color:#2b1712}.sr-interest h2{margin:0;font-size:clamp(2.5rem,6vw,6.5rem);font-weight:900;letter-spacing:-.075em;line-height:.98}.sr-interest>p:not(.sr-kicker){max-width:720px;margin:28px auto;color:rgba(255,255,255,.75);line-height:1.7}.sr-interest .sr-button{min-width:min(100%,360px)}
+
+@media(max-width:900px){
+  :root{--sr-header:68px}
+  .sr-header.site-header{padding-left:22px;padding-right:16px}.sr-header .menu-toggle{display:flex;position:relative;z-index:2;align-items:center;justify-content:center;flex-direction:column;gap:5px}.sr-header .menu-toggle>span:not(.sr-only){display:block;width:22px;height:2px;background:var(--sr-ink)}
+  .sr-header .site-nav{position:fixed;inset:var(--sr-header) 0 auto;display:none;flex-direction:column;align-items:stretch;gap:0;padding:12px 20px max(24px,env(safe-area-inset-bottom));background:var(--sr-paper);border-bottom:1px solid var(--sr-line)}.sr-header .site-nav.is-open{display:flex}.sr-header .site-nav a{min-height:52px;display:flex;align-items:center;border-bottom:1px solid var(--sr-line);font-size:1rem}.menu-open{overflow:hidden}
+  .sr-hero-stage{padding-left:28px;padding-right:28px}.sr-hero-copy h1{font-size:clamp(3rem,8.5vw,5rem)}.sr-hero-phone{width:min(35vw,280px)}
+  .sr-narrative-stage{grid-template-columns:1fr minmax(230px,.7fr);gap:35px;padding-left:40px;padding-right:40px}.sr-state-copy h3{font-size:clamp(2.1rem,5.3vw,3.6rem)}.sr-platforms{position:absolute;right:34px;top:50%;width:150px;transform:translateY(-50%)}.sr-narrative-stage[data-state="upload"]>.sr-platforms{transform:translateY(-50%)}
+  .sr-course-teaser,.sr-prevalue,.sr-owner>header,.sr-owner-conversion,.sr-course-hero,.sr-decision{grid-template-columns:1fr}.sr-fact-panel{margin-top:10px}.sr-editorial>header{grid-template-columns:1fr}.sr-editorial-layout{grid-template-columns:minmax(270px,.82fr) 1fr;gap:40px}.sr-owner-steps{gap:8px}.sr-owner-steps li{padding:22px}.sr-final>div{grid-template-columns:1fr}.sr-final>div a{min-height:190px}
+  .sr-course-hero{min-height:auto}.sr-course-visual{width:min(72vw,430px);margin-top:30px}.sr-course-facts{grid-template-columns:repeat(2,1fr)}.sr-day-flow{grid-template-columns:repeat(2,1fr)}.sr-curriculum{grid-template-columns:repeat(2,1fr)}
+}
+
+@media(max-width:600px){
+  .sr-kicker{margin-bottom:13px;font-size:.62rem}.sr-button{min-height:50px;width:100%;padding:14px 18px;font-size:.88rem}
+  .sr-hero{height:210svh}.sr-hero-stage{min-height:560px;padding:calc(var(--sr-header) + 18px) 18px 28px}.sr-hero-stage:before{width:105vw;right:-60%;bottom:-24%}.sr-hero-copy h1{font-size:clamp(2.45rem,11.5vw,3.6rem);line-height:1.01}.sr-lede{margin:18px auto 20px;font-size:.92rem}.sr-first-actions{grid-template-columns:1fr;gap:8px}.sr-action{min-height:76px;padding:13px 16px;border-radius:18px}.sr-action small{font-size:.67rem;margin-bottom:4px}.sr-action strong{font-size:.87rem}.sr-hero-phone{top:51%;width:min(56vw,225px)}.sr-phone-shell{padding:7px;border-radius:34px}.sr-phone-screen{border-radius:27px}.sr-phone-speaker{top:10px;height:18px}.sr-hero-phone>p{margin:12px -60px 0;font-size:.7rem}.sr-scroll{bottom:15px}
+  .sr-narrative{height:420svh}.sr-narrative-stage{min-height:560px;grid-template-columns:1fr;grid-template-rows:34% 1fr;gap:4px;padding:calc(var(--sr-header) + 8px) 18px 42px;text-align:center}.sr-state-copy{min-height:0;align-self:center}.sr-state-copy p{margin-bottom:8px}.sr-state-copy h3{font-size:clamp(1.72rem,8vw,2.45rem);line-height:1.03}.sr-state-copy span{margin-top:10px;font-size:.67rem}.sr-story-phone{width:min(50vw,210px);align-self:center}.sr-platforms{top:auto;right:10px;bottom:73px;width:93px;gap:5px;text-align:left;transform:none}.sr-platforms span{min-height:31px;padding:6px 8px;font-size:.56rem;background:rgba(20,20,18,.52)}.sr-narrative-stage[data-state="upload"]>.sr-platforms{transform:none}.sr-state-dots{left:18px;right:18px;bottom:14px}.sr-state-dots li{font-size:.47rem}.sr-match-card{padding:25px 18px}.sr-match-card strong{font-size:.9rem}
+  .sr-course-teaser,.sr-editorial,.sr-owner,.sr-final{padding:78px 18px}.sr-course-teaser h2,.sr-editorial h2,.sr-owner>header h2,.sr-final h2{font-size:clamp(2.15rem,11vw,3.4rem)}.sr-fact-panel{padding:20px;border-radius:22px}.sr-fact-panel strong{font-size:1rem}
+  .sr-editorial>header{margin-bottom:36px}.sr-editorial-layout{grid-template-columns:1fr}.sr-editorial-frame{width:min(82vw,390px);margin:auto;border-radius:31px}.sr-editorial-frame>img{border-radius:23px}.sr-editorial-frame>div{left:25px;right:25px;bottom:27px}.sr-category-tabs button{min-height:60px;font-size:1.3rem}
+  .sr-prevalue{padding:70px 18px}.sr-prevalue h2{font-size:2.25rem}.sr-prevalue p:last-child{font-size:.91rem}.sr-owner-steps{grid-template-columns:1fr;margin:44px 0 56px}.sr-owner-steps li{min-height:0;padding:22px}.sr-owner-steps h3{margin:28px 0 8px}.sr-owner-conversion{padding:28px 18px;border-radius:25px}.sr-owner-form-intro h3{font-size:2.15rem}.sr-owner-form .form-grid{grid-template-columns:1fr}.sr-final>div{margin-top:34px}.sr-final>div a{min-height:175px;padding:24px}.sr-final strong{font-size:1.2rem}
+  .sr-course-hero{padding:62px 18px 74px}.sr-course-hero h1{font-size:clamp(2.8rem,14vw,4rem)}.sr-course-hero-copy>p:not(.sr-kicker){font-size:.96rem}.sr-course-actions{display:grid}.sr-course-visual{width:min(86vw,360px)}.sr-course-facts{padding:0;grid-template-columns:1fr 1fr}.sr-course-facts div{padding:20px 15px}.sr-course-section{padding:76px 18px}.sr-course-section h2{font-size:2.55rem}.sr-day-flow{grid-template-columns:1fr}.sr-day-flow li{min-height:0}.sr-day-flow h3{margin:52px 0 10px}.sr-curriculum{grid-template-columns:1fr}.sr-curriculum h3{margin-top:32px}.sr-decision{padding:72px 18px}.sr-decision h2{font-size:2.65rem}.sr-status-grid{grid-template-columns:1fr}.sr-status-note{grid-column:auto}.sr-interest{padding:78px 18px}.sr-interest h2{font-size:3rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .sr-hero{height:auto}.sr-hero-stage{position:relative;height:auto;min-height:0;display:flex;flex-direction:column;padding-top:calc(var(--sr-header) + 70px);padding-bottom:80px;overflow:visible}.sr-hero-copy{opacity:1!important;transform:none!important}.sr-hero-phone{position:relative;left:auto;top:auto;width:min(250px,70vw);margin:55px auto 0;opacity:1!important;transform:none!important}.sr-scroll{display:none}
+  .sr-narrative{height:auto;background:#24241f}.sr-narrative-stage{display:none}.sr-static-states{display:grid;gap:10px;padding:75px 18px;background:#24241f;color:#fff}.sr-static-states article{display:flex;flex-direction:column;gap:8px;padding:20px;border:1px solid rgba(255,255,255,.18);border-radius:18px}.sr-static-states b{color:#ff927c;font-size:.72rem}.sr-static-states span{font-size:.92rem;line-height:1.55}.sr-platforms--static{position:static;display:grid;grid-template-columns:1fr 1fr;width:auto;opacity:1;transform:none}.sr-platforms--static span{background:transparent}
+}
