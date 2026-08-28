@@ -24,7 +24,7 @@
   <title>맛집감별사 | 찍는 사람과 알릴 매장을 연결합니다</title>
   <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
   <link rel="stylesheet" href="css/styles.css?v=oryzo-v2">
-  <link rel="stylesheet" href="css/structural-rebuild.css?v=20260828-v2">
+  <link rel="stylesheet" href="css/structural-rebuild.css?v=20260828-v3">
 </head>
 <body data-page="home" id="top">
   <a class="skip-link" href="#main">본문 바로가기</a>
@@ -44,7 +44,7 @@
       <div class="sr-hero-stage">
         <div class="sr-hero-copy" data-hero-copy>
           <p class="sr-kicker">DAEGU · CREATOR &amp; RESTAURANT</p>
-          <h1 id="heroTitle">맛집을 보는 사람에서,<br><em>직접 알리는 사람으로.</em></h1>
+          <h1 id="heroTitle">맛집을 보는 사람에서,<br><em class="sr-hero-emphasis">직접 알리는 사람으로.</em></h1>
           <p class="sr-lede">맛집채널을 시작할 사람을 키우고,<br>알리고 싶은 대구 매장과 연결합니다.</p>
           <div class="sr-first-actions" aria-label="방문 목적 선택">
             <a class="sr-action sr-action--creator" href="creator-course.html"><small>맛집채널을 시작하고 싶다면</small><strong>나도 맛집채널 도전하기</strong></a>
@@ -71,10 +71,10 @@
       <h2 class="sr-only" id="narrativeTitle">촬영부터 매장 연결까지 이어지는 과정</h2>
       <div class="sr-narrative-stage" data-narrative-stage data-state="shot">
         <div class="sr-state-copy" aria-live="polite">
-          <article data-copy-state="shot" class="is-active"><p>01 · SHOT</p><h3>맛있는 순간을<br>화면 안에 잡습니다.</h3><span>구도 · 빛 · 첫 장면</span></article>
-          <article data-copy-state="edit"><p>02 · EDIT</p><h3>같은 장면을<br>짧고 선명하게 다듬습니다.</h3><span>컷 · 자막 · 흐름</span></article>
-          <article data-copy-state="upload"><p>03 · UPLOAD</p><h3>완성한 한 편을<br>내 채널에 올립니다.</h3><span>내보내기 · 확인 · 게시</span></article>
-          <article data-copy-state="owner"><p>04 · OWNER MATCH</p><h3>이제, 알릴 매장과<br>맞는 사람을 연결합니다.</h3><span>매장 · 예산 · 크리에이터</span></article>
+          <article data-copy-state="shot" class="is-active"><p>01 · SHOT</p><h3>먹고 싶은 순간을<br>한 장면에 담습니다.</h3><span>구도 · 빛 · 첫 장면</span></article>
+          <article data-copy-state="edit"><p>02 · EDIT</p><h3>AI 콘티와 편집으로<br>짧고 선명하게 만듭니다.</h3><span>콘티 · 컷 · 자막</span></article>
+          <article data-copy-state="upload"><p>03 · SHARE</p><h3>완성한 영상을<br>채널별로 내보냅니다.</h3><span>확인 · 게시 · 확장</span></article>
+          <article data-copy-state="owner"><p>04 · OWNER MATCH</p><h3>매장과 맞는 사람을<br>연결합니다.</h3><span>매장 → 크리에이터 → 촬영·업로드 협의</span></article>
         </div>
 
         <div class="sr-story-phone" aria-label="촬영, 편집, 업로드, 매장 연결 상태가 이어지는 스마트폰">
@@ -91,16 +91,23 @@
               </section>
               <section class="sr-phone-state" data-phone-state="upload">
                 <div class="sr-upload-card"><img src="assets/generated/matgamsa-category-meat.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 완성된 음식 콘텐츠 미리보기"><strong>콘텐츠 내보내기</strong><span><i></i></span><b>업로드 준비 완료</b></div><small>연출 이미지</small>
+                <div class="sr-reactions" aria-label="반응 예시, 수치 없음"><span aria-hidden="true">♥</span><span>저장</span><span>댓글</span></div>
               </section>
               <section class="sr-phone-state" data-phone-state="owner">
-                <div class="sr-match-card"><span>대구 · 매장 조건</span><strong>매장 성향과 예산을<br>먼저 확인합니다.</strong><i></i><span>크리에이터 연결</span><strong>촬영·업로드 범위를<br>함께 협의합니다.</strong></div>
+                <div class="sr-owner-phone-flow" aria-label="매장과 크리에이터 연결 과정 예시">
+                  <article class="is-active" data-owner-phone="store"><img src="assets/generated/matgamsa-category-korean.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 연결할 음식점 장면"><strong>매장</strong><small>연출 이미지 · 과정 예시</small></article>
+                  <article data-owner-phone="creator"><img src="assets/generated/matgamsa-category-bakery.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 크리에이터 음식 콘텐츠 카드"><strong>크리에이터</strong><small>연출 이미지 · 콘텐츠 예시</small></article>
+                  <article data-owner-phone="connect"><div class="sr-match-visual"><b>매장</b><i aria-hidden="true"></i><b>크리에이터</b><span>연결 과정 예시</span></div></article>
+                  <article data-owner-phone="coordinate"><div class="sr-dm-flow"><span>협의 과정 예시</span><p>촬영 가능한 날짜를 확인해요</p><p>업로드 채널을 함께 정해요</p><strong>협의 완료</strong></div></article>
+                  <ol class="sr-owner-mini-progress" aria-hidden="true"><li class="is-active"></li><li></li><li></li><li></li></ol>
+                </div>
               </section>
             </div>
           </div>
         </div>
 
-        <div class="sr-platforms" aria-label="콘텐츠 게시 채널 예시">
-          <span>인스타그램</span><span>틱톡</span><span>유튜브</span><span>네이버</span>
+        <div class="sr-platforms" aria-label="콘텐츠 확장 채널 예시, 제휴를 의미하지 않음">
+          <span data-brand="instagram">Instagram</span><span data-brand="tiktok">TikTok</span><span data-brand="youtube">YouTube</span><span data-brand="naver">NAVER Clip</span><span data-brand="daangn">당근</span>
         </div>
         <ol class="sr-state-dots" aria-label="현재 진행 상태"><li class="is-active">SHOT</li><li>EDIT</li><li>UPLOAD</li><li>OWNER MATCH</li></ol>
       </div>
@@ -108,36 +115,65 @@
         <article><b>01 · SHOT</b><span>음식의 구도와 빛, 첫 장면을 잡습니다.</span></article>
         <article><b>02 · EDIT</b><span>같은 장면을 컷과 자막으로 다듬습니다.</span></article>
         <article><b>03 · UPLOAD</b><span>완성한 한 편을 확인하고 내 채널에 올립니다.</span></article>
-        <article><b>04 · OWNER MATCH</b><span>매장 조건에 맞는 크리에이터를 연결합니다.</span></article>
-        <div class="sr-platforms sr-platforms--static"><span>인스타그램</span><span>틱톡</span><span>유튜브</span><span>네이버</span></div>
+        <article><b>04 · OWNER MATCH</b><span>매장 → 크리에이터 → 연결 → 촬영일·업로드 채널 협의 순서로 진행합니다.</span></article>
+        <div class="sr-platforms sr-platforms--static"><span data-brand="instagram">Instagram</span><span data-brand="tiktok">TikTok</span><span data-brand="youtube">YouTube</span><span data-brand="naver">NAVER Clip</span><span data-brand="daangn">당근</span></div>
       </div>
     </section>
 
-    <section class="sr-course-teaser" id="creator" aria-labelledby="courseTeaserTitle">
-      <div><p class="sr-kicker">맛간다챌린지</p><h2 id="courseTeaserTitle">보고 끝내지 않고,<br>하루 안에 직접 해봅니다.</h2><p>촬영·편집·업로드·AI 활용·채널 운영을 현장에서 실습합니다.</p></div>
-      <div class="sr-fact-panel"><strong>대구 · 원데이 · 오전 10시 시작 · 오후 실습</strong><a class="sr-button sr-button--primary" href="creator-course.html">나도 맛집채널 도전하기</a></div>
+    <section class="sr-course-story" id="creator" data-course-story aria-labelledby="courseTeaserTitle">
+      <div class="sr-course-story-stage" data-course-stage data-course-state="theory">
+        <header>
+          <p class="sr-kicker">맛간다챌린지 · 8H+ ONE DAY</p>
+          <h2 id="courseTeaserTitle">하루 안에,<br><em>첫 영상까지 직접 올립니다.</em></h2>
+          <p>대구 오프라인에서 휴대폰 하나로 이론부터 첫 업로드까지 8시간 이상 집중 실습합니다.</p>
+        </header>
+        <div class="sr-course-story-layout">
+          <div class="sr-course-step-copy" aria-live="polite">
+            <article class="is-active" data-course-copy="theory"><small>01 · THEORY</small><h3>내 채널의 방향과<br>촬영 기준을 잡습니다.</h3><p>누구에게 어떤 맛집 정보를 전할지 먼저 정합니다.</p></article>
+            <article data-course-copy="ai"><small>02 · AI STORYBOARD</small><h3>AI를 활용해<br>촬영 콘티를 씁니다.</h3><p>첫 장면·순서·자막의 뼈대를 촬영 전에 준비합니다.</p></article>
+            <article data-course-copy="shoot"><small>03 · SHOOT</small><h3>현장에서 직접<br>음식을 촬영합니다.</h3><p>구도·빛·움직임을 휴대폰으로 반복해 봅니다.</p></article>
+            <article data-course-copy="edit"><small>04 · EDIT</small><h3>필요한 컷을 남기고<br>짧게 편집합니다.</h3><p>실습한 장면을 흐름과 자막으로 완성합니다.</p></article>
+            <article data-course-copy="publish"><small>05 · PUBLISH</small><h3>내 첫 영상을<br>직접 업로드합니다.</h3><p>업로드 뒤 다음 촬영으로 이어갈 기준까지 정리합니다.</p></article>
+          </div>
+          <div class="sr-course-story-phone" aria-label="맛간다챌린지 다섯 단계 연출 화면">
+            <div class="sr-phone-shell"><span class="sr-phone-speaker" aria-hidden="true"></span><div class="sr-phone-screen">
+              <section class="sr-course-phone-state is-active" data-course-phone="theory"><div class="sr-course-note"><span>CHANNEL DIRECTION</span><strong>누구에게<br>무엇을 보여줄까?</strong><i></i><b>첫 장면의 기준</b></div></section>
+              <section class="sr-course-phone-state" data-course-phone="ai"><div class="sr-storyboard"><span>AI STORYBOARD</span><div><i></i><i></i><i></i><i></i></div><strong>첫 장면 → 핵심 컷 → 마무리</strong></div></section>
+              <section class="sr-course-phone-state" data-course-phone="shoot"><img src="assets/generated/matgamsa-category-dessert.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 휴대폰으로 디저트를 촬영하는 장면"><div class="sr-camera-grid" aria-hidden="true"></div><b class="sr-focus" aria-hidden="true"></b><span class="sr-rec">REC</span><small>연출 이미지</small></section>
+              <section class="sr-course-phone-state" data-course-phone="edit"><div class="sr-edit-preview"><img src="assets/generated/matgamsa-category-dessert.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 촬영한 디저트 영상을 편집하는 화면"><span>첫 장면 정리</span></div><div class="sr-timeline" aria-hidden="true"><i></i><i></i><i></i><i></i><b></b></div><small>연출 이미지</small></section>
+              <section class="sr-course-phone-state" data-course-phone="publish"><div class="sr-upload-card"><img src="assets/generated/matgamsa-category-dessert.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 완성한 첫 음식 영상 미리보기"><strong>첫 영상 업로드</strong><span><i></i></span><b>직접 확인하고 게시</b></div><small>연출 이미지</small></section>
+            </div></div>
+          </div>
+          <ol class="sr-course-progress" aria-label="원데이 실습 진행 단계"><li class="is-active">이론</li><li>AI 콘티</li><li>촬영</li><li>편집</li><li>업로드</li></ol>
+        </div>
+        <div class="sr-course-story-cta"><strong>대구 오프라인 · 원데이 · 8시간 이상 · 오전 10시 시작</strong><a class="sr-button sr-button--primary" href="creator-course.html">나도 맛집채널 도전하기</a></div>
+      </div>
+      <div class="sr-course-story-static" aria-label="모션 감소 환경용 원데이 실습 과정"><article><b>01 · 이론</b><span>채널 방향과 촬영 기준</span></article><article><b>02 · AI</b><span>AI 활용 콘티 작성</span></article><article><b>03 · 촬영</b><span>현장 휴대폰 촬영</span></article><article><b>04 · 편집</b><span>컷·자막 실습</span></article><article><b>05 · 업로드</b><span>첫 영상 직접 업로드</span></article></div>
     </section>
 
     <section class="sr-editorial" id="editorial" data-editorial aria-labelledby="editorialTitle">
-      <header><p class="sr-kicker">FIVE FOOD SCENES</p><h2 id="editorialTitle">매장마다 멈춰 보게 되는<br>장면은 다릅니다.</h2><p>하나의 화면 안에서 업종별 첫 장면을 확인해 보세요.</p></header>
-      <div class="sr-editorial-layout">
-        <div class="sr-editorial-frame">
-          <img data-editorial-image src="assets/generated/matgamsa-category-korean.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 자연광의 따뜻한 한식 상차림">
-          <div><span data-editorial-index>01</span><strong data-editorial-title>한식</strong><p data-editorial-copy>김과 온기, 한 상의 밀도를 첫 장면에 담습니다.</p></div><small>연출 이미지</small>
-        </div>
-        <div class="sr-category-tabs" role="tablist" aria-label="음식점 유형">
-          <button class="is-active" type="button" role="tab" aria-selected="true" data-category="korean"><span>01</span>한식</button>
-          <button type="button" role="tab" aria-selected="false" data-category="meat"><span>02</span>고깃집</button>
-          <button type="button" role="tab" aria-selected="false" data-category="local"><span>03</span>노포 음식점</button>
-          <button type="button" role="tab" aria-selected="false" data-category="dessert"><span>04</span>디저트</button>
-          <button type="button" role="tab" aria-selected="false" data-category="bakery"><span>05</span>빵집</button>
+      <div class="sr-editorial-stage" data-editorial-stage data-category-state="korean">
+        <header><p class="sr-kicker">FIVE FOOD SCENES</p><h2 id="editorialTitle">매장마다 멈춰 보게 되는<br>장면은 다릅니다.</h2><p>스크롤할수록 한식·고깃집·노포·디저트·빵집의 첫 장면이 한 장씩 이어집니다.</p></header>
+        <div class="sr-editorial-layout">
+          <div class="sr-editorial-frame">
+            <img data-editorial-image src="assets/generated/matgamsa-category-korean.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 자연광의 따뜻한 한식 상차림">
+            <div><span data-editorial-index>01</span><strong data-editorial-title>한식</strong><p data-editorial-copy>김과 온기, 한 상의 밀도를 첫 장면에 담습니다.</p></div><small>연출 이미지</small>
+          </div>
+          <div class="sr-category-tabs" role="tablist" aria-label="음식점 유형과 현재 스크롤 단계">
+            <button class="is-active" type="button" role="tab" aria-selected="true" data-category="korean"><span>01</span>한식</button>
+            <button type="button" role="tab" aria-selected="false" data-category="meat"><span>02</span>고깃집</button>
+            <button type="button" role="tab" aria-selected="false" data-category="local"><span>03</span>노포 음식점</button>
+            <button type="button" role="tab" aria-selected="false" data-category="dessert"><span>04</span>디저트</button>
+            <button type="button" role="tab" aria-selected="false" data-category="bakery"><span>05</span>빵집</button>
+          </div>
         </div>
       </div>
+      <div class="sr-editorial-reduced" aria-label="모션 감소 환경용 음식점 유형"><article><img src="assets/generated/matgamsa-category-korean.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 한식 상차림"><b>01 · 한식</b></article><article><img src="assets/generated/matgamsa-category-meat.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 숯불 고기"><b>02 · 고깃집</b></article><article><img src="assets/generated/matgamsa-category-local.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 노포 국밥"><b>03 · 노포 음식점</b></article><article><img src="assets/generated/matgamsa-category-dessert.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 디저트"><b>04 · 디저트</b></article><article><img src="assets/generated/matgamsa-category-bakery.webp" width="960" height="1200" loading="lazy" alt="연출 이미지: 빵집 진열"><b>05 · 빵집</b></article></div>
     </section>
 
     <section class="sr-prevalue" aria-labelledby="prevalueTitle">
-      <div><p class="sr-kicker">CREATOR · FREE FIRST STEP</p><h2 id="prevalueTitle">내가 잘할 수 있는<br>맛집채널 방식부터 확인하세요.</h2><p>세 문항을 고르면 촬영형·리뷰형·정보형 결과와 첫 촬영 체크리스트가 바로 나옵니다. 결과 확인에는 연락처가 필요하지 않습니다.</p></div>
-      <a class="sr-button sr-button--cream" href="channel-start-check.html">3문항으로 내 채널 유형과 첫 촬영 체크리스트 보기</a>
+      <div><p class="sr-kicker"><span class="sr-free-badge">FREE</span> CREATOR FIRST STEP</p><h2 id="prevalueTitle">내가 잘할 수 있는<br>맛집채널 방식부터 확인하세요.</h2><p>세 문항을 고르면 촬영형·리뷰형·정보형 결과와 첫 촬영 체크리스트가 바로 나옵니다. 결과 확인에는 연락처가 필요하지 않습니다.</p><div class="sr-free-facts" aria-label="무료 진단 안내"><span>3문항</span><span>결과 즉시</span><span>연락처 없이</span></div></div>
+      <a class="sr-button sr-button--cream" href="channel-start-check.html">무료로 내 맛집채널 유형 확인하기</a>
     </section>
 
     <section class="sr-owner" id="process" aria-labelledby="ownerTitle">
@@ -167,16 +203,24 @@
       <p class="sr-kicker">TWO CLEAR STARTS</p><h2 id="finalTitle">당신에게 필요한 다음 단계는<br>둘 중 하나입니다.</h2>
       <div><a href="creator-course.html"><small>맛집채널을 직접 시작할 사람</small><strong>나도 맛집채널 도전하기</strong><span>대구 원데이 과정과 모집 상태 확인 →</span></a><a href="#owner-apply"><small>대구에서 매장을 알릴 사장님</small><strong>우리 매장에 맞는 크리에이터 광고 상담받기</strong><span>매장 조건 입력 후 연결 가능성 확인 ↓</span></a></div>
     </section>
+
+    <section class="sr-ecosystem" aria-labelledby="ecosystemTitle">
+      <header><p class="sr-kicker">YB BUSINESS ECOSYSTEM</p><h2 id="ecosystemTitle">맛집을 알리는 일에서,<br>다음 사업의 길까지.</h2></header>
+      <div class="sr-ecosystem-grid">
+        <a href="https://www.whybe.co.kr/" target="_blank" rel="noopener"><small>WHYBE</small><span>이 서비스를 만든 사람</span><strong>현장에서 먼저 팔아본<br>WHYBE 대표의 기록</strong><b>WHYBE 보기 ↗</b></a>
+        <a href="https://www.tigercommercelab.com/" target="_blank" rel="noopener"><small>TIGER COMMERCE LAB</small><span>전국판매 실행 사업</span><strong>우리 매장 메뉴를 틱톡·유튜브로<br>전국에 판매하고 싶다면</strong><b>타이거커머스랩 보기 ↗</b></a>
+      </div>
+    </section>
   </main>
 
   <footer class="site-footer sr-footer">
     <div><a class="brand sr-wordmark" href="#top">맛집감별사</a><p>맛집채널을 시작할 사람과 알릴 매장을 연결합니다.</p></div>
     <div class="footer-links"><a href="creator-course.html">맛간다챌린지</a><a href="#owner-apply">사장님 광고 의뢰</a><a href="#process">진행 방식</a><a href="privacy.html">개인정보처리방침</a></div>
     <p class="footer-meta">영남상사 · 대표자 박영남 · 사업자등록번호 617-27-49619<br>부산광역시 남구 진남로36번길 6(대연동)</p>
-    <p class="sr-platform-legal">인스타그램·틱톡·유튜브·네이버 명칭은 각 권리자에게 있으며, 제휴 또는 보증을 의미하지 않습니다.</p>
+    <p class="sr-platform-legal">Instagram·TikTok·YouTube·NAVER Clip·당근 명칭은 각 권리자에게 있으며, 제휴 또는 보증을 의미하지 않습니다.</p>
     <p class="footer-copy">© 2026 MATGAMSA. ALL RIGHTS RESERVED.</p>
   </footer>
 
-  <script src="js/config.js"></script><script src="js/main.js?v=oryzo-v2" defer></script><script src="js/structural-rebuild.js?v=20260828-v1" defer></script>
+  <script src="js/config.js"></script><script src="js/main.js?v=oryzo-v2" defer></script><script src="js/structural-rebuild.js?v=20260828-v3" defer></script>
 </body>
 </html>

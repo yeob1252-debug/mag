@@ -37,13 +37,13 @@ for required in (
     "문의·신청",
     "나도 맛집채널 도전하기",
     "우리 매장에 맞는 크리에이터 광고 상담받기",
-    "3문항으로 내 채널 유형과 첫 촬영 체크리스트 보기",
+    "무료로 내 맛집채널 유형 확인하기",
 ):
     check(required in home, f"home contains exact required text: {required}")
 
 check('href="creator-course.html">나도 맛집채널 도전하기</a>' in home, "creator CTA exact route")
 check('href="#owner-apply"' in home and 'id="owner-apply"' in home, "owner CTA exact route")
-check('href="channel-start-check.html">3문항으로 내 채널 유형과 첫 촬영 체크리스트 보기</a>' in home, "free pre-value CTA exact route")
+check('href="channel-start-check.html">무료로 내 맛집채널 유형 확인하기</a>' in home, "free pre-value CTA exact route")
 check('href="#interest">나도 맛집채널 도전하기</a>' in course, "course primary CTA reaches visible status block")
 check('id="interest"' in course and "다음 모집 일정 확정 중" in course and "참가비 확정 후 안내" in course, "course truthful HOLD status")
 check("docs.google.com/forms" not in course, "stale Google Form absent")
@@ -60,6 +60,17 @@ check(rebuild_css.count("pretendardvariable-dynamic-subset.css") == 1, "single v
 check("@font-face" not in rebuild_css and "/web/static/woff2/" not in rebuild_css, "full static Korean font payload removed")
 check("word-break:keep-all" in rebuild_css, "global Korean keep-all")
 check("prefers-reduced-motion:reduce" in rebuild_css and ".sr-narrative-stage{display:none}" in rebuild_css, "static reduced-motion route")
+check("직접 알리는 사람으로" in home and "sr-hero-emphasis" in home, "hero emphasis exact phrase")
+check(all(label in home for label in ("Instagram", "TikTok", "YouTube", "NAVER Clip", "당근")), "five platform text marks disclosed")
+reaction_match = re.search(r'<div class="sr-reactions"[^>]*>(.*?)</div>', home, re.S)
+check(bool(reaction_match) and not re.search(r'\d', reaction_match.group(1)), "reaction treatment contains no engagement metrics")
+check(all(f'data-course-copy="{state}"' in home for state in ("theory", "ai", "shoot", "edit", "publish")), "five scroll-led one-day course states")
+check("8시간 이상" in home and "8시간 이상" in course and "협찬 매장 식사 실습" in course, "confirmed 8H+ and field practice facts")
+check('href="https://www.whybe.co.kr/"' in home and 'href="https://www.tigercommercelab.com/"' in home, "canonical YB ecosystem links")
+check("내 일정에 맞춰 맛집 콘텐츠 활동에 도전" in course and "활동이나 수입을 보장하지 않습니다" in course, "course opportunity and no-guarantee disclosure")
+check(all(f'data-owner-phone="{state}"' in home for state in ("store", "creator", "connect", "coordinate")), "visual-first owner match states")
+check("촬영 가능한 날짜를 확인해요" in home and "업로드 채널을 함께 정해요" in home and "협의 완료" in home, "owner coordination uses three short non-claim bubbles")
+check("Apple" not in all_html and "아이폰" not in all_html and "iPhone" not in all_html, "code-native device has no Apple/model claim")
 
 copy_states = re.findall(r'data-copy-state="(shot|edit|upload|owner)"', home)
 phone_states = re.findall(r'data-phone-state="(shot|edit|upload|owner)"', home)
