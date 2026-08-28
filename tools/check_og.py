@@ -10,9 +10,9 @@ CONFIG = {
     "canonical": "https://www.matgamsa.com/",
     "title": "맛집감별사 | 맛집채널과 음식점을 연결합니다",
     "description": "대구 맛간다챌린지 · 크리에이터 광고 매칭",
-    "image": "https://www.matgamsa.com/assets/og/matgamsa-share-20260828-v1.png",
-    "alt": "맛집감별사 — 맛집채널과 음식점을 연결합니다",
-    "asset": "assets/og/matgamsa-share-20260828-v1.png",
+    "image": "https://www.matgamsa.com/assets/og/matgamsa-share-20260828-v2.png",
+    "alt": "맛집감별사 — 맛집채널과 음식점을 연결합니다. 대구 맛간다챌린지 · 크리에이터 광고 매칭",
+    "asset": "assets/og/matgamsa-share-20260828-v2.png",
 }
 
 
