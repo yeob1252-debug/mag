@@ -58,6 +58,7 @@ check("<path" not in favicon and ">M<" not in favicon and "맛집" in favicon an
 font_weights = set(re.findall(r"font-weight:(400|500|700|900)", rebuild_css))
 check(font_weights == {"400", "500", "700", "900"}, "explicit Korean font weights 400/500/700/900")
 check(rebuild_css.count("@font-face") == 4 and "Pretendard MAT" in rebuild_css, "deterministic Korean @font-face family")
+check(rebuild_css.count("@v1.3.9/packages/pretendard/dist/web/static/woff2/") == 4, "verified Pretendard v1.3.9 package paths")
 check("word-break:keep-all" in rebuild_css, "global Korean keep-all")
 check("prefers-reduced-motion:reduce" in rebuild_css and ".sr-narrative-stage{display:none}" in rebuild_css, "static reduced-motion route")
 
