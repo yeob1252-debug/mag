@@ -1,4 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#ff5b3d"/>
-  <path d="M14 45V19h9l9 13 9-13h9v26h-9V32l-9 13-9-13v13z" fill="#fff1df"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">맛집감별사</title>
+  <rect width="64" height="64" rx="16" fill="#f3573f"/>
+  <text x="32" y="27" fill="#fffaf2" font-family="sans-serif" font-size="16" font-weight="900" text-anchor="middle">맛집</text>
+  <text x="32" y="45" fill="#fffaf2" font-family="sans-serif" font-size="16" font-weight="900" text-anchor="middle">감별사</text>
 </svg>

@@ -192,17 +192,17 @@
   const savedResult = document.getElementById('savedResultType');
   const RESULT = {
     visual: {
-      code: 'TYPE 01', word: 'VISUAL', title: '장면 포착형', image: 'assets/generated/matgamsa-category-meat.webp', alt: '고깃집 촬영 예시 연출 이미지',
+      code: 'TYPE 01', word: 'VISUAL', title: '장면 포착형', image: 'assets/generated/matgamsa-category-meat.webp', alt: '연출 이미지: 고깃집 촬영 예시',
       summary: '말보다 음식의 움직임과 질감을 먼저 보는 유형입니다. 첫 2초에 가장 맛있는 장면을 배치하면 강점이 살아납니다.',
       checks: ['창가나 매장 조명 중 음식이 가장 선명한 방향 찾기', '김·육즙·절단처럼 움직임이 있는 장면 3개 찍기', '첫 화면에는 가장 가까운 음식 장면 한 개만 쓰기'],
     },
     review: {
-      code: 'TYPE 02', word: 'VOICE', title: '경험 리뷰형', image: 'assets/generated/matgamsa-category-local.webp', alt: '노포 음식 리뷰 예시 연출 이미지',
+      code: 'TYPE 02', word: 'VOICE', title: '경험 리뷰형', image: 'assets/generated/matgamsa-category-local.webp', alt: '연출 이미지: 노포 음식 리뷰 예시',
       summary: '다녀온 사람만 할 수 있는 말과 분위기를 잘 포착하는 유형입니다. 한 문장의 솔직한 경험이 채널의 목소리가 됩니다.',
       checks: ['먹기 전 기대와 먹은 뒤 느낌을 각각 한 문장으로 메모하기', '메뉴보다 먼저 기억난 공간의 특징 한 가지 찍기', '과장된 칭찬 대신 다시 올 이유 한 가지 말하기'],
     },
     info: {
-      code: 'TYPE 03', word: 'GUIDE', title: '실용 정보형', image: 'assets/generated/matgamsa-category-korean.webp', alt: '한식 정보 콘텐츠 예시 연출 이미지',
+      code: 'TYPE 03', word: 'GUIDE', title: '실용 정보형', image: 'assets/generated/matgamsa-category-korean.webp', alt: '연출 이미지: 한식 정보 콘텐츠 예시',
       summary: '가격·주문법·메뉴 조합처럼 저장할 정보를 빠르게 정리하는 유형입니다. 보기 좋은 화면 안에 한 가지 쓸모를 남기면 강합니다.',
       checks: ['대표 메뉴와 주문 기준을 촬영 전에 확인하기', '메뉴판 전체 대신 필요한 가격 한 장면만 기록하기', '누구에게 유용한지 첫 문장에 분명히 쓰기'],
     },
