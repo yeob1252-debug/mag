@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "manifest_id": "MATGAMSA_WEBSITE_SUPPORT_GENERATIVE_PHOTOREAL_20260828_V1",
+  "policy_class": "WEBSITE_SUPPORT_GENERATIVE_PHOTOREAL",
+  "generated_at_kst": "2026-08-28",
+  "generator": "OpenAI built-in image_gen",
+  "disclosure": "연출 이미지",
+  "evidence_policy": "NOT_REAL_WORLD_EVIDENCE",
+  "video_generation": "NOT_USED_NOT_APPROVED",
+  "assets": [
+    {
+      "category": "한식",
+      "source_path": "C:/Users/USER/.codex/generated_images/01a046c7-5b08-7670-a3f9-07c7fcd7531c/exec-4689b453-baee-4ac1-bf54-4cc9e1a7a9d7.png",
+      "source_sha256": "DCED0E9466EAA898739B32D2A66B0106D5DFFC92DAB7543E35F568FEF37B0EF3",
+      "website_path": "assets/generated/matgamsa-category-korean.webp",
+      "website_sha256": "32B9F9DDB169651871929B71F575B93EB4A20B7FFEA9E1C6720C605EB62AE2DA",
+      "dimensions": "960x1200",
+      "sections": ["home.hero", "home.category-rail", "free-check.result-info"],
+      "alt": "한식 콘텐츠 예시 연출 이미지",
+      "prompt": "High-end photorealistic editorial Korean meal on dark walnut, bubbling stew, grilled fish, rice and restrained banchan; vertical 4:5, 35mm table-height, warm late-afternoon window light, espresso shadows, cream and muted coral; no people, signage, text, numbers, labels, logos, watermark or branded packaging; no specific real restaurant."
+    },
+    {
+      "category": "고깃집",
+      "source_path": "C:/Users/USER/.codex/generated_images/01a046c7-5b08-7670-a3f9-07c7fcd7531c/exec-89200f68-cec5-4d2f-9c32-98e4baeda41c.png",
+      "source_sha256": "4D15AE217A64220547A9CB06A81FC1DE0E4E87F7A7F4923211F7A2E2E14C6565",
+      "website_path": "assets/generated/matgamsa-category-meat.webp",
+      "website_sha256": "E3979FFAC0C8AA242ABB3BB043589DDDFA04C9EC91A973694E0F3652FA2A5F80",
+      "dimensions": "960x1200",
+      "sections": ["home.category-rail", "home.device-story", "free-check.result-visual"],
+      "alt": "숯불 위 고기 콘텐츠 예시 연출 이미지",
+      "prompt": "High-end photorealistic Korean charcoal-grilled pork on a refined dark-walnut and brushed-metal table, sizzling cuts, amber charcoal glow, restrained side dishes; vertical 4:5, 35mm low table-height, warm window light, espresso shadows; no people or hands, signage, text, numbers, labels, logos, watermark or branded packaging; no specific real restaurant."
+    },
+    {
+      "category": "노포",
+      "source_path": "C:/Users/USER/.codex/generated_images/01a046c7-5b08-7670-a3f9-07c7fcd7531c/exec-d79d1c35-a39d-44fa-a547-240137903817.png",
+      "source_sha256": "EFF2A2A1F587D1142D135031A854E9BBC638E46041132EAFD4EBF4482366F833",
+      "website_path": "assets/generated/matgamsa-category-local.webp",
+      "website_sha256": "338DB62181E4875DA3AF3FDF8F7322CBE7BD58AE14ACF2160C50A58963E5660F",
+      "dimensions": "960x1200",
+      "sections": ["home.category-rail", "free-check.result-review"],
+      "alt": "오래된 식당의 국밥 콘텐츠 예시 연출 이미지",
+      "prompt": "High-end photorealistic documentary image of a humble old neighborhood Korean eatery with steaming gukbap, rice and kimchi on worn dark wood, aged cream plaster and soft vintage window; vertical 4:5, seated 35mm, nostalgic warm light; no people, readable signage, text, numbers, labels, logos, watermark or branded packaging; no specific real restaurant."
+    },
+    {
+      "category": "디저트",
+      "source_path": "C:/Users/USER/.codex/generated_images/01a046c7-5b08-7670-a3f9-07c7fcd7531c/exec-08bdae7f-099c-4281-9e5d-dc79beed3a9a.png",
+      "source_sha256": "5E626A999A69302CDEAE3C02E77191B78F9A6B1C4271DD2CD6DD96C9BF896432",
+      "website_path": "assets/generated/matgamsa-category-dessert.webp",
+      "website_sha256": "A4D0FEF423A103D3DCECD1157F440406C27AAA45567D22820EB3DE09DCEEAA26",
+      "dimensions": "960x1200",
+      "sections": ["home.category-rail", "course.hero"],
+      "alt": "과일 케이크 콘텐츠 예시 연출 이미지",
+      "prompt": "High-end photorealistic contemporary Korean dessert-cafe table with sculptural seasonal fruit cake, glass dessert and ceramic coffee cup, cream interior and dark walnut; vertical 4:5, 50mm table-height, warm late-afternoon light; no people, signage, text, numbers, labels, logos, watermark or branded packaging; no specific real cafe."
+    },
+    {
+      "category": "빵집",
+      "source_path": "C:/Users/USER/.codex/generated_images/01a046c7-5b08-7670-a3f9-07c7fcd7531c/exec-292cb471-0487-49e9-b2d5-a4a070ff33b0.png",
+      "source_sha256": "8296EE8D82BED4F58DC6E17F75D177704DD1F1AE41FCD5A543AD01C91C3806F1",
+      "website_path": "assets/generated/matgamsa-category-bakery.webp",
+      "website_sha256": "4B79D104C001A4615785E675964B43883B713C07A4BEE458A2C0DCB188ECAAD5",
+      "dimensions": "960x1200",
+      "sections": ["home.category-rail"],
+      "alt": "갓 구운 빵 콘텐츠 예시 연출 이미지",
+      "prompt": "High-end photorealistic artisan bakery display after baking, golden croissants, rustic sourdough and restrained pastries on dark walnut in a cream-plaster bakery; vertical 4:5, 35mm counter-height, warm late-afternoon light; no people, signage, text, numbers, labels, logos, watermark or branded packaging; no specific real bakery."
+    }
+  ]
+}
