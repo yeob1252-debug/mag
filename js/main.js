@@ -242,7 +242,7 @@
     event.preventDefault();
     const status = document.getElementById('freeCheckStatus');
     if (!activeResult) {
-      status.textContent = '먼저 위의 1분 진단 결과를 확인해 주세요.';
+      status.textContent = '먼저 위의 3문항 진단 결과를 확인해 주세요.';
       status.className = 'form-status is-error';
       return;
     }

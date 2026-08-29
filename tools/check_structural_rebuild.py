@@ -76,7 +76,7 @@ check(journey_html.count('class="sr-phone-shell"') == 1 and journey_html.count('
 copy_states = re.findall(r'data-journey-copy="([^"]+)"', journey_html)
 screen_states = re.findall(r'data-journey-screen="([^"]+)"', journey_html)
 check(copy_states[:6] == ["hero", "creator-cta", "owner-cta", "shot", "edit", "upload"], "hero then creator CTA then owner CTA then phone story")
-check(screen_states == ["shot", "edit", "upload", "owner-store", "owner-creator", "owner-connect", "owner-dm", "course-intro", "course-theory", "course-ai", "course-shoot", "course-edit", "course-publish", "category-intro", "cat-korean", "cat-meat", "cat-local", "cat-dessert", "cat-bakery"], "persistent phone screen state order")
+check(screen_states == ["hero", "creator-cta", "owner-cta", "shot", "edit", "upload", "owner-store", "owner-creator", "owner-connect", "owner-dm", "course-intro", "course-theory", "course-ai", "course-shoot", "course-edit", "course-publish", "category-intro", "cat-korean", "cat-meat", "cat-local", "cat-dessert", "cat-bakery"], "persistent phone screen state order")
 check(all(f'data-journey-copy="cat-{state}"' in home for state in ("korean", "meat", "local", "dessert", "bakery")), "five scroll-led food category states")
 check("휴대폰 하나로 바로 맛집채널 주인이 되고 싶으신 분?" in home and "가성비 있게 틱톡·유튜브·릴스 광고하고 싶은 사장님?" in home, "sequential audience questions exact")
 check("sr-wordmark:before,.sr-wordmark:after{content:none!important" in rebuild_css and ">맛집감별사</a>" in home and ">맛집감별사(</a>" not in home, "wordmark has no stray glyph or pseudo content")

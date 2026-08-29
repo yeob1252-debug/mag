@@ -15,7 +15,7 @@
     ['category-intro', 1.2], ['cat-korean', 1], ['cat-meat', 1], ['cat-local', 1], ['cat-dessert', 1], ['cat-bakery', 1.2],
   ];
   const totalWeight = segments.reduce((sum, item) => sum + item[1], 0);
-  const phoneStartIndex = segments.findIndex(([name]) => name === 'shot');
+  const phoneStartIndex = 0;
   let currentState = '';
   let currentPlatformStep = -1;
   let scheduled = false;
@@ -49,7 +49,9 @@
     if (!stage || currentState === name) return;
     currentState = name;
     stage.dataset.state = name;
+    stage.dataset.stateIndex = String(index + 1);
     journey.dataset.state = name;
+    document.body.dataset.journeyState = name;
     journey.querySelectorAll('[data-journey-copy]').forEach((node) => {
       const active = node.dataset.journeyCopy === name;
       node.classList.toggle('is-active', active);
@@ -71,6 +73,9 @@
     const value = progress(journey);
     const state = resolveSegment(value);
     setState(state.name, state.index);
+    stage.style.setProperty('--sr-progress', value.toFixed(5));
+    stage.style.setProperty('--sr-local', state.local.toFixed(5));
+    document.body.dataset.inJourney = String(value < .9995);
     if (state.name === 'upload') setPlatformStep(Math.min(5, Math.max(1, Math.floor(state.local * 5) + 1)));
     if (progressBar) progressBar.style.transform = `scaleX(${value})`;
   }
