@@ -1,15 +1,17 @@
 (() => {
   'use strict';
 
-  const story = document.querySelector('[data-v4-story]');
+  const story = document.querySelector('[data-v5-story]');
   if (!story) return;
 
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const copies = [...story.querySelectorAll('[data-v4-copy]')];
-  const screens = [...story.querySelectorAll('[data-v4-screen]')];
-  const count = story.querySelector('[data-v4-count]');
-  const bar = story.querySelector('[data-v4-progress]');
-  const stateTotal = Math.min(copies.length, screens.length);
+  const stage = story.querySelector('[data-v5-stage]');
+  const staticStory = story.querySelector('[data-v5-static]');
+  const copies = [...story.querySelectorAll('[data-v5-copy]')];
+  const screens = [...story.querySelectorAll('[data-v5-screen]')];
+  const progressBar = story.querySelector('[data-v5-progress]');
+  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const stateThresholds = [0, .19, .38, .57, .76];
+  const stateTargets = [.08, .285, .475, .665, .86];
   let active = -1;
   let scheduled = false;
 
@@ -29,19 +31,24 @@
       item.classList.toggle('is-active', visible);
       item.setAttribute('aria-hidden', String(!visible));
     });
-    if (count) count.textContent = String(next + 1);
+  }
+
+  function stateFor(progress) {
+    let next = 0;
+    for (let index = 1; index < stateThresholds.length; index += 1) {
+      if (progress >= stateThresholds[index]) next = index;
+    }
+    return next;
   }
 
   function update() {
     scheduled = false;
-    if (reduced || !stateTotal) return;
+    if (motion.matches) return;
     const rect = story.getBoundingClientRect();
     const distance = Math.max(1, rect.height - window.innerHeight);
     const progress = clamp(-rect.top / distance);
-    const next = Math.min(stateTotal - 1, Math.floor(progress * stateTotal));
-    story.style.setProperty('--v4-story-progress', progress.toFixed(4));
-    if (bar) bar.style.transform = `scaleX(${progress.toFixed(4)})`;
-    setState(next);
+    if (progressBar) progressBar.style.transform = `scaleX(${progress.toFixed(4)})`;
+    setState(stateFor(progress));
   }
 
   function requestUpdate() {
@@ -50,14 +57,35 @@
     window.requestAnimationFrame(update);
   }
 
-  if (reduced) {
-    copies.forEach((item) => item.removeAttribute('aria-hidden'));
-    screens.forEach((item) => item.setAttribute('aria-hidden', 'true'));
-  } else {
-    setState(0);
-    addEventListener('scroll', requestUpdate, { passive: true });
-    addEventListener('resize', requestUpdate, { passive: true });
-    addEventListener('pageshow', requestUpdate, { passive: true });
-    update();
+  function applyMotionMode() {
+    const reduced = motion.matches;
+    if (stage) stage.setAttribute('aria-hidden', String(reduced));
+    if (staticStory) staticStory.setAttribute('aria-hidden', String(!reduced));
+    if (reduced) {
+      copies.forEach((item) => item.setAttribute('aria-hidden', 'true'));
+      screens.forEach((item) => item.setAttribute('aria-hidden', 'true'));
+    } else {
+      setState(active < 0 ? 0 : active);
+      update();
+    }
   }
+
+  document.querySelectorAll('[data-story-route]').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      if (motion.matches) return;
+      const state = Number(link.getAttribute('data-story-route'));
+      if (!Number.isInteger(state) || state < 0 || state >= stateTargets.length) return;
+      event.preventDefault();
+      const distance = Math.max(1, story.offsetHeight - window.innerHeight);
+      const top = story.offsetTop + (distance * stateTargets[state]);
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  });
+
+  addEventListener('scroll', requestUpdate, { passive: true });
+  addEventListener('resize', requestUpdate, { passive: true });
+  addEventListener('pageshow', requestUpdate, { passive: true });
+  if (motion.addEventListener) motion.addEventListener('change', applyMotionMode);
+  else if (motion.addListener) motion.addListener(applyMotionMode);
+  applyMotionMode();
 })();
