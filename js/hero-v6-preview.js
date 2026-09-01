@@ -164,7 +164,7 @@
 (() => {
   'use strict';
 
-  const story = document.querySelector('.v6-selection-story');
+  const story = document.querySelector('.v6-selection-story--retired');
   if (!story) return;
   const root = document.documentElement;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -263,6 +263,190 @@
   addEventListener('scroll', requestRender, { passive: true });
   addEventListener('resize', measure, { passive: true });
   addEventListener('load', measure, { once: true });
+  reduced.addEventListener?.('change', measure);
+  measure();
+})();
+
+(() => {
+  'use strict';
+
+  const story = document.querySelector('.v6-selection-story');
+  if (!story) return;
+  const root = document.documentElement;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const stages = [...story.querySelectorAll('.v6-selection-stage')];
+  let start = 0;
+  let range = 1;
+  let queued = false;
+
+  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+  const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
+  const between = (progress, from, to) => smooth((progress - from) / (to - from));
+  const mix = (from, to, amount) => from + (to - from) * amount;
+  const mixColor = (from, to, amount) => `rgb(${from.map((value, index) => Math.round(mix(value, to[index], amount))).join(' ')})`;
+  const set = (name, value) => story.style.setProperty(name, value);
+  const palette = [
+    { bg:[243,238,228], fg:[23,19,16], accent:[157,43,29] },
+    { bg:[243,238,228], fg:[23,19,16], accent:[157,43,29] },
+    { bg:[242,222,192], fg:[23,19,16], accent:[157,43,29] },
+    { bg:[239,128,99], fg:[23,19,16], accent:[111,29,19] },
+    { bg:[18,59,58], fg:[255,250,242], accent:[255,196,179] },
+    { bg:[229,239,233], fg:[23,19,16], accent:[157,43,29] },
+  ];
+
+  function measure() {
+    const rect = story.getBoundingClientRect();
+    start = scrollY + rect.top;
+    range = Math.max(1, story.offsetHeight - innerHeight);
+    render();
+  }
+
+  function render() {
+    queued = false;
+    if (reduced.matches) {
+      story.dataset.selectionState = 'reduced';
+      stages.forEach(stage => stage.setAttribute('aria-hidden', 'true'));
+      return;
+    }
+
+    const p = clamp((scrollY - start) / range);
+    set('--selection-progress', p.toFixed(4));
+
+    let state = 0;
+    if (p >= .075) state = 1;
+    if (p >= .335) state = 2;
+    if (p >= .505) state = 3;
+    if (p >= .67) state = 4;
+    if (p >= .835) state = 5;
+    story.dataset.selectionState = String(state);
+
+    const thresholds = [0, .075, .335, .505, .67, .835, 1];
+    const nextState = Math.min(5, state + 1);
+    const local = state < 5 ? between(p, thresholds[state] + (thresholds[state + 1] - thresholds[state]) * .68, thresholds[state + 1]) : 0;
+    const current = palette[state];
+    const next = palette[nextState];
+    set('--selection-bg', mixColor(current.bg, next.bg, local));
+    set('--selection-fg', mixColor(current.fg, next.fg, local));
+    set('--selection-accent', mixColor(current.accent, next.accent, local));
+
+    const introEnter = between(p, .075, .14);
+    const introExit = between(p, .275, .335);
+    const introOpacity = introEnter * (1 - introExit);
+    const supportEnter = between(p, .16, .215);
+    set('--selection-intro-opacity', introOpacity.toFixed(4));
+    set('--selection-intro-y', `${mix(7, 0, introEnter).toFixed(3)}vh`);
+    set('--selection-support-opacity', (supportEnter * (1 - introExit)).toFixed(4));
+
+    const phoneEnter = between(p, .32, .37);
+    const isMobile = innerWidth <= 700;
+    const isTablet = innerWidth > 700 && innerWidth <= 980;
+    const phoneX = isMobile ? 50 : (isTablet ? 70 : 68);
+    const phoneY = isMobile ? 39 : 53;
+    set('--selection-phone-opacity', phoneEnter.toFixed(4));
+    set('--selection-phone-x', `${phoneX}vw`);
+    set('--selection-phone-y', `${phoneY}vh`);
+    set('--selection-phone-scale', mix(.83, 1, phoneEnter).toFixed(4));
+    set('--selection-phone-rotate', `${mix(3, 0, phoneEnter).toFixed(3)}deg`);
+
+    const stageBoundaries = [[.335,.505],[.505,.67],[.67,.835],[.835,1]];
+    let stageOpacity = 0;
+    let stageY = 7;
+    if (state >= 2) {
+      const bounds = stageBoundaries[state - 2];
+      const enter = between(p, bounds[0], bounds[0] + .035);
+      const exit = state === 5 ? 0 : between(p, bounds[1] - .035, bounds[1]);
+      stageOpacity = enter * (1 - exit);
+      stageY = mix(7, 0, enter);
+    }
+    set('--selection-stage-opacity', stageOpacity.toFixed(4));
+    set('--selection-stage-y', `${stageY.toFixed(3)}vh`);
+    stages.forEach((stage, index) => stage.setAttribute('aria-hidden', String(index !== state - 2 || stageOpacity < .05)));
+
+    const within = scrollY >= start && scrollY < start + story.offsetHeight;
+    if (within) root.style.setProperty('--header-color', state === 4 ? '#fffaf2' : '#171310');
+  }
+
+  function requestRender() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(render);
+  }
+
+  addEventListener('scroll', requestRender, { passive:true });
+  addEventListener('resize', measure, { passive:true });
+  addEventListener('load', measure, { once:true });
+  reduced.addEventListener?.('change', measure);
+  measure();
+})();
+
+(() => {
+  'use strict';
+
+  const story = document.querySelector('.v6-budget-story');
+  if (!story) return;
+  const panels = [...story.querySelectorAll('[data-budget-panel]')];
+  const track = story.querySelector('.v6-budget-track');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  let start = 0;
+  let range = 1;
+  let queued = false;
+
+  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+
+  function setPanel(index) {
+    story.dataset.budgetState = String(index);
+    story.style.setProperty('--budget-index', String(index));
+    panels.forEach((panel, panelIndex) => {
+      const active = panelIndex === index;
+      panel.classList.toggle('is-active', active);
+      if (active) panel.setAttribute('aria-current', 'step');
+      else panel.removeAttribute('aria-current');
+    });
+    if (!track || innerWidth > 980 || reduced.matches) {
+      story.style.setProperty('--budget-track-x', '0px');
+      return;
+    }
+    const active = panels[index];
+    const scene = story.querySelector('.v6-budget-scene');
+    const sceneWidth = scene?.clientWidth || innerWidth;
+    const x = (sceneWidth / 2) - (active.offsetLeft + active.offsetWidth / 2);
+    story.style.setProperty('--budget-track-x', `${x.toFixed(2)}px`);
+  }
+
+  function measure() {
+    const rect = story.getBoundingClientRect();
+    start = scrollY + rect.top;
+    range = Math.max(1, story.offsetHeight - innerHeight);
+    render();
+  }
+
+  function render() {
+    queued = false;
+    if (reduced.matches) {
+      story.style.setProperty('--budget-progress', '1');
+      panels.forEach(panel => { panel.classList.add('is-active'); panel.removeAttribute('aria-current'); });
+      story.style.setProperty('--budget-track-x', '0px');
+      return;
+    }
+    const p = clamp((scrollY - start) / range);
+    const storyEnd = start + story.offsetHeight - 2;
+    const within = scrollY >= start && scrollY < storyEnd;
+    if (within) document.documentElement.style.setProperty('--header-color', '#fffaf2');
+    else if (scrollY >= storyEnd) document.documentElement.style.setProperty('--header-color', '#171310');
+    story.style.setProperty('--budget-progress', p.toFixed(4));
+    const index = p < .34 ? 0 : (p < .67 ? 1 : 2);
+    setPanel(index);
+  }
+
+  function requestRender() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(render);
+  }
+
+  addEventListener('scroll', requestRender, { passive:true });
+  addEventListener('resize', measure, { passive:true });
+  addEventListener('load', measure, { once:true });
   reduced.addEventListener?.('change', measure);
   measure();
 })();
