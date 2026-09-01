@@ -164,6 +164,154 @@
 (() => {
   'use strict';
 
+  const story = document.querySelector('.v6-challenge-story');
+  if (!story) return;
+  const root = document.documentElement;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const steps = [...story.querySelectorAll('.v6-challenge-step')];
+  const screens = [...story.querySelectorAll('[data-challenge-screen-name]')];
+  const reducedBlock = story.querySelector('.v6-challenge-reduced');
+  let start = 0;
+  let range = 1;
+  let queued = false;
+
+  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+  const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
+  const between = (progress, from, to) => smooth((progress - from) / (to - from));
+  const mix = (from, to, amount) => from + (to - from) * amount;
+  const mixColor = (from, to, amount) => `rgb(${from.map((value, index) => Math.round(mix(value, to[index], amount))).join(' ')})`;
+  const set = (name, value) => story.style.setProperty(name, value);
+  const stateNames = ['none','intro','benefit','who','where','what','how','practice','after','resolve'];
+  const screenNames = ['none','none','none','who','where','what','how','practice','after','none'];
+  const thresholds = [0,.055,.165,.275,.385,.49,.59,.69,.79,.89,1];
+  const palette = [
+    { bg:[243,238,228], fg:[23,19,16], accent:[157,43,29] },
+    { bg:[243,238,228], fg:[23,19,16], accent:[157,43,29] },
+    { bg:[239,128,99], fg:[23,19,16], accent:[111,29,19] },
+    { bg:[242,222,192], fg:[23,19,16], accent:[157,43,29] },
+    { bg:[229,239,233], fg:[23,19,16], accent:[19,80,73] },
+    { bg:[245,189,152], fg:[23,19,16], accent:[123,39,24] },
+    { bg:[18,59,58], fg:[255,250,242], accent:[255,186,168] },
+    { bg:[47,31,67], fg:[255,250,242], accent:[255,186,168] },
+    { bg:[239,128,99], fg:[23,19,16], accent:[111,29,19] },
+    { bg:[243,238,228], fg:[23,19,16], accent:[157,43,29] },
+  ];
+
+  function measure() {
+    const rect = story.getBoundingClientRect();
+    start = scrollY + rect.top;
+    range = Math.max(1, story.offsetHeight - innerHeight);
+    render();
+  }
+
+  function render() {
+    queued = false;
+    if (reduced.matches) {
+      story.dataset.challengeState = 'reduced';
+      story.dataset.challengeScreen = 'none';
+      reducedBlock?.setAttribute('aria-hidden','false');
+      steps.forEach(step => step.setAttribute('aria-hidden','true'));
+      screens.forEach(screen => screen.setAttribute('aria-hidden','true'));
+      return;
+    }
+
+    const p = clamp((scrollY - start) / range);
+    reducedBlock?.setAttribute('aria-hidden','true');
+    set('--challenge-progress', p.toFixed(4));
+
+    let state = 0;
+    for (let index = 1; index < thresholds.length - 1; index += 1) {
+      if (p >= thresholds[index]) state = index;
+    }
+    story.dataset.challengeState = String(state);
+    story.dataset.challengeScreen = screenNames[state];
+
+    const nextState = Math.min(palette.length - 1, state + 1);
+    const span = thresholds[state + 1] - thresholds[state];
+    const colorMorph = state < 9 ? between(p, thresholds[state] + span * .72, thresholds[state + 1]) : 0;
+    const current = palette[state];
+    const next = palette[nextState];
+    set('--challenge-bg', mixColor(current.bg, next.bg, colorMorph));
+    set('--challenge-fg', mixColor(current.fg, next.fg, colorMorph));
+    set('--challenge-accent', mixColor(current.accent, next.accent, colorMorph));
+
+    const introIn = between(p,.055,.085);
+    const introOut = between(p,.135,.165);
+    set('--challenge-intro-opacity',(introIn * (1 - introOut)).toFixed(4));
+    set('--challenge-intro-y',`${mix(7,0,introIn).toFixed(3)}vh`);
+
+    const benefitIn = between(p,.165,.20);
+    const benefitOut = between(p,.245,.275);
+    set('--challenge-benefit-opacity',(benefitIn * (1 - benefitOut)).toFixed(4));
+    set('--challenge-benefit-y',`${mix(7,0,benefitIn).toFixed(3)}vh`);
+
+    const phoneIn = between(p,.275,.315);
+    const phoneOut = between(p,.855,.89);
+    const isMobile = innerWidth <= 700;
+    const isTablet = innerWidth > 700 && innerWidth <= 980;
+    const phoneX = isMobile ? 50 : (isTablet ? 70 : 69);
+    const phoneY = isMobile ? 37 : 53;
+    set('--challenge-phone-opacity',(phoneIn * (1 - phoneOut)).toFixed(4));
+    set('--challenge-phone-x',`${phoneX.toFixed(2)}vw`);
+    set('--challenge-phone-y',`${mix(isMobile ? 72 : 76,phoneY,phoneIn).toFixed(2)}vh`);
+    set('--challenge-phone-scale',mix(.78,1,phoneIn).toFixed(4));
+    set('--challenge-phone-rotate',`${mix(4,0,phoneIn).toFixed(2)}deg`);
+
+    const phoneStage = state >= 3 && state <= 8;
+    let stageOpacity = 0;
+    let stageY = 7;
+    if (phoneStage) {
+      const from = state === 3 ? .315 : thresholds[state];
+      const to = thresholds[state + 1];
+      const enter = between(p,from,from + .025);
+      const exit = between(p,to - .025,to);
+      stageOpacity = enter * (1 - exit);
+      stageY = mix(7,0,enter);
+    }
+    set('--challenge-stage-opacity',stageOpacity.toFixed(4));
+    set('--challenge-stage-y',`${stageY.toFixed(3)}vh`);
+
+    const screenName = screenNames[state];
+    steps.forEach((step,index) => step.setAttribute('aria-hidden',String(index !== state - 3 || stageOpacity < .05)));
+    screens.forEach(screen => screen.setAttribute('aria-hidden',String(screen.dataset.challengeScreenName !== screenName)));
+
+    const windowIn = between(p,.27,.34);
+    const windowOut = between(p,.855,.91);
+    set('--challenge-window-opacity',(windowIn * (1 - windowOut) * .16).toFixed(4));
+    set('--challenge-window-scale',mix(.48,1.16,between(p,.27,.82)).toFixed(4));
+    set('--challenge-window-x',`${mix(isMobile ? 50 : 76,isMobile ? 50 : 66,between(p,.27,.82)).toFixed(2)}vw`);
+    set('--challenge-window-y',`${mix(48,53,between(p,.27,.82)).toFixed(2)}vh`);
+
+    const resolveIn = between(p,.89,.925);
+    set('--challenge-resolve-opacity',resolveIn.toFixed(4));
+    set('--challenge-resolve-y',`${mix(7,0,resolveIn).toFixed(3)}vh`);
+
+    const within = scrollY >= start && scrollY < start + story.offsetHeight - 2;
+    if (within) {
+      const dark = state === 6 || state === 7;
+      root.style.setProperty('--header-color', dark ? '#fffaf2' : '#171310');
+      root.style.setProperty('--scene-count-opacity','0');
+    } else if (scrollY < start) {
+      root.style.setProperty('--scene-count-opacity','1');
+    }
+  }
+
+  function requestRender() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(render);
+  }
+
+  addEventListener('scroll',requestRender,{ passive:true });
+  addEventListener('resize',measure,{ passive:true });
+  addEventListener('load',measure,{ once:true });
+  reduced.addEventListener?.('change',measure);
+  measure();
+})();
+
+(() => {
+  'use strict';
+
   const story = document.querySelector('.v6-selection-story--retired');
   if (!story) return;
   const root = document.documentElement;
