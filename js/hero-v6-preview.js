@@ -18,6 +18,7 @@
   };
   const between = (progress, from, to) => smooth((progress - from) / (to - from));
   const mix = (from, to, amount) => from + (to - from) * amount;
+  const mixColor = (from, to, amount) => `rgb(${from.map((value, index) => Math.round(mix(value, to[index], amount))).join(' ')})`;
   const set = (name, value) => root.style.setProperty(name, value);
 
   function measure() {
@@ -41,8 +42,8 @@
 
     let state = 0;
     if (p >= .10) state = 1;
-    if (p >= .27) state = 2;
-    if (p >= .43) state = 3;
+    if (p >= .30) state = 2;
+    if (p >= .50) state = 3;
     if (p >= .58) state = 4;
     if (p >= .85) state = 5;
     story.dataset.state = String(state);
@@ -51,48 +52,67 @@
     const isMobile = window.innerWidth <= 700;
     const isTablet = window.innerWidth > 700 && window.innerWidth <= 980;
 
-    const hookEnter = between(p, .105, .155);
-    const hookMorph = between(p, .285, .37);
-    const hookExit = between(p, .405, .465);
-    const hookOpacity = hookEnter * (1 - hookExit);
-    const hookX = mix(0, isMobile ? -1 : -18, hookMorph);
-    const hookY = mix(0, isMobile ? -21 : -16, hookMorph);
-    const hookScale = mix(.88, 1, hookEnter) * mix(1, isMobile ? .7 : .72, hookMorph);
-    set('--v6-hook-opacity', hookOpacity.toFixed(4));
-    set('--v6-hook-x', `${hookX.toFixed(3)}vw`);
-    set('--v6-hook-y', `${hookY.toFixed(3)}vh`);
-    set('--v6-hook-scale', hookScale.toFixed(4));
+    const creatorEnter = between(p, .105, .155);
+    const creatorSettle = between(p, .295, .35);
+    const creatorExit = between(p, .39, .455);
+    const creatorOpacity = creatorEnter * mix(1, .48, creatorSettle) * (1 - creatorExit);
+    const creatorAccentIn = between(p, .16, .195);
+    const creatorAccentOut = between(p, .265, .30);
+    const creatorAccent = creatorAccentIn * (1 - creatorAccentOut);
+    set('--v6-creator-opacity', creatorOpacity.toFixed(4));
+    set('--v6-creator-x', `${mix(isMobile ? -5 : -7, 0, creatorEnter).toFixed(3)}vw`);
+    set('--v6-creator-y', `${mix(7, 0, creatorEnter).toFixed(3)}vh`);
+    set('--v6-creator-scale', mix(.94, 1, creatorEnter).toFixed(4));
+    set('--v6-creator-clip', `${mix(100, 0, creatorEnter).toFixed(2)}%`);
+    set('--v6-creator-accent-color', mixColor([23, 19, 16], [157, 43, 29], creatorAccent));
 
-    const supportEnter = between(p, .315, .37);
-    const supportExit = between(p, .405, .465);
+    const ownerEnter = between(p, .305, .36);
+    const ownerSupportMorph = between(p, .405, .455);
+    const ownerExit = between(p, .475, .525);
+    const ownerOpacity = ownerEnter * (1 - ownerExit);
+    const ownerAccentIn = between(p, .36, .395);
+    const ownerAccentOut = between(p, .445, .475);
+    const ownerAccent = ownerAccentIn * (1 - ownerAccentOut);
+    set('--v6-owner-opacity', ownerOpacity.toFixed(4));
+    set('--v6-owner-x', `${mix(isMobile ? 5 : 7, 0, ownerEnter).toFixed(3)}vw`);
+    set('--v6-owner-y', `${mix(7, 0, ownerEnter) + mix(0, isMobile ? -28 : -23, ownerSupportMorph)}vh`);
+    set('--v6-owner-scale', mix(.94, mix(1, .78, ownerSupportMorph), ownerEnter).toFixed(4));
+    set('--v6-owner-clip', `${mix(100, 0, ownerEnter).toFixed(2)}%`);
+    set('--v6-owner-accent-color', mixColor([23, 19, 16], [91, 45, 114], ownerAccent));
+
+    const supportEnter = between(p, .42, .46);
+    const supportExit = between(p, .49, .52);
     const supportOpacity = supportEnter * (1 - supportExit);
-    const supportX = isMobile ? 0 : (isTablet ? 20 : 23);
-    const supportY = isMobile ? 22 : 18;
+    const supportX = 0;
+    const supportY = mix(4, 0, supportEnter);
     set('--v6-support-opacity', supportOpacity.toFixed(4));
     set('--v6-support-x', `${supportX}vw`);
     set('--v6-support-y', `${supportY}vh`);
 
-    const inkIn = between(p, .44, .555);
+    const inkIn = between(p, .52, .60);
     const inkOut = between(p, .82, .94);
     const warmIn = between(p, .70, .77);
     const warmOut = between(p, .82, .92);
     set('--v6-ink-opacity', (inkIn * (1 - inkOut)).toFixed(4));
     set('--v6-warm-opacity', (warmIn * (1 - warmOut) * .94).toFixed(4));
-    root.style.setProperty('--header-color', (p > .50 && p < .89) ? 'var(--v6-light)' : 'var(--v6-ink)');
-    root.style.setProperty('--copy-color', p > .49 ? 'var(--v6-light)' : 'var(--v6-ink)');
+    root.style.setProperty('--header-color', (p > .53 && p < .89) ? 'var(--v6-light)' : 'var(--v6-ink)');
+    root.style.setProperty('--copy-color', p > .52 ? 'var(--v6-light)' : 'var(--v6-ink)');
 
-    const maskIn = between(p, .285, .43);
+    const creatorMask = creatorAccent * .08;
+    const ownerMask = ownerEnter * (1 - ownerExit) * .10;
     const maskOwner = between(p, .70, .79);
     const maskResolve = between(p, .84, .95);
-    const maskOpacity = mix(0, .15, maskIn) + mix(0, .31, maskOwner) - mix(0, .38, maskResolve);
+    const maskOpacity = creatorMask + ownerMask + mix(0, .31, maskOwner) - mix(0, .38, maskResolve);
     set('--v6-mask-opacity', clamp(maskOpacity, 0, .34).toFixed(4));
-    set('--v6-mask-color', p >= .68 ? 'var(--v6-light)' : 'var(--v6-warm)');
-    set('--v6-mask-x', `${mix(26, 50, between(p, .43, .56)).toFixed(2)}vw`);
-    set('--v6-mask-y', `${mix(30, 52, between(p, .43, .56)).toFixed(2)}vh`);
-    set('--v6-mask-scale', mix(.32, 1.18, between(p, .43, .78)).toFixed(4));
-    set('--v6-mask-rotate', `${mix(-18, 7, between(p, .43, .78)).toFixed(2)}deg`);
+    set('--v6-mask-color', p >= .68 ? 'var(--v6-light)' : (p >= .30 && p < .50 ? 'var(--v6-owner-accent)' : 'var(--v6-warm-deep)'));
+    const hookMaskMove = between(p, .295, .36);
+    const phoneMaskMove = between(p, .52, .60);
+    set('--v6-mask-x', `${mix(mix(24, 76, hookMaskMove), 50, phoneMaskMove).toFixed(2)}vw`);
+    set('--v6-mask-y', `${mix(mix(32, 68, hookMaskMove), 52, phoneMaskMove).toFixed(2)}vh`);
+    set('--v6-mask-scale', mix(mix(.32, .48, hookMaskMove), 1.18, between(p, .52, .78)).toFixed(4));
+    set('--v6-mask-rotate', `${mix(-18, 7, between(p, .52, .78)).toFixed(2)}deg`);
 
-    const phoneEnter = between(p, .47, .545);
+    const phoneEnter = between(p, .54, .60);
     const phoneResolve = between(p, .835, .90);
     const phoneOpacity = phoneEnter;
     const dominantScale = mix(.72, isMobile ? 1 : 1.05, phoneEnter);
@@ -114,11 +134,11 @@
     else if (p >= .735) story.dataset.screen = 'owner';
     else story.dataset.screen = 'none';
 
-    const ownerEnter = between(p, .735, .765);
+    const ownerPhoneEnter = between(p, .735, .765);
     const ownerProgress = between(p, .74, .825);
-    const ownerMatch = mix(.38, 1, between(p, .755, .79));
-    const ownerAgree = mix(.28, 1, between(p, .78, .825));
-    set('--v6-owner-enter', ownerEnter.toFixed(4));
+    const ownerMatch = between(p, .755, .79);
+    const ownerAgree = between(p, .78, .825);
+    set('--v6-owner-enter', ownerPhoneEnter.toFixed(4));
     set('--v6-owner-progress', ownerProgress.toFixed(4));
     set('--v6-owner-match', ownerMatch.toFixed(4));
     set('--v6-owner-agree', ownerAgree.toFixed(4));
