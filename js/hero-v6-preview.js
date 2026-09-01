@@ -164,6 +164,86 @@
 (() => {
   'use strict';
 
+  const story = document.querySelector('.v6-closing-story');
+  if (!story) return;
+  const root = document.documentElement;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const hook = story.querySelector('.v6-closing-hook');
+  const creator = story.querySelector('.v6-closing-choice--creator');
+  const owner = story.querySelector('.v6-closing-choice--owner');
+  let start = 0;
+  let range = 1;
+  let queued = false;
+
+  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+  const smooth = value => { const t = clamp(value); return t * t * (3 - 2 * t); };
+  const between = (progress, from, to) => smooth((progress - from) / (to - from));
+  const mix = (from, to, amount) => from + (to - from) * amount;
+  const set = (name, value) => story.style.setProperty(name, value);
+
+  function measure() {
+    const rect = story.getBoundingClientRect();
+    start = scrollY + rect.top;
+    range = Math.max(1, story.offsetHeight - innerHeight);
+    render();
+  }
+
+  function render() {
+    queued = false;
+    if (reduced.matches) {
+      story.dataset.closingState = 'reduced';
+      hook?.setAttribute('aria-hidden', 'false');
+      creator?.setAttribute('aria-hidden', 'false');
+      owner?.setAttribute('aria-hidden', 'false');
+      return;
+    }
+
+    const p = clamp((scrollY - start) / range);
+    set('--closing-progress', p.toFixed(4));
+
+    const hookEnter = between(p, .02, .1);
+    const hookExit = between(p, .24, .34);
+    const choicesEnter = between(p, .29, .4);
+    const creatorEnter = between(p, .36, .53);
+    const ownerEnter = between(p, .51, .68);
+    set('--closing-hook-opacity', (hookEnter * (1 - hookExit)).toFixed(4));
+    set('--closing-hook-y', `${mix(7, 0, hookEnter).toFixed(3)}vh`);
+    set('--closing-choices-opacity', choicesEnter.toFixed(4));
+    set('--closing-creator-opacity', creatorEnter.toFixed(4));
+    set('--closing-owner-opacity', ownerEnter.toFixed(4));
+    set('--closing-creator-x', `${mix(-8, 0, creatorEnter).toFixed(3)}vw`);
+    set('--closing-owner-x', `${mix(8, 0, ownerEnter).toFixed(3)}vw`);
+
+    let state = 0;
+    if (p >= .12) state = 1;
+    if (p >= .34) state = 2;
+    if (p >= .52) state = 3;
+    if (p >= .7) state = 4;
+    story.dataset.closingState = String(state);
+    hook?.setAttribute('aria-hidden', hookEnter * (1 - hookExit) > .04 ? 'false' : 'true');
+    creator?.setAttribute('aria-hidden', creatorEnter > .04 ? 'false' : 'true');
+    owner?.setAttribute('aria-hidden', ownerEnter > .04 ? 'false' : 'true');
+
+    const within = scrollY >= start && scrollY < start + story.offsetHeight;
+    if (within) root.style.setProperty('--header-color', p >= .29 ? '#fffaf2' : '#171310');
+  }
+
+  function requestRender() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(render);
+  }
+
+  addEventListener('scroll', requestRender, { passive:true });
+  addEventListener('resize', measure, { passive:true });
+  addEventListener('load', measure, { once:true });
+  reduced.addEventListener?.('change', measure);
+  measure();
+})();
+
+(() => {
+  'use strict';
+
   const story = document.querySelector('.v6-challenge-story');
   if (!story) return;
   const root = document.documentElement;
@@ -171,7 +251,6 @@
   const steps = [...story.querySelectorAll('.v6-challenge-step')];
   const screens = [...story.querySelectorAll('[data-challenge-screen-name]')];
   const reducedBlock = story.querySelector('.v6-challenge-reduced');
-  const decision = story.querySelector('.v6-challenge-decision');
   let start = 0;
   let range = 1;
   let queued = false;
@@ -182,7 +261,7 @@
   const mix = (from, to, amount) => from + (to - from) * amount;
   const mixColor = (from, to, amount) => `rgb(${from.map((value, index) => Math.round(mix(value, to[index], amount))).join(' ')})`;
   const set = (name, value) => story.style.setProperty(name, value);
-  const screenNames = ['none','none','none','who','where','channel','ai','how','practice','after','none'];
+  const screenNames = ['none','none','none','who','where','channel','ai','how','practice','after','after'];
   const thresholds = [0,.05,.145,.235,.325,.405,.485,.565,.645,.725,.805,1];
   const palette = [
     { bg:[243,238,228], fg:[23,19,16], accent:[157,43,29] },
@@ -211,7 +290,6 @@
       story.dataset.challengeState = 'reduced';
       story.dataset.challengeScreen = 'none';
       reducedBlock?.setAttribute('aria-hidden','false');
-      decision?.setAttribute('aria-hidden','false');
       steps.forEach(step => step.setAttribute('aria-hidden','true'));
       screens.forEach(screen => screen.setAttribute('aria-hidden','true'));
       return;
@@ -219,7 +297,6 @@
 
     const p = clamp((scrollY - start) / range);
     reducedBlock?.setAttribute('aria-hidden','true');
-    decision?.setAttribute('aria-hidden',String(story.dataset.challengeState !== '10'));
     set('--challenge-progress', p.toFixed(4));
 
     let state = 0;
@@ -249,7 +326,7 @@
     set('--challenge-benefit-y',`${mix(7,0,benefitIn).toFixed(3)}vh`);
 
     const phoneIn = between(p,.235,.272);
-    const phoneOut = between(p,.775,.815);
+    const phoneOut = between(p,.965,.995);
     const isMobile = innerWidth <= 700;
     const isTablet = innerWidth > 700 && innerWidth <= 980;
     const phoneX = isMobile ? 50 : (isTablet ? 74 : 72);
@@ -260,12 +337,13 @@
     set('--challenge-phone-scale',mix(.78,1,phoneIn).toFixed(4));
     set('--challenge-phone-rotate',`${mix(4,0,phoneIn).toFixed(2)}deg`);
 
-    const phoneStage = state >= 3 && state <= 9;
+    const phoneStage = state >= 3 && state <= 10;
     let stageOpacity = 0;
     let stageY = 7;
     if (phoneStage) {
-      const from = state === 3 ? .272 : thresholds[state];
-      const to = thresholds[state + 1];
+      const resolved = state >= 9;
+      const from = resolved ? thresholds[9] : (state === 3 ? .272 : thresholds[state]);
+      const to = resolved ? 1 : thresholds[state + 1];
       const enter = between(p,from,from + .025);
       const exit = between(p,to - .025,to);
       stageOpacity = enter * (1 - exit);
@@ -275,20 +353,16 @@
     set('--challenge-stage-y',`${stageY.toFixed(3)}vh`);
 
     const screenName = screenNames[state];
-    steps.forEach((step,index) => step.setAttribute('aria-hidden',String(index !== state - 3 || stageOpacity < .05)));
+    const activeStepIndex = state >= 9 ? 6 : state - 3;
+    steps.forEach((step,index) => step.setAttribute('aria-hidden',String(index !== activeStepIndex || stageOpacity < .05)));
     screens.forEach(screen => screen.setAttribute('aria-hidden',String(screen.dataset.challengeScreenName !== screenName)));
 
     const windowIn = between(p,.23,.30);
-    const windowOut = between(p,.77,.83);
+    const windowOut = between(p,.955,.995);
     set('--challenge-window-opacity',(windowIn * (1 - windowOut) * .16).toFixed(4));
     set('--challenge-window-scale',mix(.48,1.16,between(p,.23,.76)).toFixed(4));
     set('--challenge-window-x',`${mix(isMobile ? 50 : 76,isMobile ? 50 : 68,between(p,.23,.76)).toFixed(2)}vw`);
     set('--challenge-window-y',`${mix(45,53,between(p,.23,.76)).toFixed(2)}vh`);
-
-    const decisionIn = between(p,.805,.84);
-    set('--challenge-decision-opacity',decisionIn.toFixed(4));
-    set('--challenge-decision-y',`${mix(7,0,decisionIn).toFixed(3)}vh`);
-    decision?.setAttribute('aria-hidden',String(state !== 10 || decisionIn < .05));
 
     const within = scrollY >= start && scrollY < start + story.offsetHeight - 2;
     if (within) {
