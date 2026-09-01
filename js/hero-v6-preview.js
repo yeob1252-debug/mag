@@ -93,14 +93,14 @@
     set('--v6-mask-rotate', `${mix(-18, 7, between(p, .43, .78)).toFixed(2)}deg`);
 
     const phoneEnter = between(p, .47, .545);
-    const phoneResolve = between(p, .855, .93);
+    const phoneResolve = between(p, .835, .90);
     const phoneOpacity = phoneEnter;
     const dominantScale = mix(.72, isMobile ? 1 : 1.05, phoneEnter);
-    const resolvedScale = isMobile ? .81 : .95;
+    const resolvedScale = isMobile ? .64 : .72;
     const phoneScale = mix(dominantScale, resolvedScale, phoneResolve);
     const entryY = isMobile ? 80 : 78;
     const dominantY = isMobile ? 54 : 52;
-    const resolvedY = isMobile ? 43 : 45;
+    const resolvedY = isMobile ? 28 : 35;
     const phoneY = mix(mix(entryY, dominantY, phoneEnter), resolvedY, phoneResolve);
     const phoneX = mix(50, isMobile ? 50 : 50, phoneResolve);
     const phoneRotate = mix(mix(4, -2, phoneEnter), 0, phoneResolve);
@@ -114,7 +114,16 @@
     else if (p >= .735) story.dataset.screen = 'owner';
     else story.dataset.screen = 'none';
 
-    const routesIn = between(p, .90, .955);
+    const ownerEnter = between(p, .735, .765);
+    const ownerProgress = between(p, .74, .825);
+    const ownerMatch = mix(.38, 1, between(p, .755, .79));
+    const ownerAgree = mix(.28, 1, between(p, .78, .825));
+    set('--v6-owner-enter', ownerEnter.toFixed(4));
+    set('--v6-owner-progress', ownerProgress.toFixed(4));
+    set('--v6-owner-match', ownerMatch.toFixed(4));
+    set('--v6-owner-agree', ownerAgree.toFixed(4));
+
+    const routesIn = between(p, .91, .96);
     set('--v6-routes-opacity', routesIn.toFixed(4));
     set('--v6-routes-y', `${mix(22, 0, routesIn).toFixed(2)}px`);
   }
