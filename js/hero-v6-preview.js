@@ -164,6 +164,73 @@
 (() => {
   'use strict';
 
+  const form = document.getElementById('ownerForm');
+  const status = document.getElementById('ownerStatus');
+  if (!form || !status) return;
+
+  const endpoint = 'https://script.google.com/macros/s/AKfycbzz3dd4gFiqCDpjo9R5sph6uczf_NcLEwtEwYgbNwuio6L_4K1K4Lyj8F17FLPOyMdi1A/exec';
+  const token = () => {
+    const id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    return `owner-${id}`;
+  };
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    if (form.elements.website?.value) return;
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      status.textContent = '필수 항목과 개인정보 동의를 확인해 주세요.';
+      status.className = 'v6-owner-status is-error';
+      return;
+    }
+
+    const lockKey = 'matgamsa-submit:owner_promotion';
+    if (sessionStorage.getItem(lockKey)) {
+      status.textContent = '이 화면에서 이미 접수했습니다. 중복 접수는 보내지 않았습니다.';
+      status.className = 'v6-owner-status is-success';
+      return;
+    }
+
+    const data = new FormData(form);
+    const id = token();
+    const payload = {
+      '문의 유형': 'owner_promotion',
+      '관심 채널명(있다면 자동 입력됨, 없으면 비워두셔도 됩니다)': '',
+      '매장명': String(data.get('storeName') || '').trim(),
+      '연락처(문자/카카오톡)': String(data.get('phone') || '').trim(),
+      '희망 지역': `대구 ${String(data.get('area') || '').trim()}`,
+      '희망 가격대': String(data.get('budget') || '').trim(),
+      '메뉴 소개': String(data.get('menu') || '').trim(),
+      '매장 스토리(창업 계기 등)': '',
+      '참고 요청사항': `[form_type=owner_promotion][submission_id=${id}] ${String(data.get('notes') || '').trim()}`,
+      '촬영 콘텐츠 재사용 희망 여부': '미선택',
+      '개인정보 수집·이용 동의': data.get('agree') ? '동의합니다' : '',
+    };
+    const button = form.querySelector('button[type="submit"]');
+    const label = button.textContent;
+    button.disabled = true;
+    button.textContent = '접수 중...';
+    status.textContent = '';
+    status.className = 'v6-owner-status';
+    try {
+      await fetch(endpoint, { method:'POST', mode:'no-cors', body:JSON.stringify(payload) });
+      sessionStorage.setItem(lockKey, id);
+      status.textContent = '광고 문의가 접수되었습니다. 확인 후 연락드리겠습니다.';
+      status.className = 'v6-owner-status is-success';
+      form.reset();
+    } catch (_) {
+      status.textContent = '접수 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.';
+      status.className = 'v6-owner-status is-error';
+    } finally {
+      button.disabled = false;
+      button.textContent = label;
+    }
+  });
+})();
+
+(() => {
+  'use strict';
+
   const story = document.querySelector('.v6-closing-story');
   if (!story) return;
   const root = document.documentElement;

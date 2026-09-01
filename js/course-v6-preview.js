@@ -97,9 +97,9 @@
     renderCalendar();
   }
 
-  const form = document.querySelector('#courseApplicationPreview');
+  const form = document.querySelector('#courseApplicationForm');
   if (!form) return;
-  const button = form.querySelector('[data-preview-submit]');
+  const button = form.querySelector('button[type="submit"]');
   const status = form.querySelector('[data-application-status]');
   const requiredControls = [...form.querySelectorAll('[required]')];
 
@@ -138,18 +138,38 @@
     });
 
     if (invalid.length) {
-      setStatus('필수 항목과 개인정보 동의를 확인해 주세요. 입력 내용은 전송되지 않았습니다.','is-error');
+      setStatus('필수 항목과 개인정보 동의를 확인해 주세요.','is-error');
       invalid[0].focus({ preventScroll:true });
       invalid[0].scrollIntoView({ behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'center' });
       return false;
     }
 
-    setStatus('입력 내용을 확인했습니다. 미리보기에서는 접수·저장되지 않습니다.','is-preview-valid');
     return true;
   }
 
-  form.addEventListener('submit',event => event.preventDefault());
-  button?.addEventListener('click',validate);
+  form.addEventListener('submit',async event => {
+    event.preventDefault();
+    if (!validate() || button.disabled) return;
+    const original = button.innerHTML;
+    button.disabled = true;
+    button.textContent = '접수 중...';
+    setStatus('기존 맛간다챌린지 신청 DB로 접수 내용을 전송하고 있습니다.','');
+    try {
+      await fetch(form.action, {
+        method:'POST',
+        mode:'no-cors',
+        headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
+        body:new URLSearchParams(new FormData(form)),
+      });
+      setStatus('신청이 접수되었습니다. 확인 후 안내드리겠습니다.','is-preview-valid');
+      form.reset();
+    } catch (_) {
+      setStatus('접수 중 문제가 발생했습니다. 잠시 후 다시 시도해 주세요.','is-error');
+    } finally {
+      button.disabled = false;
+      button.innerHTML = original;
+    }
+  });
   requiredControls.forEach(control => {
     control.addEventListener('input',() => clearInvalid(control));
     control.addEventListener('change',() => clearInvalid(control));
