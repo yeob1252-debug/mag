@@ -195,6 +195,7 @@
       hook?.setAttribute('aria-hidden', 'false');
       creator?.setAttribute('aria-hidden', 'false');
       owner?.setAttribute('aria-hidden', 'false');
+      root.style.setProperty('--header-opacity', scrollY >= start + story.offsetHeight - Math.max(110, innerHeight * .16) ? '0' : '1');
       return;
     }
 
@@ -225,6 +226,7 @@
     owner?.setAttribute('aria-hidden', ownerEnter > .04 ? 'false' : 'true');
 
     const within = scrollY >= start && scrollY < start + story.offsetHeight;
+    root.style.setProperty('--header-opacity', scrollY >= start + story.offsetHeight - Math.max(110, innerHeight * .16) ? '0' : '1');
     if (within) root.style.setProperty('--header-color', p >= .29 ? '#fffaf2' : '#171310');
   }
 
