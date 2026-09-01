@@ -413,6 +413,14 @@
     story.style.setProperty('--budget-track-x', `${x.toFixed(2)}px`);
   }
 
+  function setAsset() {
+    story.dataset.budgetState = 'asset';
+    panels.forEach(panel => {
+      panel.classList.remove('is-active');
+      panel.removeAttribute('aria-current');
+    });
+  }
+
   function measure() {
     const rect = story.getBoundingClientRect();
     start = scrollY + rect.top;
@@ -423,6 +431,7 @@
   function render() {
     queued = false;
     if (reduced.matches) {
+      story.dataset.budgetState = 'reduced';
       story.style.setProperty('--budget-progress', '1');
       panels.forEach(panel => { panel.classList.add('is-active'); panel.removeAttribute('aria-current'); });
       story.style.setProperty('--budget-track-x', '0px');
@@ -434,7 +443,11 @@
     if (within) document.documentElement.style.setProperty('--header-color', '#fffaf2');
     else if (scrollY >= storyEnd) document.documentElement.style.setProperty('--header-color', '#171310');
     story.style.setProperty('--budget-progress', p.toFixed(4));
-    const index = p < .34 ? 0 : (p < .67 ? 1 : 2);
+    if (p >= .78) {
+      setAsset();
+      return;
+    }
+    const index = p < .26 ? 0 : (p < .52 ? 1 : 2);
     setPanel(index);
   }
 
