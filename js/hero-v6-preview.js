@@ -160,3 +160,109 @@
   reduced.addEventListener?.('change', measure);
   measure();
 })();
+
+(() => {
+  'use strict';
+
+  const story = document.querySelector('.v6-selection-story');
+  if (!story) return;
+  const root = document.documentElement;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const criteria = [...story.querySelectorAll('.v6-selection-criterion')];
+  let start = 0;
+  let range = 1;
+  let queued = false;
+
+  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
+  const smooth = value => {
+    const t = clamp(value);
+    return t * t * (3 - 2 * t);
+  };
+  const between = (progress, from, to) => smooth((progress - from) / (to - from));
+  const mix = (from, to, amount) => from + (to - from) * amount;
+  const set = (name, value) => story.style.setProperty(name, value);
+
+  function measure() {
+    const rect = story.getBoundingClientRect();
+    start = window.scrollY + rect.top;
+    range = Math.max(1, story.offsetHeight - window.innerHeight);
+    render();
+  }
+
+  function render() {
+    queued = false;
+    if (reduced.matches) {
+      story.dataset.selectionState = 'reduced';
+      criteria.forEach(item => item.setAttribute('aria-hidden', 'true'));
+      return;
+    }
+
+    const p = clamp((window.scrollY - start) / range);
+    set('--selection-progress', p.toFixed(4));
+
+    let state = 0;
+    if (p >= .09) state = 1;
+    if (p >= .32) state = 2;
+    if (p >= .49) state = 3;
+    if (p >= .64) state = 4;
+    if (p >= .80) state = 5;
+    story.dataset.selectionState = String(state);
+
+    const introEnter = between(p, .08, .145);
+    const introExit = between(p, .285, .35);
+    const introOpacity = introEnter * (1 - introExit);
+    const supportEnter = between(p, .17, .22);
+    set('--selection-intro-opacity', introOpacity.toFixed(4));
+    set('--selection-intro-y', `${mix(7, 0, introEnter).toFixed(3)}vh`);
+    set('--selection-support-opacity', (supportEnter * (1 - introExit)).toFixed(4));
+
+    const visualEnter = between(p, .35, .42);
+    const visualExit = between(p, .78, .86);
+    const visualMorph = between(p, .43, .71);
+    const finalMorph = between(p, .68, .77);
+    const isMobile = window.innerWidth <= 700;
+    set('--selection-field-opacity', (visualEnter * (1 - visualExit)).toFixed(4));
+    set('--selection-visual-opacity', (visualEnter * (1 - visualExit)).toFixed(4));
+    set('--selection-visual-x', `${isMobile ? '50.00' : '72.00'}vw`);
+    set('--selection-visual-y', `${mix(isMobile ? 44 : 55, isMobile ? 42 : 51, visualMorph).toFixed(2)}vh`);
+    set('--selection-visual-width', `${mix(isMobile ? 42 : 24, isMobile ? 91 : 52, visualEnter).toFixed(2)}vw`);
+    set('--selection-visual-height', `${mix(isMobile ? 42 : 24, isMobile ? 48 : 74, visualEnter).toFixed(2)}${isMobile ? 'vw' : 'vh'}`);
+    set('--selection-visual-radius', `${mix(50, mix(10, 3, finalMorph), visualEnter).toFixed(2)}%`);
+    set('--selection-image-scale', mix(1.16, .99, visualMorph).toFixed(4));
+    set('--selection-image-x', `${mix(40, 64, visualMorph).toFixed(2)}%`);
+    set('--selection-image-y', `${mix(52, 46, visualMorph).toFixed(2)}%`);
+
+    const criterionOneIn = between(p, .38, .425);
+    const criterionOneOut = between(p, .47, .51);
+    const criterionTwoIn = between(p, .51, .555);
+    const criterionTwoOut = between(p, .62, .66);
+    const criterionThreeIn = between(p, .66, .705);
+    const criterionThreeOut = between(p, .755, .79);
+    const criterionValues = [
+      criterionOneIn * (1 - criterionOneOut),
+      criterionTwoIn * (1 - criterionTwoOut),
+      criterionThreeIn * (1 - criterionThreeOut),
+    ];
+    set('--selection-criterion-one', criterionValues[0].toFixed(4));
+    set('--selection-criterion-two', criterionValues[1].toFixed(4));
+    set('--selection-criterion-three', criterionValues[2].toFixed(4));
+    set('--selection-criteria-x', `${mix(isMobile ? 0 : -4, 0, visualEnter).toFixed(3)}vw`);
+    criteria.forEach((item, index) => item.setAttribute('aria-hidden', criterionValues[index] > .03 ? 'false' : 'true'));
+
+    const resolveEnter = between(p, .86, .92);
+    set('--selection-resolve-opacity', resolveEnter.toFixed(4));
+    set('--selection-resolve-y', `${mix(6, 0, resolveEnter).toFixed(3)}vh`);
+  }
+
+  function requestRender() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(render);
+  }
+
+  addEventListener('scroll', requestRender, { passive: true });
+  addEventListener('resize', measure, { passive: true });
+  addEventListener('load', measure, { once: true });
+  reduced.addEventListener?.('change', measure);
+  measure();
+})();
