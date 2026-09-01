@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#171310">
+  <title>맛간다챌린지 1기 신청 미리보기 | 맛집감별사</title>
+  <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+  <link rel="stylesheet" href="css/course-v6-preview.css?v=20260901-v1">
+</head>
+<body class="course-application-page">
+  <a class="course-skip" href="#application-main">본문 바로가기</a>
+  <header class="course-header course-header--dark">
+    <a class="course-brand" href="/hero-preview.html">맛집감별사</a>
+    <nav aria-label="신청 미리보기 메뉴"><a href="/creator-course-preview.html">과정 다시 보기</a></nav>
+  </header>
+
+  <main id="application-main" class="application-main">
+    <section class="application-intro" aria-labelledby="application-title">
+      <span>맛간다챌린지 1기 · 신청 미리보기</span>
+      <h1 id="application-title">첫 영상을 올릴 하루를<br><mark>예약할 준비.</mark></h1>
+      <p>아래 화면은 기존 맛간다챌린지 Google 신청폼의 확인된 항목을 바탕으로 만든 비운영 미리보기입니다. 현재 입력 내용은 전송되거나 저장되지 않습니다.</p>
+    </section>
+
+    <section class="application-course-lock" aria-label="선택한 교육 과정">
+      <span>선택한 과정</span>
+      <strong>맛간다챌린지 1기 · 2026년 9월 16일 · 대구 오프라인 · 1기 특가 10만원</strong>
+    </section>
+
+    <form class="application-form" id="courseApplicationPreview" novalidate aria-describedby="previewSafetyNotice">
+      <input type="hidden" name="cohort" value="맛간다챌린지 1기">
+      <input type="hidden" name="course_option" value="맛간다챌린지 원데이 스파르타 클래스 · 1기 특가 10만원">
+
+      <fieldset class="application-fields">
+        <legend>신청자 정보</legend>
+        <label><span>성함 *</span><input name="applicant_name" autocomplete="name" maxlength="50" required></label>
+        <label><span>연락처(문자/카카오톡) *</span><input name="contact" inputmode="tel" autocomplete="tel" maxlength="30" placeholder="010-0000-0000" required></label>
+
+        <div class="application-choice" data-required-group="gender">
+          <span>성별 *</span>
+          <div><label><input type="radio" name="gender" value="남자" required><i>남자</i></label><label><input type="radio" name="gender" value="여자" required><i>여자</i></label></div>
+        </div>
+
+        <label><span>연령대 *</span><select name="age_group" required><option value="">선택</option><option>20대</option><option>30대</option><option>40대</option><option>50대 이상</option></select></label>
+        <label><span>거주 지역 *</span><select name="residence" required><option value="">지역 선택</option><option>서울</option><option>경기·인천</option><option>강원</option><option>충청·대전</option><option>전라·광주</option><option>대구·경북</option><option>부산·울산·경남</option><option>제주</option></select></label>
+
+        <label class="application-wide"><span>본인 또는 만들고 싶은 캐릭터 소개</span><textarea name="profile_intro" rows="4" maxlength="500" placeholder="예: 맛집 다니는 걸 좋아하고, 휴대폰으로 채널을 시작해 보고 싶습니다."></textarea></label>
+
+        <div class="application-choice" data-required-group="sns_experience">
+          <span>SNS 운영 경험 *</span>
+          <div><label><input type="radio" name="sns_experience" value="있음" required><i>있음</i></label><label><input type="radio" name="sns_experience" value="없음" required><i>없음</i></label></div>
+        </div>
+
+        <label class="application-wide"><span>운영 중인 SNS 채널 링크</span><input name="sns_url" inputmode="url" maxlength="300" placeholder="없으면 비워두셔도 됩니다."></label>
+        <label class="application-wide"><span>간단한 지원 동기</span><textarea name="motivation" rows="4" maxlength="500"></textarea></label>
+      </fieldset>
+
+      <label class="application-consent"><input type="checkbox" name="privacy_agree" required><span><b>개인정보 수집·이용에 동의합니다. *</b><small>수집 항목: 성함, 연락처, 성별, 연령대, 지역, SNS 채널 등 입력 정보 · 목적: 맛간다챌린지 신청 접수 및 안내 · 보유 기간: 과정 종료 후 1년 또는 삭제 요청 시까지. 동의를 거부할 수 있으나 신청이 제한될 수 있습니다. <a href="/privacy.html" target="_blank" rel="noopener">개인정보처리방침 보기</a></small></span></label>
+
+      <div class="application-submit">
+        <p id="previewSafetyNotice">미리보기 안전 잠금: 이 버튼은 Google Form이나 Sheet로 데이터를 보내지 않습니다.</p>
+        <button type="button" data-preview-submit>접수하기 <b aria-hidden="true">↗</b></button>
+        <p class="application-status" data-application-status role="status" aria-live="polite"></p>
+      </div>
+    </form>
+  </main>
+
+  <footer class="course-footer course-footer--dark"><a href="/hero-preview.html">맛집감별사</a><p>운영 연동 전 신청 화면 미리보기.</p><a href="/creator-course-preview.html">과정으로 돌아가기</a></footer>
+  <script src="js/course-v6-preview.js?v=20260901-v1" defer></script>
+</body>
+</html>
