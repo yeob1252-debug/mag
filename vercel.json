@@ -1,8 +1,9 @@
 {
-  "rewrites": [
+  "redirects": [
     {
       "source": "/",
-      "destination": "/hero-preview.html"
+      "destination": "/hero-preview.html",
+      "permanent": false
     }
   ]
 }
