@@ -30,6 +30,8 @@
 
   function render() {
     queued = false;
+    const p = clamp((window.scrollY - start) / range);
+    story.dataset.scrollCue = window.scrollY <= start + .5 ? 'show' : 'hide';
     if (reduced.matches) {
       story.dataset.state = '5';
       story.dataset.screen = 'owner';
@@ -37,7 +39,6 @@
       return;
     }
 
-    const p = clamp((window.scrollY - start) / range);
     set('--v6-progress', p.toFixed(4));
 
     let state = 0;
