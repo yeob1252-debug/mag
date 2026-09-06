@@ -96,7 +96,7 @@
 
   let nonce = "";
   const getNonce = async () => {
-    const response = await fetch("/api/free-guide/nonce", { credentials: "same-origin" });
+    const response = await fetch("/api/free-guide", { credentials: "same-origin" });
     const data = await response.json();
     if (!response.ok || !data.ok || !data.nonce) throw new Error("nonce_unavailable");
     nonce = data.nonce;

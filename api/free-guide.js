@@ -79,7 +79,7 @@ export default async function handler(req, res) {
     catch (_) { return json(res, 403, { ok: false, error: "origin_rejected" }); }
   }
 
-  if (req.method === "GET" && String(req.url || "").split("?")[0].endsWith("/nonce")) {
+  if (req.method === "GET") {
     const session = crypto.randomBytes(18).toString("base64url");
     const nonce = createNonce(nonceSecret, session);
     return json(res, 200, { ok: true, nonce }, { "Set-Cookie": `${COOKIE_NAME}=${encodeURIComponent(session)}; Path=/; HttpOnly; SameSite=Lax; Max-Age=900` });
