@@ -1,2 +1,5 @@
 # 외부 연동 설정 원본(단일 소스). js/config.js 는 여기서 생성되어 커밋됩니다.
 .env
+.vercel/
+node_modules/
+outputs/

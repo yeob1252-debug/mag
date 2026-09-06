@@ -2,7 +2,7 @@
   'use strict';
 
   const lessonFlow = document.querySelector('.course-flow');
-  if (lessonFlow) {
+  if (lessonFlow && !lessonFlow.matches('[data-scroll-story]')) {
     const lessonSteps = [...lessonFlow.querySelectorAll('[data-lesson]')];
     const lessonScreens = [...lessonFlow.querySelectorAll('[data-lesson-screen]')];
     const setLesson = (name) => {
