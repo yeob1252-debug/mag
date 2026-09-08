@@ -16,6 +16,13 @@
   const clamp = value => Math.min(1, Math.max(0, value));
   const smooth = value => value * value * (3 - 2 * value);
   let frame = 0;
+  let layoutFrame = 0;
+  const mobileProfiles = {
+    benefits: {span: 2.8, pin: '.benefit-sticky', phone: '.benefit-phone', min: 178, max: 210, items: '.section-heading,.benefit-steps,.benefit-nav,.benefit-final-action'},
+    owner: {span: 2.35, pin: '.owner-sticky', items: '.owner-copy,.content-network'},
+    pricing: {span: 2.95, pin: '.pricing-sticky', items: '.section-heading,.price-grid,.price-note,.price-nav'},
+    'creator-registration': {span: 2.85, pin: '.creator-registration-sticky', phone: '.creator-registration-phone', min: 180, max: 220, items: '.creator-registration-copy>.eyebrow,.creator-registration-copy>h2,.creator-registration-steps,.creator-registration-action'}
+  };
 
   const stories = roots.map(root => {
     const kind = root.dataset.storyKind || '';
@@ -27,9 +34,10 @@
       count,
       steps,
       jumps: [...root.querySelectorAll('[data-story-jump]')],
-      viewportHeight: innerHeight,
-      viewportWidth: innerWidth,
-      index: -1
+      viewportHeight: mobileProfiles[kind] ? document.documentElement.clientHeight : innerHeight,
+      viewportWidth: mobileProfiles[kind] ? document.documentElement.clientWidth : innerWidth,
+      index: -1,
+      mobileProfile: root.closest('.motion-home') ? mobileProfiles[kind] : null
     };
   });
 
@@ -60,7 +68,7 @@
     });
     const finalAction = story.root.querySelector('.benefit-final-action');
     if (finalAction) {
-      const hidden = !reduced.matches && index !== 2;
+      const hidden = !reduced.matches && story.root.dataset.mobileLayout !== 'flow' && index !== 2;
       finalAction.setAttribute('aria-hidden', String(hidden));
       finalAction.inert = hidden;
     }
@@ -76,7 +84,7 @@
   }
 
   function setPriceAccess(story, active) {
-    const collapse = mobile.matches && !reduced.matches;
+    const collapse = mobile.matches && !reduced.matches && story.root.dataset.mobileLayout !== 'flow';
     story.root.querySelectorAll('[data-price-card]').forEach((card, cardIndex) => {
       const hidden = collapse && cardIndex !== active;
       card.setAttribute('aria-hidden', String(hidden));
@@ -114,7 +122,7 @@
     });
     const action = story.root.querySelector('.creator-registration-action');
     if (action) {
-      const hidden = !reduced.matches && index !== story.count - 1;
+      const hidden = !reduced.matches && story.root.dataset.mobileLayout !== 'flow' && index !== story.count - 1;
       action.setAttribute('aria-hidden', String(hidden));
       action.inert = hidden;
     }
@@ -201,6 +209,83 @@
     story.index = index;
     story.root.dataset.storyIndex = String(index);
     applyStage(story, index, progress);
+    if (story.mobileProfile) requestLayout();
+  }
+
+  function sizeMobileStory(story) {
+    const profile = story.mobileProfile;
+    if (!profile) return;
+    const root = story.root;
+    if (!mobile.matches || reduced.matches) {
+      delete root.dataset.mobileLayout;
+      delete root.dataset.mobileCompact;
+      ['--mobile-view-height', '--mobile-story-span', '--mobile-phone-width'].forEach(name => root.style.removeProperty(name));
+      return;
+    }
+    const pin = root.querySelector(profile.pin);
+    const visibleHeight = Math.floor(Math.min(document.documentElement.clientHeight, visualViewport?.height || innerHeight));
+    const previous = root.dataset.mobileLayout;
+    root.style.setProperty('--mobile-view-height', `${visibleHeight}px`);
+    // Height-only browser chrome changes resize the pin, not its reading budget.
+    root.style.setProperty('--mobile-story-span', `${Math.round(story.viewportHeight * profile.span)}px`);
+    root.dataset.mobileLayout = 'pinned';
+    root.dataset.mobileCompact = 'false';
+    const pinStyle = getComputedStyle(pin);
+    const padding = parseFloat(pinStyle.paddingTop) + parseFloat(pinStyle.paddingBottom);
+    const gap = parseFloat(pinStyle.rowGap) || 0;
+    const measure = () => {
+      const items = [...root.querySelectorAll(profile.items)].filter(item => getComputedStyle(item).display !== 'none');
+      return items.reduce((height, item) => {
+        const style = getComputedStyle(item);
+        return height + item.offsetHeight + (parseFloat(style.marginTop) || 0) + (parseFloat(style.marginBottom) || 0);
+      }, padding + gap * Math.max(0, items.length - 1 + (profile.phone ? 1 : 0)));
+    };
+    let required = measure();
+    if (profile.phone) {
+      const ratio = 460 / 250;
+      if (story.kind === 'benefits' && story.index === 2 && visibleHeight - required < profile.min * ratio) {
+        root.dataset.mobileCompact = 'true';
+        required = measure();
+      }
+      const available = visibleHeight - required;
+      const width = Math.max(profile.min, Math.min(profile.max, Math.floor(available / ratio), pin.clientWidth - parseFloat(pinStyle.paddingLeft) - parseFloat(pinStyle.paddingRight)));
+      root.style.setProperty('--mobile-phone-width', `${width}px`);
+      required += root.querySelector(profile.phone).offsetHeight;
+      const screen = root.querySelector(profile.phone + ' [aria-hidden="false"]');
+      if (screen && screen.scrollHeight > screen.clientHeight + 1) required = Math.max(required, visibleHeight + 2);
+    }
+    root.dataset.mobileLayout = required > visibleHeight + 1 ? 'flow' : 'pinned';
+    if (root.dataset.mobileLayout !== previous) {
+      applyStage(story, Math.max(0, story.index), 0);
+      requestUpdate();
+    }
+  }
+
+  function requestLayout() {
+    if (layoutFrame) return;
+    layoutFrame = requestAnimationFrame(() => {
+      layoutFrame = 0;
+      // Preserve the reading location when an earlier story changes its flow height.
+      const active = mobile.matches && !reduced.matches ? stories.find(story => {
+        const rect = story.root.getBoundingClientRect();
+        return story.mobileProfile && rect.top <= 1 && rect.bottom > 0;
+      }) : null;
+      const previousLayout = active?.root.dataset.mobileLayout;
+      const offset = active ? -active.root.getBoundingClientRect().top : 0;
+      const anchor = active?.root.querySelector('[data-benefit-step][aria-current="step"],[data-price-card][data-active="true"],.owner-copy h2,.creator-registration-copy h2');
+      const anchorTop = anchor?.getBoundingClientRect().top;
+      stories.forEach(sizeMobileStory);
+      if (active && previousLayout) {
+        const top = scrollY + active.root.getBoundingClientRect().top;
+        let target = top + offset;
+        if (active.root.dataset.mobileLayout !== previousLayout) {
+          target = active.root.dataset.mobileLayout === 'flow' && anchor
+            ? scrollY + anchor.getBoundingClientRect().top - Math.max(24, anchorTop || 0)
+            : top + geometry(active).range * (Math.max(0, active.index) + .5) / active.count;
+        }
+        if (Math.abs(target - scrollY) > 1) scrollTo({top: target, behavior: 'instant'});
+      }
+    });
   }
 
   function geometry(story) {
@@ -213,6 +298,7 @@
     frame = 0;
     if (reduced.matches) return;
     stories.forEach(story => {
+      if (story.root.dataset.mobileLayout === 'flow') return;
       const {top, range} = geometry(story);
       const progress = clamp((scrollY - top) / range);
       // Only the homepage grants longer reading bands to its three phone scenes.
@@ -236,6 +322,12 @@
     const story = storyOrRoot.root ? storyOrRoot : stories.find(item => item.root === storyOrRoot);
     if (!story) return;
     const index = Math.min(story.count - 1, Math.max(0, Number(requestedIndex) || 0));
+    if (story.root.dataset.mobileLayout === 'flow') {
+      const target = story.root.querySelector(`[data-benefit-step="${index}"],[data-price-card="${index}"],[data-creator-step="${index}"]`);
+      (target || story.root).scrollIntoView({behavior: 'smooth', block: 'start'});
+      focusTarget?.focus({preventScroll: true});
+      return;
+    }
     const {top, range} = geometry(story);
     const progress = story.kind === 'home-hero' ? (heroBoundaries[index] + heroBoundaries[index + 1]) / 2 : (index + .5) / story.count;
     scrollTo({top: top + range * progress, behavior: reduced.matches ? 'auto' : 'smooth'});
@@ -275,17 +367,20 @@
 
   function handleResize() {
     stories.forEach(story => {
-      if (story.viewportWidth !== innerWidth) {
-        story.viewportWidth = innerWidth;
-        story.viewportHeight = innerHeight;
+      const width = story.mobileProfile ? document.documentElement.clientWidth : innerWidth;
+      if (story.viewportWidth !== width) {
+        story.viewportWidth = width;
+        story.viewportHeight = story.mobileProfile ? document.documentElement.clientHeight : innerHeight;
       }
       if (story.kind === 'pricing') setPriceAccess(story, priceOrder[Math.max(0, story.index)]);
     });
+    requestLayout();
     requestUpdate();
   }
 
   function syncReduced() {
     document.documentElement.classList.toggle('story-reduced', reduced.matches);
+    requestLayout();
     if (reduced.matches) {
       stories.forEach(story => {
         const staticIndex = story.kind === 'home-hero' || story.kind === 'course-hero' || story.kind === 'creator-registration' ? story.count - 1 : story.kind === 'owner' ? 2 : story.kind === 'pricing' ? 1 : 0;
@@ -301,6 +396,12 @@
 
   addEventListener('scroll', requestUpdate, {passive: true});
   addEventListener('resize', handleResize, {passive: true});
+  visualViewport?.addEventListener('resize', requestLayout, {passive: true});
+  const contentResize = new ResizeObserver(requestLayout);
+  stories.filter(story => story.mobileProfile).forEach(story => {
+    story.root.querySelectorAll(story.mobileProfile.items).forEach(item => contentResize.observe(item));
+  });
+  document.fonts?.ready.then(requestLayout);
   reduced.addEventListener?.('change', syncReduced);
   mobile.addEventListener?.('change', handleResize);
   window.matgamsaScrollStories = {goTo};
