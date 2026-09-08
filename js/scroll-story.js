@@ -8,6 +8,9 @@
   const mobile = matchMedia('(max-width: 700px)');
   const courseNames = ['setup', 'ai', 'shoot', 'edit', 'upload'];
   const heroNames = ['intro', 'plan', 'shoot', 'fan', 'merge', 'statement', 'final'];
+  const heroWeights = [.6, 1.25, 1.25, 1.4, .75, .7, .8];
+  const heroWeightTotal = heroWeights.reduce((sum, weight) => sum + weight, 0);
+  const heroBoundaries = heroWeights.reduce((edges, weight) => [...edges, edges.at(-1) + weight / heroWeightTotal], [0]);
   const courseHeroNames = ['phones', 'focus', 'merge', 'copy', 'final'];
   const priceOrder = [0, 1, 2, 1];
   const clamp = value => Math.min(1, Math.max(0, value));
@@ -126,18 +129,26 @@
     const t = smooth(localProgress);
     if (story.kind === 'home-hero' && index === 4) {
       const inverse = 1 - t;
-      const offset = mobile.matches ? 86 : innerWidth <= 1000 ? 210 : 235;
+      const style = getComputedStyle(story.root);
+      const offset = parseFloat(style.getPropertyValue('--hero-fan-offset'));
+      const angle = parseFloat(style.getPropertyValue('--hero-fan-angle'));
+      const sideScale = parseFloat(style.getPropertyValue('--hero-fan-scale'));
+      const frontScale = parseFloat(style.getPropertyValue('--hero-front-scale'));
+      const sideY = parseFloat(style.getPropertyValue('--hero-side-y'));
+      const frontY = parseFloat(style.getPropertyValue('--hero-front-y'));
+      const sideOpacity = mobile.matches ? .58 : .72;
       setVars(story.root, {
         '--merge-plan-x': `${-offset * inverse}px`,
         '--merge-shoot-x': `${offset * inverse}px`,
-        '--merge-plan-rotate': `${-8 * inverse}deg`,
-        '--merge-shoot-rotate': `${8 * inverse}deg`,
-        '--merge-plan-scale': .92 - .16 * t,
-        '--merge-shoot-scale': .92 - .16 * t,
-        '--merge-share-scale': 1.06 - .28 * t,
-        '--merge-side-opacity': Math.max(0, .72 - t * .88),
+        '--merge-plan-rotate': `${-angle * inverse}deg`,
+        '--merge-shoot-rotate': `${angle * inverse}deg`,
+        '--merge-plan-scale': sideScale - .16 * t,
+        '--merge-shoot-scale': sideScale - .16 * t,
+        '--merge-share-scale': frontScale - .28 * t,
+        '--merge-side-opacity': Math.max(0, sideOpacity - t * (sideOpacity + .16)),
         '--merge-front-opacity': Math.max(0, 1 - t * 1.18),
-        '--merge-y': `${12 * t}px`
+        '--merge-side-y': `${sideY * inverse + 12 * t}px`,
+        '--merge-front-y': `${frontY * inverse + 12 * t}px`
       });
     }
     if (story.kind === 'course-hero' && index === 2) {
@@ -204,6 +215,13 @@
     stories.forEach(story => {
       const {top, range} = geometry(story);
       const progress = clamp((scrollY - top) / range);
+      // Only the homepage grants longer reading bands to its three phone scenes.
+      if (story.kind === 'home-hero') {
+        const index = Math.min(story.count - 1, heroBoundaries.findLastIndex(edge => progress >= edge));
+        const localProgress = clamp((progress - heroBoundaries[index]) / (heroBoundaries[index + 1] - heroBoundaries[index]));
+        setStory(story, index, progress, localProgress);
+        return;
+      }
       const scaled = progress * story.count;
       const index = Math.min(story.count - 1, Math.floor(scaled));
       setStory(story, index, progress, Math.min(1, scaled - index));
@@ -219,7 +237,7 @@
     if (!story) return;
     const index = Math.min(story.count - 1, Math.max(0, Number(requestedIndex) || 0));
     const {top, range} = geometry(story);
-    const progress = (index + .5) / story.count;
+    const progress = story.kind === 'home-hero' ? (heroBoundaries[index] + heroBoundaries[index + 1]) / 2 : (index + .5) / story.count;
     scrollTo({top: top + range * progress, behavior: reduced.matches ? 'auto' : 'smooth'});
     focusTarget?.focus({preventScroll: true});
   }
