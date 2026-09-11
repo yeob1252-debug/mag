@@ -79,7 +79,7 @@
     }
     demoRows.forEach((row, index) => row.classList.toggle('is-revealed', elapsed > 2350 + index * 620));
     gallery.dataset.demoPhase = String(Math.min(5, Math.floor(elapsed / 1500)));
-    gallery.dataset.shareState = elapsed < 2700 ? 'edit' : elapsed < 5000 ? 'caption' : elapsed < 6900 ? 'upload' : 'feed';
+    if (!document.body.hasAttribute('data-video-upgrade')) gallery.dataset.shareState = elapsed < 2700 ? 'edit' : elapsed < 5000 ? 'caption' : elapsed < 6900 ? 'upload' : 'feed';
     recordTime.textContent = `00:${String(Math.min(8, Math.floor(elapsed / 1000))).padStart(2, '0')}`;
     gallery.classList.add('demo-running');
     demoFrame = requestAnimationFrame(renderDemo);

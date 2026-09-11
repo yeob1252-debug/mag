@@ -1,1 +1,9 @@
-{}
+{
+  "rewrites": [
+    {"source":"/data/:path*","destination":"/__private_not_found__"},
+    {"source":"/tools/:path*","destination":"/__private_not_found__"},
+    {"source":"/outputs/:path*","destination":"/__private_not_found__"},
+    {"source":"/logs/:path*","destination":"/__private_not_found__"},
+    {"source":"/places/:id([a-z0-9-]+)","destination":"/places/:id.html"}
+  ]
+}

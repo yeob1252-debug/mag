@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /outputs/
+Disallow: /data/
+Disallow: /tools/
+Disallow: /logs/
+Sitemap: https://www.matgamsa.com/sitemap.xml

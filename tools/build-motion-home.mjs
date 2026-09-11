@@ -31,7 +31,7 @@ refreshedHead = replaceMeta(refreshedHead, 'name', 'twitter:description', shareD
 refreshedHead = replaceMeta(refreshedHead, 'name', 'twitter:image', shareImage);
 refreshedHead = refreshedHead.replace(/(<meta property="og:image:secure_url"[^>]*>)/, '$1\n  <meta property="og:image:type" content="image/png">');
 refreshedHead = refreshedHead.replace(/(<meta name="twitter:image"[^>]*>)/, '$1\n  <meta name="twitter:image:alt" content="' + shareAlt + '">');
-refreshedHead = refreshedHead.replace('</head>', '  <link rel="stylesheet" href="css/motion-v6-polish.css?v=20260907-v1">\n</head>');
+refreshedHead = refreshedHead.replace('</head>', '  <link rel="stylesheet" href="css/motion-v6-polish.css?v=20260907-v1">\n  <link rel="stylesheet" href="css/video-places.css?v=20260911-v1">\n</head>');
 let html = await readFile(new URL('./home-motion.template.html', import.meta.url), 'utf8');
 html = html.replace('{{HEAD}}', refreshedHead.replace('css/hero-v6-preview.css?v=20260902-v8', 'css/motion-refresh.css?v=20260908-mobile-v8')).replace('{{OWNER_FORM}}', forms[0][0]);
 html = html.replace(/\{\{icon:(\w+)\}\}/g, (_, name) => {
