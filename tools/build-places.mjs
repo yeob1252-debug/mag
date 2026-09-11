@@ -12,6 +12,14 @@ const url = value => {if (!/^https:\/\//.test(value)) throw Error('HTTPS URL req
 const heading = value => escape(value).replace(/(\d+천\s?원)/g,'<span class="keep-word">$1</span>');
 const safeId = value => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 const exist = async relative => fs.access(path.join(root, relative)).then(() => true, () => false);
+async function coverErrors(place) {
+  if (place.status !== 'published') return [];
+  const textOnly = !place.thumbnail && place.publicationApproval?.entryId === place.id && place.publicationApproval?.coverPolicy === 'text-only-approved';
+  if (!place.thumbnail) return textOnly ? [] : [`${place.id}: approved cover or exact text-only publication approval required`];
+  if (!/^assets\/places\/[a-z0-9/_.-]+\.(webp|png|jpe?g)$/.test(place.thumbnail) || !(await exist(place.thumbnail))) return [`${place.id}: real thumbnail required`];
+  if (place.thumbnailKind === 'actual-store-photo' && (place.publicationApproval?.entryId !== place.id || place.thumbnailProvenance?.usage !== 'editorial-cover-not-sns-thumbnail')) return [`${place.id}: exact editorial cover approval required`];
+  return [];
+}
 const problems = [];
 const seen = new Set();
 for (const place of data.places) {
@@ -19,10 +27,18 @@ for (const place of data.places) {
   seen.add(place.id);
   if (!['draft','published'].includes(place.status)) problems.push(`${place.id}: status`);
   if (!data.cities.some(city => city.id === place.city && city.country === place.country)) problems.push(`${place.id}: city binding`);
-  for (const field of ['title','region','summary','intro','checkedAt','thumbnailAlt']) if (!place[field]) problems.push(`${place.id}: ${field}`);
+  for (const field of ['title','region','summary','intro','checkedAt']) if (!place[field]) problems.push(`${place.id}: ${field}`);
+  if (place.thumbnail && !place.thumbnailAlt) problems.push(`${place.id}: thumbnailAlt`);
   if (!/^\d{4}-\d{2}-\d{2}$/.test(place.checkedAt)) problems.push(`${place.id}: checkedAt format`);
-  if (place.status === 'published' && (!place.thumbnail || !/^assets\/places\/[a-z0-9/_.-]+\.(webp|png|jpe?g)$/.test(place.thumbnail) || !(await exist(place.thumbnail)))) problems.push(`${place.id}: real thumbnail required`);
-  if (place.status === 'published' && place.thumbnailKind === 'actual-store-photo' && (place.publicationApproval?.entryId !== place.id || place.thumbnailProvenance?.usage !== 'editorial-cover-not-sns-thumbnail')) problems.push(`${place.id}: exact editorial cover approval required`);
+  problems.push(...await coverErrors(place));
+  if (place.listing?.showThumbnail !== undefined && typeof place.listing.showThumbnail !== 'boolean') problems.push(`${place.id}: listing.showThumbnail must be boolean`);
+  if (place.detailVisual) {
+    if (place.id !== 'daegu-daemyeong-market') problems.push(`${place.id}: detail visual reference geometry requires review`);
+    for (const field of ['storefront','meal']) {
+      const asset = place.detailVisual[field];
+      if (!/^assets\/places\/[a-z0-9/_.-]+\.png$/.test(asset || '') || !(await exist(asset))) problems.push(`${place.id}: detailVisual.${field} original PNG required`);
+    }
+  }
   for (const target of [place.store?.mapUrl,place.parking?.mapUrl,...place.nearby.map(item => item.mapUrl),...place.sources.map(item => item.url),...(place.snsUrl ? [place.snsUrl] : [])]) url(target);
 }
 if (problems.length) throw Error(problems.join('\n'));
@@ -66,12 +82,29 @@ function map(country) {
   const cities=data.cities.filter(c=>c.country===country.id && published.some(p=>p.city===c.id));
   return `<div class="country-map" data-country-map="${country.id}" ${country.id==='kr'?'':'hidden'}><svg viewBox="0 0 400 400" aria-label="${country.name} 국가 윤곽" role="img"><path d="${d}" fill-rule="evenodd"/></svg>${cities.map(c=>{const [x,y]=project(c.coordinates);return `<button type="button" class="city-pin" data-city="${c.id}" data-country="${country.id}" style="left:${x/4}%;top:${y/4}%" aria-label="${c.name} ${published.filter(p=>p.city===c.id).length}개 자료 보기"><i></i><span>${c.name} <b>${published.filter(p=>p.city===c.id).length}</b></span></button>`;}).join('')}<span class="map-caption">${country.name} · Natural Earth 1:50m</span></div>`;
 }
-const row = p => `<article class="place-row" data-place-row data-country="${p.country}" data-city="${p.city}"><a href="/places/${p.id}" class="place-row-image"><img src="/${escape(p.thumbnail)}" alt="${escape(p.thumbnailAlt)}" loading="lazy"></a><div><span class="place-region">${escape(p.region)}</span><h3><a href="/places/${p.id}">${heading(p.title)}</a></h3><p>${escape(p.summary)}</p><a class="place-link" href="/places/${p.id}">위치·주차·주변 먹거리${icon('arrow')}</a></div></article>`;
+const row = p => {
+  const showImage = p.listing?.showThumbnail === true && Boolean(p.thumbnail);
+  return `<article class="place-row${showImage?' has-thumbnail':''}" data-place-row data-country="${p.country}" data-city="${p.city}">${showImage?`<a href="/places/${p.id}" class="place-row-image"><img src="/${escape(p.thumbnail)}" alt="${escape(p.thumbnailAlt)}" loading="lazy"></a>`:''}<div class="place-row-content"><span class="place-region">${escape(p.region)}</span><h3><a href="/places/${p.id}">${heading(p.title)}</a></h3><p class="place-row-store">${escape(p.store.name)}</p><p class="place-row-info">${escape(p.store.menu || p.summary)}<span aria-hidden="true">·</span>위치·주차·주변 먹거리 ${p.nearby.length}곳</p></div><a class="place-row-action" href="/places/${p.id}"><span>상세 보기</span>${icon('arrow')}</a></article>`;
+};
+if (process.argv.includes('--check-fixtures')) {
+  const p = data.places[0];
+  const noCover = {...p,thumbnail:null,publicationApproval:{entryId:p.id,coverPolicy:'text-only-approved'}};
+  const checks = {
+    defaultNoImage:!row({...p,listing:undefined}).includes('place-row-image'),
+    optionalImage:row({...p,listing:{showThumbnail:true}}).includes('place-row-image'),
+    approvedTextOnly:(await coverErrors(noCover)).length===0,
+    unapprovedTextOnlyBlocked:(await coverErrors({...noCover,publicationApproval:null})).length>0,
+    otherDraftNotPromoted:(await coverErrors({...noCover,status:'draft',publicationApproval:null})).length===0 && published.every(item=>item.status==='published')
+  };
+  console.log(JSON.stringify(checks));if(Object.values(checks).some(v=>!v))process.exit(1);process.exit(0);
+}
 const list=`<section class="places-hero"><div class="places-hero-media" data-channel-media><img src="/assets/generated/matgamsa-category-korean.webp" alt="한식 메뉴와 함께 시작하는 맛집 이야기" data-video-slot="places-channel"></div><div class="places-hero-copy"><span>한국에서 일본까지, 맛있는 발견</span><h1>맛집감별사의<br>한국·일본 맛집정보</h1><p>영상에서 만난 한 끼.<br>찾아가는 길과 주변 이야기까지.</p><a href="#places-explore" class="place-button">영상 속 맛집 찾아보기${icon('arrow')}</a></div></section><section class="places-explore" id="places-explore"><header><span>어디로 떠나볼까요?</span><h2>지역으로 찾는 맛집 이야기</h2></header><div class="country-tabs" role="tablist" aria-label="국가 선택">${data.countries.map((c,i)=>`<button type="button" id="country-${c.id}" role="tab" data-country-tab="${c.id}" aria-selected="${i===0}" aria-controls="places-country-content">${c.name}</button>`).join('')}</div><div class="places-explore-grid" id="places-country-content"><aside class="map-region" aria-label="등록된 도시 지도">${data.countries.map(map).join('')}<div class="city-list"><button type="button" data-city="all" aria-pressed="true">전체</button>${data.cities.filter(c=>published.some(p=>p.city===c.id)).map(c=>`<button type="button" data-country="${c.country}" data-city="${c.id}" aria-pressed="false">${c.name}</button>`).join('')}</div></aside><div class="places-results"><p class="result-summary" aria-live="polite" data-result-summary>한국 · ${published.filter(p=>p.country==='kr').length}개 이야기</p>${published.map(row).join('')}<div class="places-empty" data-places-empty ${published.some(p=>p.country==='kr')?'hidden':''}><span>아직 등록된 이야기가 없습니다.</span><p>확인한 맛집정보를 차근차근 담겠습니다.</p></div></div></div></section>${course}`;
 await fs.writeFile(path.join(out,'index.html'),page('맛집감별사의 한국·일본 맛집정보','영상 속 맛집의 위치, 주차와 주변 먹거리. 한국·일본 맛집정보를 지역별로 만나보세요.','/places/',list,undefined,preview));
 function detail(p) {
   const fields = item => `<dl class="place-facts"><div><dt>주소</dt><dd>${escape(item.address)}</dd></div>${item.menu?`<div><dt>메뉴</dt><dd>${escape(item.menu)}</dd></div>`:''}${item.features?`<div><dt>방문 특징</dt><dd>${escape(item.features)}</dd></div>`:''}${item.phone?`<div><dt>전화</dt><dd><a href="tel:${escape(item.phone.replaceAll('-',''))}">${escape(item.phone)}</a></dd></div>`:''}</dl>`;
-  const thumbnail=(p.thumbnail?`<img src="/${escape(p.thumbnail)}" alt="${escape(p.thumbnailAlt)}" class="detail-thumbnail">`:'<p class="draft-warning">승인된 SNS 썸네일 확보 전 비공개 초안입니다.</p>')+(p.photos?.length?`<div class="detail-photos">${p.photos.filter(photo=>photo.src!==p.thumbnail).map(photo=>`<figure><img src="/${escape(photo.src)}" alt="${escape(photo.alt)}" loading="lazy"><figcaption>${escape(photo.alt)}</figcaption></figure>`).join('')}</div>`:'');
+  // This clip follows the steel bowl in the supplied 942x2048 photo; the source pixels remain untouched.
+  const editorial = p.detailVisual ? `<figure class="detail-editorial" data-detail-visual><div class="detail-editorial-stage"><div class="detail-storefront"><img src="/${escape(p.detailVisual.storefront)}" width="942" height="2048" alt="${escape(p.store.name)} 실제 매장 간판과 외관"></div><svg class="detail-meal" viewBox="96 716 764 620" role="img" aria-labelledby="meal-title-${p.id}"><title id="meal-title-${p.id}">실제 방문 사진의 보리밥 한 그릇</title><defs><clipPath id="meal-clip-${p.id}" clipPathUnits="userSpaceOnUse"><path d="M477 728 C675 725 844 859 846 1026 C845 1191 677 1323 477 1323 C275 1325 106 1194 107 1030 C109 863 275 726 477 728Z"/></clipPath></defs><image href="/${escape(p.detailVisual.meal)}" width="942" height="2048" clip-path="url(#meal-clip-${p.id})"/></svg></div><figcaption>${escape(p.region)}<span aria-hidden="true"> · </span>${escape(p.store.menu)}</figcaption></figure>` : '';
+  const thumbnail=editorial || (p.thumbnail?`<img src="/${escape(p.thumbnail)}" alt="${escape(p.thumbnailAlt)}" class="detail-thumbnail">`:p.status==='draft'?'<p class="draft-warning">승인된 SNS 썸네일 확보 전 비공개 초안입니다.</p>':'')+(p.photos?.length?`<div class="detail-photos">${p.photos.filter(photo=>photo.src!==p.thumbnail).map(photo=>`<figure><img src="/${escape(photo.src)}" alt="${escape(photo.alt)}" loading="lazy"><figcaption>${escape(photo.alt)}</figcaption></figure>`).join('')}</div>`:'');
   return `<article class="place-detail"><a class="detail-back" href="/places/?country=${p.country}&city=${p.city}">${icon('back')}맛집정보 목록</a><header><span class="place-region">${escape(p.region)}</span><h1>${heading(p.title)}</h1><p>${escape(p.summary)}</p></header>${thumbnail}<p class="detail-intro">${escape(p.intro)}</p>${p.snsUrl?external(p.snsUrl,'원본 영상 보기'):''}<section><span class="detail-number">01 / 이번 한 끼</span><h2>${escape(p.store.name)}</h2>${fields(p.store)}${external(p.store.mapUrl,'매장정보·길찾기')}</section><section><span class="detail-number">02 / 찾아오는 길</span><h2>식당 위치부터 확인하세요</h2><p>${escape(p.location.transit)}</p><p>${escape(p.location.note)}</p><dl class="place-facts"><div><dt>시장 주소</dt><dd>${escape(p.location.marketAddress)}</dd></div></dl>${external(p.location.sourceUrl,'한국관광공사 시장 안내')}</section><section><span class="detail-number">03 / 주차</span><h2>${escape(p.parking.name)}</h2>${fields(p.parking)}<p>${escape(p.parking.hours)}</p><p class="parking-price">${escape(p.parking.fees)}</p><p class="place-note">${escape(p.parking.note)}</p>${external(p.parking.mapUrl,'주차장 위치·요금 확인')}</section><section><span class="detail-number">04 / 주변 먹거리</span><h2>함께 살펴볼 주변 3곳</h2><p class="place-note">${escape(p.nearbyNotice)}</p>${p.nearby.map((n,i)=>`<article class="nearby-place"><span>0${i+1}</span><div><h3>${escape(n.name)}</h3><strong>${escape(n.hook)}</strong><p>${escape(n.description)}</p>${fields(n)}<p class="place-note">${escape(n.note)}</p>${external(n.mapUrl,'매장정보 확인')}</div></article>`).join('')}<p>${escape(p.suggestion)}</p></section><section class="detail-sources"><h2>방문 전 확인해 주세요</h2><p>${escape(p.notice)}</p><p>방문일: 미확인 · 정보 확인일: <time datetime="${p.checkedAt}">${p.checkedAt}</time></p><ul>${p.sources.map(s=>`<li>${external(s.url,s.label)}</li>`).join('')}</ul><small>주변 업소 안내는 직접 방문·시식 후기가 아닙니다.</small></section></article>${course}`;
 }
 for (const place of (preview?data.places:published)) {
