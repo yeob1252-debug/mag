@@ -1,9 +1,57 @@
 {
   "rewrites": [
-    {"source":"/data/:path*","destination":"/__private_not_found__"},
-    {"source":"/tools/:path*","destination":"/__private_not_found__"},
-    {"source":"/outputs/:path*","destination":"/__private_not_found__"},
-    {"source":"/logs/:path*","destination":"/__private_not_found__"},
-    {"source":"/places/:id([a-z0-9-]+)","destination":"/places/:id.html"}
-  ]
+    {
+      "source": "/backend/:path*",
+      "destination": "/__private_not_found__"
+    },
+    {
+      "source": "/data/:path*",
+      "destination": "/__private_not_found__"
+    },
+    {
+      "source": "/tools/:path*",
+      "destination": "/__private_not_found__"
+    },
+    {
+      "source": "/outputs/:path*",
+      "destination": "/__private_not_found__"
+    },
+    {
+      "source": "/logs/:path*",
+      "destination": "/__private_not_found__"
+    },
+    {
+      "source": "/places/:id([a-z0-9-]+)",
+      "destination": "/places/:id.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/ireolttaen-ai/:path*",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=3600, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "functions": {
+    "api/ai-inquiry.js": {
+      "maxDuration": 30
+    }
+  }
 }

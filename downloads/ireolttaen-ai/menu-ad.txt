@@ -1,0 +1,18 @@
+﻿이럴땐 AI | 내 메뉴로 만드는 AI 광고
+
+1. 아래 대괄호 4개만 내 가게에 맞게 바꾸세요.
+[상호명] 예: 우리치킨
+[메뉴] 예: 매운 양념치킨 / 매운 닭발
+[흐르는 재료] 예: 녹인 모차렐라 치즈
+[계정명] 예: myrestaurant
+
+2. ChatGPT 이미지 생성 요청에 복사하세요.
+세로 9:16 음식 광고 이미지를 만들어줘. 실제 모바일 SNS 게시물처럼 보이는 흰색 화면 안에 [상호명], 계정 [계정명]을 깔끔한 한국어로 배치해줘. 위쪽 사진에는 투명한 용기 안의 [흐르는 재료], 아래 사진에는 먹음직스러운 [메뉴]. 흐르는 재료가 위 사진에서 중간 게시물 경계를 넘어 아래 메뉴 위로 이어지게 해줘. 용기·흐름·음식 전체가 프레임 안에 보이게. 자연스러운 중력, 실제 음식 질감, 광고 사진 조명. 브랜드 로고·아이콘은 내가 제공한 것만 사용하고, 가짜 좋아요 수나 고객 평가는 넣지 마. 추가 제목·장식 문구는 넣지 마. 한국어 상호는 정확히 한 번만 표기해줘.
+
+3. 완성 이미지를 힉스필드 시작 이미지로 넣고 아래 요청을 복사하세요.
+Use the uploaded image as the exact first frame and locked composition. A five-second photorealistic food shot. [흐르는 재료] flows steadily downward from the stationary fully visible vessel in the upper image, across the FRONT of the middle social-post boundary, onto the same [메뉴] below. Keep the vessel, food, all Korean text, [상호명], [계정명], avatar, icons, camera and background unchanged. Continuous slow gravity-driven flowing folds, modest accumulation and small drips. Preserve the menu texture and colour. No camera movement, cuts, extra objects, deformed food, new hands, distorted letters, speech or music. The stream stays connected throughout.
+
+시작 설정: 9:16 · 5초 · 무음. 앞선 치킨 결과는 Seedance 2.5로 제작했습니다. 모델·옵션 이름과 크레딧은 생성 전 현재 화면에서 확인하세요. 한 번에 여러 개보다 1개 생성 후 확인합니다. 한국어가 틀리면 영상을 만들기 전에 이미지부터 수정하세요.
+확인: 상호·계정 철자 / 용기 전체 / 재료가 아래로 흐르는지 / 원래 음식 보존 / 개인정보·타사 로고 없는지.
+예시 이미지는 실제 음식의 사진과 다를 수 있습니다. 판매 메뉴에 사용할 때 실제 메뉴와 차이를 확인하세요. 결과는 입력 사진과 모델에 따라 달라집니다.
+더 함께 만들기: https://www.matgamsa.com/inquiry.html?service=training&content=menu

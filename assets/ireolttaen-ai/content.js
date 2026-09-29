@@ -1,0 +1,5 @@
+// 공개 화면의 단일 콘텐츠 목록. 추가 항목은 승인/공개 범위 확인 후 등록합니다.
+window.AI_CONTENT={categories:['영상·사진','디자인·콘텐츠','홈페이지·서비스','홍보·판매','문서·업무','생활·정보','학습·성장','가족·추억'],portfolio:[
+{id:'menu',title:'내 메뉴가 광고가 되는 순간.',summary:'메뉴 사진과 상호로 만드는 AI 광고 영상.',categories:['영상·사진','홍보·판매'],status:'자체 제작 · 완성 영상',poster:'assets/ireolttaen-ai/chicken-poster.webp',preview:'assets/ireolttaen-ai/chicken-loop.mp4',detailVideo:'assets/ireolttaen-ai/menu-shorts.mp4',resource:'resource.html?id=menu-ad',service:'content',published:true},
+{id:'website',title:'상상을 웹사이트로 만드는 과정.',summary:'한 장면에서 시작해 사례와 서비스로 이어지는 화면.',categories:['홈페이지·서비스','디자인·콘텐츠'],status:'자체 제작 · 운영 홈페이지',poster:'assets/ireolttaen-ai/hero.webp',preview:'assets/ireolttaen-ai/site-loop.mp4',detailVideo:null,resource:'resource.html?id=imagination-website',service:'website',published:true}
+],education:[],classPlan:{id:'menu-oneday',title:'내 메뉴로 만드는 AI 광고',status:'모집 전 · 수업 구성안',description:'내 가게의 메뉴 사진을 가져와 홍보 이미지와 짧은 영상 제작을 실습합니다.',outcomes:['내 메뉴에 맞춘 프롬프트','홍보 이미지와 영상 제작 실습','만든 결과 점검과 수정 방법'],preparation:['노트북과 메뉴 사진','사용 도구 계정·생성 비용은 모집 안내 시 확인'],schedule:null,venue:null}};
