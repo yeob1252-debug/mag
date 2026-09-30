@@ -1,0 +1,67 @@
+/* Review composition only. Lower-page typography and services stay intact. */
+.ribbon-calibrated .spatial-rooms>img{left:var(--plate-x);top:var(--plate-y);width:var(--plate-w);height:var(--plate-h);object-fit:fill;object-position:center}
+.ribbon-calibrated .spatial-tile{transform-origin:0 0;backface-visibility:visible;will-change:transform;border:0;background:transparent;box-shadow:none;border-radius:8px;overflow:visible}
+.ribbon-calibrated .spatial-tile>.visual{width:100%;height:100%!important;max-width:100%;max-height:100%;border-radius:8px;border:1px solid #d9eeff70;box-shadow:0 3px 12px #306b9128,0 15px 35px #172e4d22;overflow:hidden}
+.ribbon-calibrated .spatial-tile:after{content:"";position:absolute;inset:0;border-radius:8px;pointer-events:none;opacity:var(--glass-contact,1);border-block:2px solid #d7f3ffbf;box-shadow:inset 0 0 13px #82c6ff70,0 0 5px #b9dcff85;background:linear-gradient(115deg,#daf5ff18,transparent 32%,transparent 75%,#88c5ff20)}
+.ribbon-calibrated .spatial-tile[data-state=expanded]>.visual{border-color:transparent;box-shadow:0 20px 48px #18304535}
+.ribbon-calibrated .spatial-tile[data-key=menu] .spatial-media-link{left:0;width:100%;height:100%;transform:none;aspect-ratio:auto}
+/* A filtered video inside a projective layer can disappear in Chromium.
+   Keep the shadow on the wrapper box rather than filtering the video surface. */
+.ribbon-calibrated .spatial-tile>.visual.video{filter:none;isolation:isolate}
+.ribbon-calibrated .spatial-label{font-size:10px;max-width:100%;position:absolute;top:calc(100% + 9px);bottom:auto;left:50%;right:auto;transform:translateX(-50%);white-space:nowrap;background:#f6fbffe6;border-radius:20px;padding:5px 10px;pointer-events:none}
+.ribbon-calibrated .spatial-media-link{border-radius:8px}
+.ribbon-calibrated .spatial-copy{pointer-events:none}
+.ribbon-calibrated .spatial-copy:not([inert]) .btn{pointer-events:auto}
+.ribbon-calibrated .imagination-request{left:36%;top:48%;max-width:220px;padding:11px 14px}
+.ribbon-calibrated .imagination-request span{font-size:12px}
+.ribbon-calibrated .imagination-request small,.ribbon-calibrated .imagination-request i{font-size:8px}
+@media(min-width:901px){.hero-calibrated .spatial-intro{left:auto;right:6%;width:38%;top:71%}}
+@media(max-width:900px){
+ .ribbon-calibrated .spatial-wash{background:linear-gradient(0deg,#f6fafff2,#f6faff96 34%,#f6faff08 69%)}
+ .ribbon-calibrated .spatial-intro{top:auto;bottom:10%;left:7%;width:86%;transform:none;max-width:none}
+ .ribbon-calibrated .spatial-intro h1{font-size:clamp(34px,6vw,49px);line-height:1.14;margin:8px 0}
+ .ribbon-calibrated .spatial-intro p{font-size:13px;line-height:1.65;margin:12px 0 16px}
+ .ribbon-calibrated .imagination-request{left:8%;top:43%;max-width:80%;padding:9px 12px}
+ .ribbon-calibrated .imagination-request small{margin-bottom:3px}
+ .ribbon-calibrated .imagination-request span{font-size:11px}
+ .ribbon-calibrated .imagination-request i{display:none}
+ .ribbon-calibrated.hero-reading .imagination-request{visibility:hidden}
+ .ribbon-calibrated .spatial-copy{top:3%;left:7%;width:86%;max-width:none;transform:none}
+ .ribbon-calibrated .spatial-copy h2{font-size:clamp(25px,6.9vw,40px);line-height:1.2;margin:9px 0}
+ .ribbon-calibrated .spatial-copy p{font-size:12px;line-height:1.6;margin:8px 0 12px}
+ .ribbon-calibrated .spatial-copy .spatial-offer{font-size:10px;line-height:1.55;margin:7px 0 11px}
+ .ribbon-calibrated .spatial-copy:before{inset:-24px -25px -10px;background:linear-gradient(#f8fbfff5,#f8fbffe3 74%,#f8fbff00)}
+ .ribbon-calibrated .spatial-copy .btn{font-size:11px;min-height:44px;padding:12px 16px}
+ .ribbon-calibrated .spatial-label{font-size:9px;padding:4px 8px}
+ .ribbon-calibrated .spatial-progress{font-size:9px}
+}
+@media(max-height:740px) and (max-width:900px){
+ .ribbon-calibrated .spatial-intro{bottom:9%}.ribbon-calibrated .spatial-intro h1{font-size:31px}
+ .ribbon-calibrated .spatial-intro p{font-size:11px;margin:7px 0 12px}
+ .ribbon-calibrated .imagination-request{top:38%;padding:7px 10px}.ribbon-calibrated .imagination-request small{display:none}
+ .ribbon-calibrated .spatial-copy h2{font-size:25px}
+}
+/* Lightweight native motion within the same addressable content nodes. */
+.ribbon-calibrated .spatial-tile .website-viewport img{animation:proof-website 5.4s ease-in-out infinite}
+.ribbon-calibrated .spatial-tile .website-pointer{animation:website-cursor 5.4s ease-in-out infinite}
+.ribbon-calibrated .spatial-tile .workspace-row:not(.workspace-thead){animation:proof-row 5.6s ease-in-out infinite;animation-delay:calc(var(--row)*.32s)}
+.ribbon-calibrated .spatial-tile .workspace-timeline>i{animation:workspace-plan 5.6s ease-in-out infinite;animation-delay:calc(var(--row)*.32s)}
+.ribbon-calibrated .spatial-tile .store-case-viewport img{animation:shop-screen 5.8s ease-in-out infinite}
+.ribbon-calibrated .spatial-tile[data-key=design-example] .ad-frame>img{animation:proof-product 6s ease-in-out infinite}
+.ribbon-calibrated .spatial-tile[data-key=learning-example]>.visual>img{animation:proof-learning 7s ease-in-out infinite}
+.ribbon-calibrated .spatial-tile .channel-covers>div{animation:proof-channel 5.4s ease-in-out infinite}
+.ribbon-calibrated .spatial-tile .channel-covers>div:nth-child(2){animation-delay:.5s}.ribbon-calibrated .spatial-tile .channel-covers>div:nth-child(3){animation-delay:1s}
+.ribbon-calibrated .family-hires{position:relative}
+.ribbon-calibrated .family-scan{position:absolute;top:0;bottom:0;width:2px;background:linear-gradient(transparent,#f5fff5,#f5fff5,transparent);box-shadow:0 0 18px #dcf1ff;animation:proof-restore 5s ease-in-out infinite}
+.ribbon-calibrated .family-before,.ribbon-calibrated .family-after{position:absolute;right:0;top:6.37%;width:50%;height:87.26%;background-size:200% 100%;background-position:left}
+.ribbon-calibrated .family-after{background-position:right;animation:proof-family 5s ease-in-out infinite}
+.ribbon-calibrated .spatial-tile:not(.is-live) *{animation-play-state:paused!important}
+.motion-off .ribbon-calibrated .spatial-tile *{animation:none!important}.motion-off .ribbon-calibrated .spatial-tile{will-change:auto}.motion-off .family-scan{display:none}
+@keyframes proof-website{0%,15%,100%{transform:scale(1.04) translateY(0)}50%,75%{transform:scale(1.04) translateY(-12%)}}
+@keyframes proof-row{0%,8%{opacity:.35;transform:translateY(3px)}23%,82%{opacity:1;transform:none;background:#dfe9d4}100%{opacity:.35}}
+@keyframes proof-product{0%,100%{transform:scale(1.01)}50%{transform:scale(1.045)}}
+@keyframes proof-learning{0%,100%{transform:scale(1.01) translateX(0)}50%{transform:scale(1.035) translateX(-.5%)}}
+@keyframes proof-channel{0%,100%{filter:brightness(.83)}30%,60%{filter:brightness(1.07)}}
+@keyframes proof-restore{0%,15%{left:50%;opacity:0}22%{opacity:.8}73%{left:100%;opacity:.8}80%,100%{left:100%;opacity:0}}
+@keyframes proof-family{0%,15%{clip-path:inset(0 100% 0 0)}73%,100%{clip-path:inset(0 0 0 0)}}
+@media(prefers-reduced-motion:reduce){.ribbon-calibrated .spatial-tile *{animation:none!important}.family-scan{display:none}}

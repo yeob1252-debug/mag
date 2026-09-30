@@ -1,11 +1,11 @@
 window.connectLiveInquiry=(form,serviceOptions)=>{
- let busy=false,submitted=false;
+ let busy=false,submitted=false;const localReview=['localhost','127.0.0.1','::1','[::1]'].includes(location.hostname);if(localReview){const note=document.createElement('p');note.className='note-box';note.textContent='검수용 문의 화면입니다. 입력과 단계 이동을 확인할 수 있으며, 이 로컬 화면에서는 실제 문의를 접수하지 않습니다.';form.prepend(note);}
  const id='AI-'+crypto.randomUUID().toUpperCase();
  const error=document.createElement('p');error.className='form-error';error.setAttribute('role','alert');error.hidden=true;form.append(error);
  form.elements.request.maxLength=1000;
  form.addEventListener('input',()=>{error.hidden=true});
  form.onsubmit=async event=>{
-  event.preventDefault();if(busy||submitted||!form.reportValidity())return;
+  event.preventDefault();if(localReview){error.textContent='검수 화면에서는 실제 접수하지 않습니다. 입력 내용은 전송되지 않았습니다.';error.hidden=false;return;}if(busy||submitted||!form.reportValidity())return;
   const button=form.querySelector('[type=submit]'),fd=new FormData(form);
   const service=fd.get('service'),mapped=({classes:'training',store:'website'})[service]||service;
   const selected=form.elements.plan.selectedOptions[0]?.textContent||'맞춤 상담';

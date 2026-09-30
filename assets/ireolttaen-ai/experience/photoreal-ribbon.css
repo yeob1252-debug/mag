@@ -1,0 +1,13 @@
+/* Material repair only. Approved type, copy, services, forms and section order remain intact. */
+.spatial-film,.ribbon-surface,.journey-video,.imagination-bridge{display:none!important}
+.spatial-rooms img{transform:none!important;object-fit:cover;object-position:center}
+.spatial-stage .spatial-rooms img:last-child{height:100%;top:0}
+.spatial-tile:not([data-state=expanded])>.visual{border:1px solid #e9f6ffb0;box-shadow:0 4px 16px #2452801c}
+.spatial-tile[data-state=expanded]>.visual{border:0}
+.spatial-tile[data-state=in-ribbon] .spatial-media-link{pointer-events:none}
+.spatial-tile[data-state=expanded] .spatial-media-link{pointer-events:auto}
+@media(max-width:680px){
+ .spatial-rooms img{object-position:40% center}
+ .spatial-stage[data-room="4"] .spatial-rooms img:last-child{height:100%;top:0;object-position:50% center}
+}
+@media(prefers-reduced-motion:reduce){.spatial-tile{will-change:auto}}
