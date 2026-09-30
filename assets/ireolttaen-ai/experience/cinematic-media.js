@@ -1,7 +1,7 @@
 /* Background-only video contract. Content, prices and click targets remain HTML.
    An entry is enabled only after that exact exported clip passes visual QA. */
 window.CINEMATIC_ASSETS={
- "version": 4,
+ "version": 5,
  "loops": [
   {
    "src": "/assets/ireolttaen-ai/experience/cinematic/main-flow-v2.mp4",
@@ -24,9 +24,9 @@ window.CINEMATIC_ASSETS={
    "method": "fixed approved plate and protected person; locally advected photographic glass material; no reverse frames"
   },
   {
-   "src": "/assets/ireolttaen-ai/experience/cinematic/meadow-glint-v1.mp4",
+   "src": "/assets/ireolttaen-ai/experience/cinematic/meadow-flow-v2.mp4",
    "verified": true,
-   "method": "fixed approved rainbow plate; soft local specular glints"
+   "method": "fixed approved rainbow arch; locally advected photographic glass material in one direction"
   }
  ],
  "transitions": [
@@ -62,9 +62,9 @@ window.CINEMATIC_ASSETS={
   "job": "af0e10e0-54aa-4680-b7ec-346f6965e283"
  },
  "outdoorMobile": {
-  "src": "/assets/ireolttaen-ai/experience/cinematic/meadow-mobile-glint-v1.mp4",
+  "src": "/assets/ireolttaen-ai/experience/cinematic/meadow-mobile-flow-v2.mp4",
   "verified": true,
-  "method": "fixed approved portrait rainbow plate; soft local specular glints"
+  "method": "fixed approved portrait rainbow arch; locally advected photographic glass material in one direction"
  }
 };
 window.CINEMATIC_JOURNEY=(()=>{
