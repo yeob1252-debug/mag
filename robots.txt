@@ -1,6 +1,8 @@
 User-agent: *
+Allow: /
 Disallow: /outputs/
 Disallow: /data/
 Disallow: /tools/
 Disallow: /logs/
-Sitemap: https://www.matgamsa.com/sitemap.xml
+Disallow: /seo/
+Sitemap: https://www.aiforthis.co.kr/sitemap.xml

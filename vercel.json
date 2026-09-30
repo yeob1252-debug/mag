@@ -23,6 +23,192 @@
     {
       "source": "/places/:id([a-z0-9-]+)",
       "destination": "/places/:id.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "classes"
+        }
+      ],
+      "destination": "/seo/classes.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "content"
+        }
+      ],
+      "destination": "/seo/content.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "website"
+        }
+      ],
+      "destination": "/seo/website.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "store"
+        }
+      ],
+      "destination": "/seo/store.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resources"
+        }
+      ],
+      "destination": "/seo/resources.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resource"
+        },
+        {
+          "type": "query",
+          "key": "id",
+          "value": "menu-ad"
+        }
+      ],
+      "destination": "/seo/menu-ad.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "community"
+        }
+      ],
+      "destination": "/seo/community.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "inquiry"
+        }
+      ],
+      "destination": "/seo/inquiry.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "classes"
+        }
+      ],
+      "destination": "/seo/classes.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "content"
+        }
+      ],
+      "destination": "/seo/content.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "website"
+        }
+      ],
+      "destination": "/seo/website.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "store"
+        }
+      ],
+      "destination": "/seo/store.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resources"
+        }
+      ],
+      "destination": "/seo/resources.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resource"
+        },
+        {
+          "type": "query",
+          "key": "id",
+          "value": "menu-ad"
+        }
+      ],
+      "destination": "/seo/menu-ad.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "community"
+        }
+      ],
+      "destination": "/seo/community.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "inquiry"
+        }
+      ],
+      "destination": "/seo/inquiry.html"
     }
   ],
   "headers": [
@@ -55,6 +241,28 @@
     }
   },
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "matgamsa.com"
+        }
+      ],
+      "destination": "https://www.aiforthis.co.kr/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.matgamsa.com"
+        }
+      ],
+      "destination": "https://www.aiforthis.co.kr/:path*",
+      "permanent": true
+    },
     {
       "source": "/resources.html",
       "destination": "/index.html?page=resources",
