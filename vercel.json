@@ -53,5 +53,37 @@
     "api/ai-inquiry.js": {
       "maxDuration": 30
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/resources.html",
+      "destination": "/index.html?page=resources",
+      "permanent": false
+    },
+    {
+      "source": "/resource.html",
+      "destination": "/index.html?page=resource",
+      "permanent": false
+    },
+    {
+      "source": "/class.html",
+      "destination": "/index.html?page=classes",
+      "permanent": false
+    },
+    {
+      "source": "/community.html",
+      "destination": "/index.html?page=community",
+      "permanent": false
+    },
+    {
+      "source": "/inquiry.html",
+      "destination": "/index.html?page=inquiry",
+      "permanent": false
+    },
+    {
+      "source": "/services.html",
+      "destination": "/index.html#services",
+      "permanent": false
+    }
+  ]
 }
