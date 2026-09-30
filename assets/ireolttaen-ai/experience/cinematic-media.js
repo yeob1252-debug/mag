@@ -1,32 +1,32 @@
 /* Background-only video contract. Content, prices and click targets remain HTML.
    An entry is enabled only after that exact exported clip passes visual QA. */
 window.CINEMATIC_ASSETS={
- "version": 3,
+ "version": 4,
  "loops": [
   {
-   "src": "/assets/ireolttaen-ai/experience/cinematic/main-loop-final.mp4",
+   "src": "/assets/ireolttaen-ai/experience/cinematic/main-flow-v2.mp4",
    "verified": true,
-   "job": "9989c701-c35b-4169-9f30-758ab6c46c4b"
+   "method": "fixed approved plate; locally advected photographic glass material; no reverse frames"
   },
   {
-   "src": "/assets/ireolttaen-ai/experience/cinematic/showroom-loop.mp4",
+   "src": "/assets/ireolttaen-ai/experience/cinematic/showroom-flow-v2.mp4",
    "verified": true,
-   "job": "a3dbcded-aaad-46c9-9e6f-0e0f511bb351"
+   "method": "fixed approved plate; locally advected photographic glass material; no reverse frames"
   },
   {
-   "src": "/assets/ireolttaen-ai/experience/cinematic/workspace-loop.mp4",
+   "src": "/assets/ireolttaen-ai/experience/cinematic/workspace-flow-v2.mp4",
    "verified": true,
-   "job": "dcd22430-7e6c-4118-b39a-0a83d22151e3"
+   "method": "fixed approved plate; locally advected photographic glass material; no reverse frames"
   },
   {
-   "src": "/assets/ireolttaen-ai/experience/cinematic/exit-loop.mp4",
+   "src": "/assets/ireolttaen-ai/experience/cinematic/exit-flow-v2.mp4",
    "verified": true,
-   "job": "4120ab2c-8c81-4fb0-a7b9-ff40f95171fb"
+   "method": "fixed approved plate and protected person; locally advected photographic glass material; no reverse frames"
   },
   {
-   "src": "/assets/ireolttaen-ai/experience/cinematic/meadow-loop.mp4",
+   "src": "/assets/ireolttaen-ai/experience/cinematic/meadow-glint-v1.mp4",
    "verified": true,
-   "job": "a8cfc860-fa67-455b-a6ca-8e2d107ec69f"
+   "method": "fixed approved rainbow plate; soft local specular glints"
   }
  ],
  "transitions": [
@@ -62,9 +62,9 @@ window.CINEMATIC_ASSETS={
   "job": "af0e10e0-54aa-4680-b7ec-346f6965e283"
  },
  "outdoorMobile": {
-  "src": "/assets/ireolttaen-ai/experience/cinematic/meadow-mobile-loop.mp4",
+  "src": "/assets/ireolttaen-ai/experience/cinematic/meadow-mobile-glint-v1.mp4",
   "verified": true,
-  "job": "66871bed-4a4b-4566-b300-25030a9813be"
+  "method": "fixed approved portrait rainbow plate; soft local specular glints"
  }
 };
 window.CINEMATIC_JOURNEY=(()=>{
