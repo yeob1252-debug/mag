@@ -24,12 +24,13 @@ document.addEventListener('DOMContentLoaded',()=>{
  const count=window.SPATIAL_STORY.length,total=count+.65;let raf=0,manual=null,step=0;
  // Keep mobile scroll geometry stable when the browser address bar expands.
  // Recalculate only on a meaningful width change (rotation / breakpoint).
- let layoutWidth=innerWidth,journeyHeight=innerHeight;
+ let layoutWidth=innerWidth,journeyHeight=innerHeight,mobileTiming=null;
  function sizeJourney(){
   layoutWidth=innerWidth;journeyHeight=innerHeight;
   root.style.setProperty('--journey-height',journeyHeight+'px');
   root.style.setProperty('--journey-header',document.querySelector('.site-header').offsetHeight+'px');
-  root.style.height=innerWidth<=680?Math.round((count*100+120)*journeyHeight/100)+'px':(count*160+170)+'svh';
+  mobileTiming=innerWidth<=680?window.MOBILE_JOURNEY_TIMING.create(journeyHeight,window.SPATIAL_STORY.map(s=>s.room)):null;
+  root.style.height=mobileTiming?Math.ceil(mobileTiming.distance+stage.offsetHeight)+'px':(count*160+170)+'svh';
  }
  sizeJourney();
  const headerHeight=()=>document.querySelector('.site-header').offsetHeight;
@@ -38,7 +39,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   root.classList.toggle('static-story',reduced);
   if(reduced){stage.classList.remove('ribbon-calibrated','hero-calibrated','hero-reading','tail-mode');stage.style.visibility='visible';intro.inert=false;intro.style.opacity='1';copies.forEach((c,n)=>{c.inert=false;c.style.opacity='1';c.style.gridRow=String(innerWidth<=680?2+n*2:2+n)});tiles.forEach((el,n)=>{el.style.gridRow=String(innerWidth<=680?3+n*2:2+n);el.dataset.state='expanded';el.classList.remove('is-live');const a=el.querySelector('.spatial-media-link');a.inert=false;a.tabIndex=0;el.querySelector('video')?.pause();});window.CINEMATIC_JOURNEY?.pause();return;}
   copies.forEach(c=>c.style.gridRow='');tiles.forEach(el=>el.style.gridRow='');
-  const q=manual??clamp((-root.getBoundingClientRect().top+headerHeight())/Math.max(1,root.offsetHeight-stage.offsetHeight))*total;
+  const distance=-root.getBoundingClientRect().top+headerHeight();
+  const q=manual??(mobileTiming?mobileTiming.qAt(distance):clamp(distance/Math.max(1,root.offsetHeight-stage.offsetHeight))*total);
   step=Math.max(0,Math.min(count-1,Math.floor(q-.65)));const local=q-.65-step;
   const focus=q<.65||q>count+.65?0:(reduced?1:ease((local-.20)/.18)*(1-ease((local-.80)/.20)));
   const tail=root.getBoundingClientRect().bottom<=stage.clientHeight+headerHeight();stage.classList.toggle("tail-mode",tail);const outside=document.querySelector("#participate"),portfolio=document.querySelector("#portfolio"),endProgress=clamp(((mobile?journeyHeight:innerHeight)-outside.getBoundingClientRect().top)/((mobile?journeyHeight:innerHeight)*.8)),rainbowProgress=clamp(((mobile?journeyHeight:innerHeight)-portfolio.getBoundingClientRect().top)/((mobile?journeyHeight:innerHeight)*.65));let room=tail?(rainbowProgress>0?4:3):window.SPATIAL_STORY[step].room;
@@ -73,11 +75,12 @@ document.addEventListener('DOMContentLoaded',()=>{
   finish.style.opacity=0;finish.inert=true;stage.style.visibility=document.querySelector(".spatial-home").getBoundingClientRect().bottom<78?"hidden":"visible";
   stage.dataset.room=String(room);stage.dataset.scene=String(step);stage.dataset.progress=q.toFixed(3);
  }
- const schedule=()=>{if(!raf)raf=requestAnimationFrame(draw)};document.querySelector("#see-imagination").onclick=()=>{manual=null;scrollTo({top:root.offsetTop+1.15/total*(root.offsetHeight-stage.offsetHeight)-(innerWidth<=680?98:78),behavior:"instant"});schedule()};
+ const positionAt=q=>root.offsetTop+(mobileTiming?mobileTiming.distanceAt(q):q/total*(root.offsetHeight-stage.offsetHeight))-headerHeight();
+ const schedule=()=>{if(!raf)raf=requestAnimationFrame(draw)};document.querySelector("#see-imagination").onclick=()=>{manual=null;scrollTo({top:positionAt(1.15),behavior:"instant"});schedule()};
  if(window.HERO_CALIBRATION?.active){const family=tiles.find(el=>el.dataset.key==='family-example')?.querySelector('.family-hires');if(family){const src=family.querySelector('img').getAttribute('src');for(const name of ['family-before','family-after','family-scan']){const layer=document.createElement('i');layer.className=name;layer.setAttribute('aria-hidden','true');if(name!=='family-scan')layer.style.backgroundImage=`url("${src}")`;family.append(layer);}}}
  document.addEventListener('visibilitychange',schedule);
  const dock=document.createElement('details');dock.className='spatial-dock';dock.innerHTML=`<summary>공간·등장 순서 검수</summary><label>콘텐츠 <select>${window.SPATIAL_STORY.map((s,n)=>`<option value="${n}">${n+1}. ${s.category}</option>`).join('')}</select></label><div>${[['띠 속',0],['공간 이동 25%',.05],['공간 이동 50%',.10],['공간 이동 75%',.15],['등장',.29],['크게 보기',.5],['복귀 중',.9],['돌아옴',1]].map(([s,n])=>`<button data-phase="${n}">${s}</button>`).join('')}</div><p>단계 버튼은 정지 비교용입니다. 스크롤하면 실제 흐름으로 돌아갑니다.</p>`;if(new URLSearchParams(location.search).has('review'))document.body.append(dock);
- dock.querySelectorAll('button').forEach(b=>b.onclick=()=>{const n=Number(dock.querySelector('select').value);manual=.65+n+Math.min(.999,Number(b.dataset.phase));if(Number(b.dataset.phase)===0)manual+=.001;scrollTo({top:root.offsetTop+Math.max(0,manual/total)*(root.offsetHeight-stage.offsetHeight)-headerHeight(),behavior:'instant'});schedule()});
+ dock.querySelectorAll('button').forEach(b=>b.onclick=()=>{const n=Number(dock.querySelector('select').value);manual=.65+n+Math.min(.999,Number(b.dataset.phase));if(Number(b.dataset.phase)===0)manual+=.001;scrollTo({top:positionAt(manual),behavior:'instant'});schedule()});
  const outdoorChecks=document.createElement('div');outdoorChecks.innerHTML=[.08,.5,.92].map(v=>`<button data-outdoor="${v}">야외 연결 ${Math.round(v*100)}%</button>`).join('');dock.append(outdoorChecks);outdoorChecks.querySelectorAll('button').forEach(b=>b.onclick=()=>{manual=null;const p=document.querySelector('#portfolio');scrollTo({top:scrollY+p.getBoundingClientRect().top-innerHeight+innerHeight*.65*Number(b.dataset.outdoor),behavior:'instant'});schedule()});
  const reset=()=>{manual=null;schedule()};addEventListener('wheel',reset,{passive:true});addEventListener('touchstart',reset,{passive:true});addEventListener('keydown',e=>{if(['PageDown','PageUp','ArrowDown','ArrowUp','Home','End',' '].includes(e.key))reset()});
  addEventListener('scroll',schedule,{passive:true});addEventListener('resize',()=>{if(Math.abs(innerWidth-layoutWidth)>30)sizeJourney();schedule()},{passive:true});new MutationObserver(schedule).observe(document.body,{attributes:true,attributeFilter:['class']});window.refreshReviewMedia?.();
