@@ -110,7 +110,7 @@ window.CINEMATIC_JOURNEY=(()=>{
    v.style.opacity=v.dataset.ready==='true'?String(opacity):'0';
    if(active&&v.dataset.ready==='true'&&!isTransit){if(v.paused)v.play().catch(()=>{});}else if(!v.paused)v.pause();
   });
-  const nextBoundary=room<3?window.SPATIAL_STORY?.findIndex(s=>s.room===room+1)+.65:8.65;
+  const nextBoundary=room<3?room+1+.65:(window.SPATIAL_CHAPTERS?.length||4)+.65;
   const transitionAsset=n=>n===3&&w<=680&&A.outdoorTransitionMobile?.verified?A.outdoorTransitionMobile:A.transitions[n];
   if(allowed&&!isTransit&&room<4&&Number.isFinite(q)&&q>nextBoundary-.95){const next=transitionAsset(room);if(next?.verified){transition.preload="auto";source(transition,next)}}
   const asset=transitionAsset(room-1);

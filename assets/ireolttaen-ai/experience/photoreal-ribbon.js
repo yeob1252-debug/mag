@@ -13,7 +13,7 @@ window.PHOTOREAL_JOURNEY = (() => {
     [[0,.39],[.17,.385],[.31,.19],[.49,.105],[.68,.195],[.85,.36],[1,.53]]
   ];
   // Four distinct subjects per room. Same DOM node returns to the same slot.
-  const slots=[[0,1,2,7],[3,4,0,6],[5,2,1,6],[6,7,3,5],[]];
+  const slots=[[0,1,2,7],[3,5,0,6],[5,2,1,6],[6,7,4,5],[]];
   function curveAt(room,x){
     const c=curves[room];let a=c[0],b=c[1];
     for(let i=1;i<c.length;i++){a=c[i-1];b=c[i];if(x<=b[0])break;}

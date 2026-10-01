@@ -12,8 +12,10 @@ window.HERO_CALIBRATION=(()=>{
   const portrait=w<=900,scale=Math.max(w/baseWidth,h/baseHeight);
   let x=(w-baseWidth*scale)/2;
   if(portrait&&room<4){
-   const slots=window.PHOTOREAL_JOURNEY.slots[room],slot=Math.max(0,slots.indexOf(phase.step)>=0?slots.indexOf(phase.step):slots.indexOf(phase.step-1));
-   const prior=slots.indexOf(Math.max(0,phase.step-1));
+   const chapters=window.SPATIAL_CHAPTERS||window.SPATIAL_STORY.map((_,n)=>n);
+   const previous=chapters[Math.max(0,chapters.indexOf(phase.step)-1)];
+   const slots=window.PHOTOREAL_JOURNEY.slots[room],slot=Math.max(0,slots.indexOf(phase.step)>=0?slots.indexOf(phase.step):slots.indexOf(previous));
+   const prior=slots.indexOf(previous);
    const target=room===0&&slot===0?.30:centers[room][slot];
    const from=prior>=0?(room===0&&prior===0?.30:centers[room][prior]):target;
    const cx=mix(from,target,smooth(phase.local/.18));
