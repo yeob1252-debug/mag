@@ -101,6 +101,22 @@
         {
           "type": "query",
           "key": "page",
+          "value": "resource"
+        },
+        {
+          "type": "query",
+          "key": "id",
+          "value": "imagination-website"
+        }
+      ],
+      "destination": "/seo/imagination-website.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
           "value": "community"
         }
       ],
@@ -187,6 +203,22 @@
         }
       ],
       "destination": "/seo/menu-ad.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resource"
+        },
+        {
+          "type": "query",
+          "key": "id",
+          "value": "imagination-website"
+        }
+      ],
+      "destination": "/seo/imagination-website.html"
     },
     {
       "source": "/index.html",
