@@ -21,6 +21,38 @@
       "destination": "/__private_not_found__"
     },
     {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resource"
+        },
+        {
+          "type": "query",
+          "key": "id",
+          "value": "six-ai-uses"
+        }
+      ],
+      "destination": "/seo/six-ai-uses.html"
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resource"
+        },
+        {
+          "type": "query",
+          "key": "id",
+          "value": "six-ai-uses"
+        }
+      ],
+      "destination": "/seo/six-ai-uses.html"
+    },
+    {
       "source": "/places/:id([a-z0-9-]+)",
       "destination": "/places/:id.html"
     },
