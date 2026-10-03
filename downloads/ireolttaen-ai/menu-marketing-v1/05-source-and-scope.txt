@@ -1,0 +1,20 @@
+﻿실제 음식 원본 출처
+Tteokbokki.JPG · Popo le Chien · 촬영 2015-09-11
+https://commons.wikimedia.org/wiki/File:Tteokbokki.JPG
+https://upload.wikimedia.org/wikipedia/commons/4/4d/Tteokbokki.JPG
+6048×4032 JPEG · CC0 1.0
+https://creativecommons.org/publicdomain/zero/1.0/
+원본은 복제·수정·상업적 이용 가능한 CC0입니다. 작가가 이 자료나 가게를 추천한다는 의미는 아닙니다.
+
+결과물 구분
+real-original.jpg: 실제 촬영 원본.
+menu-styled.png: 원본을 바탕으로 그릇·배경·조명을 바꾼 AI 편집 결과. 픽셀 단위 원본 보존은 아닙니다.
+scenes-example.png: 같은 음식의 조리·포장·배달 개봉·매장 식사·캐릭터를 상상한 AI 연출 예시 6장 모음. 실제 가게 운영의 증거가 아닙니다. 12개 장면을 각각 고화질로 생성해 검증한 자료가 아닙니다.
+poster-draft.png / xbanner-draft.png: 문구·레이아웃 참고용 디자인 시안. 인쇄용 완성 PDF가 아닙니다. AI 결과물의 배타적 권리나 모든 결과의 정확성을 보장하지 않습니다.
+실제 가게에 사용할 때에는 본인 메뉴와 실제 조리·포장·매장 사진으로 교체하고 결과를 대조하세요.
+
+무료 제공 범위
+설정문 1개, 기본 명령 9개, 보조 명령 5개, 장면별 프롬프트 12개, 부분 수정 문장 5개, Flow 사용 안내, CC0 원본과 이번 연습 결과.
+개별 가게 맞춤 제작·도구 유료 요금·인쇄 주문·운영 대행은 포함하지 않습니다.
+
+mini-chef-ad.png: 영상에 나온 미니 셰프 AI 광고 예시. 실제 음식 사진을 참조했으며 실제 조리 현장 촬영은 아닙니다. 재현용 입력문은 06-mini-chef-example.txt에 있습니다.

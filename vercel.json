@@ -21,6 +21,38 @@
       "destination": "/__private_not_found__"
     },
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resource"
+        },
+        {
+          "type": "query",
+          "key": "id",
+          "value": "menu-marketing"
+        }
+      ],
+      "destination": "/seo/menu-marketing.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resource"
+        },
+        {
+          "type": "query",
+          "key": "id",
+          "value": "menu-marketing"
+        }
+      ],
+      "destination": "/seo/menu-marketing.html"
+    },
+    {
       "source": "/index.html",
       "has": [
         {
