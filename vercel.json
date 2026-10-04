@@ -1,6 +1,38 @@
 {
   "rewrites": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resource"
+        },
+        {
+          "type": "query",
+          "key": "id",
+          "value": "photo-transform"
+        }
+      ],
+      "destination": "/seo/photo-transform.html"
+    },
+    {
+      "source": "/index.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "page",
+          "value": "resource"
+        },
+        {
+          "type": "query",
+          "key": "id",
+          "value": "photo-transform"
+        }
+      ],
+      "destination": "/seo/photo-transform.html"
+    },
+    {
       "source": "/backend/:path*",
       "destination": "/__private_not_found__"
     },
