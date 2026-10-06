@@ -42,9 +42,9 @@
     const status = calendar.querySelector('[data-calendar-status]');
     const previous = calendar.querySelector('[data-calendar-prev]');
     const next = calendar.querySelector('[data-calendar-next]');
-    const confirmedEvents = new Map([['2026-09-16','1기 진행 예정']]);
+    const confirmedEvents = new Map([['2026-10-23','1기 진행 예정']]);
     let viewYear = 2026;
-    let viewMonth = 8;
+    let viewMonth = 9;
 
     const keyFor = (year, month, day) => `${year}-${String(month + 1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
 
