@@ -18,7 +18,7 @@ window.renderSpatialJourney=(media,item)=>{
 document.addEventListener('DOMContentLoaded',()=>{
  const root=document.querySelector('.spatial-story');if(!root)return;
  const stage=root.querySelector('.spatial-stage'),paths=[...root.querySelectorAll('.spatial-film path')],tiles=[...root.querySelectorAll('.spatial-tile')],copies=[...root.querySelectorAll('.spatial-copy')],rooms=[...root.querySelectorAll('.spatial-rooms img')],intro=root.querySelector('.spatial-intro'),finish=root.querySelector('.spatial-finish');
- const works=document.querySelector('#works');const cardObserver=new IntersectionObserver(entries=>entries.forEach(e=>e.target.classList.toggle('work-revealed',e.isIntersecting)),{threshold:.12});const revealCards=()=>{cardObserver.disconnect();works.querySelectorAll('.work-card').forEach(el=>{el.classList.add('work-reveal');cardObserver.observe(el)})};new MutationObserver(revealCards).observe(works,{childList:true});revealCards();
+ const works=document.querySelector('#works');const cardObserver=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('work-revealed');cardObserver.unobserve(e.target)}}),{threshold:.12});const revealCards=()=>{cardObserver.disconnect();works.querySelectorAll('.work-card').forEach(el=>{el.classList.add('work-reveal');cardObserver.observe(el)})};new MutationObserver(revealCards).observe(works,{childList:true});revealCards();
  const clamp=v=>Math.max(0,Math.min(1,v)),ease=v=>{v=clamp(v);return v*v*(3-2*v)},mix=(a,b,t)=>a+(b-a)*t;
  // Cubic paths follow furniture, showroom walls, work surfaces and doorway, not page height.
  const routes=[[-100,410,180,-80,540,80,660,250,850,490,1100,80,1120,210],[-100,180,120,620,310,640,470,360,610,50,900,0,1120,330],[-100,530,40,120,360,70,520,330,720,660,890,640,1120,180],[-100,220,170,-10,460,0,570,270,700,520,850,660,1120,460],[110,340,190,170,290,80,500,100,680,100,790,180,890,340]];
@@ -29,9 +29,10 @@ document.addEventListener('DOMContentLoaded',()=>{
  let layoutWidth=innerWidth,journeyHeight=innerHeight,mobileTiming=null;
  function sizeJourney(){
   layoutWidth=innerWidth;journeyHeight=innerHeight;
+  stage.classList.toggle('compact-reading',journeyHeight<=740);
   root.style.setProperty('--journey-height',journeyHeight+'px');
   root.style.setProperty('--journey-header',document.querySelector('.site-header').offsetHeight+'px');
-  mobileTiming=innerWidth<=680?window.MOBILE_JOURNEY_TIMING.create(journeyHeight,chapters.map((_,n)=>n)):null;
+  mobileTiming=window.MOBILE_JOURNEY_TIMING.create(journeyHeight,chapters.map((_,n)=>n),innerWidth<=900);
   root.style.height=mobileTiming?Math.ceil(mobileTiming.distance+stage.offsetHeight)+'px':(count*160+170)+'svh';
  }
  sizeJourney();
@@ -44,7 +45,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   const distance=-root.getBoundingClientRect().top+headerHeight();
   const q=manual??(mobileTiming?mobileTiming.qAt(distance):clamp(distance/Math.max(1,root.offsetHeight-stage.offsetHeight))*total);
   const chapter=Math.max(0,Math.min(count-1,Math.floor(q-.65)));step=chapters[chapter];const local=q-.65-chapter;
-  const focus=q<.65||q>count+.65?0:(reduced?1:ease((local-.20)/.18)*(1-ease((local-.80)/.20)));
+  const phase=window.MOBILE_JOURNEY_TIMING.phase(local);
+  const focus=q<.65||q>=total?0:phase.focus;
+  stage.dataset.phase=q<.65?'intro':q>=total?'complete':phase.name;
   const tail=root.getBoundingClientRect().bottom<=stage.clientHeight+headerHeight();stage.classList.toggle("tail-mode",tail);const outside=document.querySelector("#participate"),portfolio=document.querySelector("#portfolio"),endProgress=clamp(((mobile?journeyHeight:innerHeight)-outside.getBoundingClientRect().top)/((mobile?journeyHeight:innerHeight)*.8)),rainbowProgress=clamp(((mobile?journeyHeight:innerHeight)-portfolio.getBoundingClientRect().top)/((mobile?journeyHeight:innerHeight)*.65));let room=tail?(rainbowProgress>0?4:3):chapter;
   const boundary=room===4?count+.65:room+.65,t=tail?(room===4?ease(rainbowProgress):1):room?ease((q-boundary)/.20):0,prev=Math.max(0,room-1);
   const r=routes[room].map((v,n)=>mix(routes[prev][n],v,t));const d=`M ${r[0]} ${r[1]} C ${r.slice(2,8).join(' ')} C ${r.slice(8).join(' ')}`;paths.forEach(p=>p.setAttribute('d',d));
@@ -70,6 +73,15 @@ document.addEventListener('DOMContentLoaded',()=>{
   copies.forEach(el=>{const a=!tail&&Number(el.dataset.copy)===step?ease((focus-.62)/.3):0;el.style.opacity=a;el.inert=a<.95;});
   intro.style.opacity=String(1-ease(q/.45));intro.inert=q>.2;const bridgeOpacity=1-ease((q-.48)/.22);root.querySelector(".imagination-request").style.opacity=bridgeOpacity;root.querySelector(".imagination-bridge").style.opacity=bridgeOpacity;stage.style.setProperty("--request-progress",String(.3+.7*ease(q/.5)));stage.style.setProperty("--rainbow-reveal",String(tail?ease(rainbowProgress):0));stage.style.setProperty("--floating-y",(reduced?0:Math.sin(endProgress*Math.PI)*-22)+"px");
   window.HERO_CALIBRATION?.render({stage,tiles,room,focus,step,w,h,q,local,tail,previousRoom:prev,roomMix:t});
+  // A completed foreground subject cannot reappear as a competing ribbon card.
+  // Reversing scroll restores it deterministically, without retained timer state.
+  tiles.forEach((el,n)=>{
+   const order=chapters.indexOf(n),past=q>=.65&&order>=0&&order<chapter;
+   if(past)el.style.opacity='0';
+   else if(n!==step)el.style.opacity=String(Number(el.style.opacity)*(1-.86*focus));
+   el.style.setProperty('--frame-lock',String(n===step&&!tail?ease((focus-.90)/.10):0));
+   el.dataset.foreground=String(!tail&&n===step&&focus>0);
+  });
   const onScreen=root.getBoundingClientRect().bottom>78&&root.getBoundingClientRect().top<innerHeight;
   tiles.forEach(el=>{const live=onScreen&&!tail&&!reduced&&!document.hidden&&Number(el.style.opacity)>.1;el.classList.toggle('is-live',live);if(window.HERO_CALIBRATION?.active){const v=el.querySelector('video');if(v){if(live&&v.paused&&v.getAttribute('src'))v.play().catch(()=>{});else if(!live&&!v.paused)v.pause();}}});
   const mobilePlate=stage.querySelector('.mobile-outdoor');if(mobilePlate)mobilePlate.style.opacity=String(room===4?t:0);window.CINEMATIC_JOURNEY?.render({room,previousRoom:prev,roomMix:t,tail,w,h,reduced,q,onScreen:stage.getBoundingClientRect().bottom>0&&stage.getBoundingClientRect().top<innerHeight});
@@ -84,7 +96,14 @@ document.addEventListener('DOMContentLoaded',()=>{
  dock.querySelectorAll('button').forEach(b=>b.onclick=()=>{const n=Number(dock.querySelector('select').value);manual=.65+n+Math.min(.999,Number(b.dataset.phase));if(Number(b.dataset.phase)===0)manual+=.001;scrollTo({top:positionAt(manual),behavior:'instant'});schedule()});
  const outdoorChecks=document.createElement('div');outdoorChecks.innerHTML=[.08,.5,.92].map(v=>`<button data-outdoor="${v}">야외 연결 ${Math.round(v*100)}%</button>`).join('');dock.append(outdoorChecks);outdoorChecks.querySelectorAll('button').forEach(b=>b.onclick=()=>{manual=null;const p=document.querySelector('#portfolio');scrollTo({top:scrollY+p.getBoundingClientRect().top-innerHeight+innerHeight*.65*Number(b.dataset.outdoor),behavior:'instant'});schedule()});
  const reset=()=>{manual=null;schedule()};addEventListener('wheel',reset,{passive:true});addEventListener('touchstart',reset,{passive:true});addEventListener('keydown',e=>{if(['PageDown','PageUp','ArrowDown','ArrowUp','Home','End',' '].includes(e.key))reset()});
- addEventListener('scroll',schedule,{passive:true});addEventListener('resize',()=>{if(Math.abs(innerWidth-layoutWidth)>30)sizeJourney();schedule()},{passive:true});new MutationObserver(schedule).observe(document.body,{attributes:true,attributeFilter:['class']});window.refreshReviewMedia?.();
+ addEventListener('scroll',schedule,{passive:true});addEventListener('resize',()=>{
+   if(Math.abs(innerWidth-layoutWidth)>30||(innerWidth>900&&Math.abs(innerHeight-journeyHeight)>80)){
+    const oldDistance=-root.getBoundingClientRect().top+headerHeight();
+    const preserve=oldDistance>0&&oldDistance<mobileTiming.distance;
+    const oldQ=mobileTiming.qAt(oldDistance);sizeJourney();
+    if(preserve)scrollTo({top:positionAt(oldQ),behavior:'instant'});
+   }schedule();
+  },{passive:true});new MutationObserver(schedule).observe(document.body,{attributes:true,attributeFilter:['class']});window.refreshReviewMedia?.();
  const outdoor=document.createElement('img');outdoor.className='mobile-outdoor';outdoor.src='/assets/ireolttaen-ai/experience/correction/photoreal/glass-outdoor-mobile.webp';outdoor.alt='푸른 하늘과 풀밭 위에 떠 있는 무지개 유리 아치';outdoor.loading='lazy';stage.querySelector('.spatial-rooms').append(outdoor);
  window.CINEMATIC_JOURNEY?.attach(stage,root,schedule);draw();
  const requested=new URLSearchParams(location.search).get('scene');

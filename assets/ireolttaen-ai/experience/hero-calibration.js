@@ -82,7 +82,7 @@ window.HERO_CALIBRATION=(()=>{
    if(tracked){dock=tracked.quad;el.style.opacity=String(tracked.opacity);el.dataset.trackedProgress=tracked.progress.toFixed(3)}else delete el.dataset.trackedProgress;
    const f=index===step?focus:0,front=f>0?readingQuad:dock;
    // The same four corners straighten in place before the panel comes forward.
-   const travel=smooth((f-.10)/.90),lift=Math.sin(travel*Math.PI)*Math.min(32,h*.045);
+   const travel=f,lift=0;
    const quad=dock.map((p,i)=>p.map((v,j)=>mix(v,front[i][j],travel)-(j===1?lift:0)));
    const bw=index===0?360:640,bh=index===0?640:400,matrix=projective(quad,bw,bh);
    if(!matrix)return;
@@ -92,7 +92,7 @@ window.HERO_CALIBRATION=(()=>{
    el.style.setProperty('--glass-contact',String(1-f));
    el.style.setProperty('--panel-depth',String(f));
   });
-  if(w<=900&&q<1.1){const intro=stage.querySelector('.spatial-intro');intro.style.opacity=String(1-smooth((q-.74)/.23));intro.inert=q>.82;}
+  if(w<=900){const intro=stage.querySelector('.spatial-intro');intro.style.opacity=String(1-smooth(q/.45));intro.inert=q>.2;}
  }
  return {active,frame,dockQuad,frontQuad,projective,render};
 })();

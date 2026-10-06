@@ -1,6 +1,6 @@
 /* Published interface: no review labels or fixed production controls. */
 .spatial-progress,.motion-toolbar{display:none!important}
-@media(max-width:680px){
+@media(max-width:900px){
  html,body,.spatial-story,.spatial-stage,#portfolio{overflow-anchor:none}
  .spatial-stage{top:var(--journey-header,98px);height:calc(var(--journey-height,100svh) - var(--journey-header,98px))}
  .spatial-stage.tail-mode{top:var(--journey-header,98px)}
